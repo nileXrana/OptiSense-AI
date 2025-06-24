@@ -7,11 +7,24 @@ import {
   UserButton,
 } from '@clerk/nextjs'
 import React from 'react'
+import Image from 'next/image'
+import UserLogger from '@/components/user'
 
 const page = () => {
   return (
     <ClerkProvider>
-        <header className="flex justify-end items-center p-4 gap-4 h-16">
+      <div className='h-[100vh] border-2 m-auto flex items-center'>
+        <div className='w-[50%] border-2 m-auto flex flex-col gap-3 justify-center items-center h-[60%] '>
+          <Image
+            src="/botlogo.png"
+            alt="Logo"
+            width={150}
+            height={150}
+          />
+          <div className='font-bold text-2xl'>
+            Sign In to your Personal AI Assistance
+          </div>
+          <div className="flex justify-end items-center p-4 gap-4 h-16">
             <SignedOut>
               <SignInButton />
               <SignUpButton>
@@ -21,14 +34,14 @@ const page = () => {
               </SignUpButton>
             </SignedOut>
             <SignedIn>
-              <UserButton />
+            <UserButton/>
             </SignedIn>
-          </header>
-    <div>
-        
-    </div>
+          </div>
+        </div>
+      </div>
+    <UserLogger/>
     </ClerkProvider>
-    
+
   )
 }
 
