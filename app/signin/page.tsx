@@ -8,7 +8,7 @@ import {
 } from '@clerk/nextjs'
 import React from 'react'
 import Image from 'next/image'
-import UserLogger from '@/components/user'
+import UserLogger from '@/components/userLogger' // to get user details :
 
 const page = () => {
   return (
