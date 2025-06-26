@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react'
 import { useUser } from '@clerk/nextjs'
 
-const userLogger = async() => {
+const userLogger = () => {
   const { user, isSignedIn } = useUser()
   useEffect(() => {
     if (isSignedIn && user){
@@ -13,7 +13,7 @@ const userLogger = async() => {
           body: JSON.stringify({
             clerkId: user.id,
             email: user.primaryEmailAddress?.emailAddress,
-            name: user.fullName,
+            name: user.fullName
           })
         })
         const result = await res.json();
