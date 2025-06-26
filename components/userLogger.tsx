@@ -6,23 +6,25 @@ const userLogger = () => {
   const { user, isSignedIn } = useUser()
   useEffect(() => {
     if (isSignedIn && user){
-      console.log("signed in beta")
-      fetch('/api/save-user', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          clerkId: user.id,
-          email: user.primaryEmailAddress?.emailAddress,
-          name: user.fullName
+      const fetchData = async ()=>{
+        const res =  await fetch('/api/save-user', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            clerkId: user.id,
+            email: user.primaryEmailAddress?.emailAddress,
+            name: user.fullName
+          })
         })
-      })
+        const result = await res.json();
+        console.log(result)
+      }
+      fetchData();
     }
   }, [user,isSignedIn])
   
   return (
-    <div>
-      
-    </div>
+    <div></div>
   )
 }
 
