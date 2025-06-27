@@ -1,9 +1,11 @@
 "use client"
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useUser } from '@clerk/nextjs'
+import { UserContext } from '@/context/UserProvider'
 
 const userLogger = () => {
   const { user, isSignedIn } = useUser()
+  const {User,setUser} = useContext(UserContext);
   useEffect(() => {
     if (isSignedIn && user){
       const fetchData = async ()=>{
@@ -18,7 +20,7 @@ const userLogger = () => {
           })
         })
         const result = await res.json();
-        console.log(result)
+        setUser(result) // user details is saved in state :
       }
       fetchData();
     }

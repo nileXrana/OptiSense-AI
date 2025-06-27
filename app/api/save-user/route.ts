@@ -22,6 +22,6 @@ export async function POST(req: NextRequest) {
   else {
     console.log("user already exist !")
   }
-  return NextResponse.json({ message: 'User data received at backend' })
+  return NextResponse.json(body)
 }
 

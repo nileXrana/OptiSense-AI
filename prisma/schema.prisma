@@ -21,5 +21,6 @@ model users {
   email String @unique
   credits Int
   picture String
+  orderId String?
 }
 
