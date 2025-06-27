@@ -13,7 +13,8 @@ const userLogger = () => {
           body: JSON.stringify({
             clerkId: user.id,
             email: user.primaryEmailAddress?.emailAddress,
-            name: user.fullName
+            name: user.fullName,
+            picture: user.imageUrl
           })
         })
         const result = await res.json();

@@ -14,6 +14,8 @@ export async function POST(req: NextRequest) {
       data: {
         name: body.name,
         email: body.email,
+        credits: 5000,
+        picture: body.picture
       },
     });
   }
