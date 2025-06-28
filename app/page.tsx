@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button"
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import { useRouter } from 'next/navigation'
 
-
 export default function Home() {
   const router = useRouter();
   const signInPage = ()=>{

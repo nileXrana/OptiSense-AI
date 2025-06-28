@@ -2,12 +2,17 @@
 import React, { useContext, useEffect } from 'react'
 import { useUser } from '@clerk/nextjs'
 import { UserContext } from '@/context/UserProvider'
+import { useRouter } from 'next/navigation'
 
 const userLogger = () => {
+  const router = useRouter()
   const { user, isSignedIn } = useUser()
   const {User,setUser} = useContext(UserContext);
   useEffect(() => {
     if (isSignedIn && user){
+      // redirect to ai-assistants page :
+      router.push('/ai-assistants')
+      // send user details to backend :
       const fetchData = async ()=>{
         const res =  await fetch('/api/save-user', {
           method: 'POST',
