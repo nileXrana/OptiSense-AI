@@ -1,4 +1,5 @@
 import React from 'react'
+import Header from './_components/Header';
 
 function Provider({
     children,
@@ -7,6 +8,7 @@ function Provider({
     }>){
   return (
     <div>
+      <Header/>
       {children}
     </div>
   )
