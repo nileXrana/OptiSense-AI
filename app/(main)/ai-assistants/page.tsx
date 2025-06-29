@@ -36,7 +36,7 @@ const page = () => {
       <div className='flex items-center justify-between'>
         <div>
           <h2 className='text-3xl font-bold'>Welcome to the World of AI Assistants 🤖</h2>
-          <p className='text-xl mt-2'>Choose your AI Campanion to Simplify Your Tasks 🚀</p>
+          <p className='text-xl mt-2'>Choose your AI Campanions to Simplify Your Tasks 🚀</p>
         </div>
         <Button>Continue</Button>
       </div>
