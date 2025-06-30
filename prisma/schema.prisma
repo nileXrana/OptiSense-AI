@@ -24,3 +24,14 @@ model users {
   orderId String?
 }
 
+model userAiAssistants {
+  id               Int      @id @map("_id")
+  name             String
+  title            String
+  image            String
+  instruction      String
+  userInstruction  String
+  sampleQuestions  String[]
+  uid              String
+}
+
