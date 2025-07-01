@@ -33,8 +33,8 @@ const page = () => {
         "Content-Type": "application/json"
       },
     })
-    const ak = await result.json()
-    if(ak > 0){
+    const data = await result.json()
+    if(data){
       router.push('/dashboard')
     }
   }
