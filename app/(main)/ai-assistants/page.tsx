@@ -3,10 +3,12 @@ import React from 'react'
 import { Button } from '@/components/ui/button'
 import AiAssistantsList from '@/services/AiAssistantsList'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { Checkbox } from "@/components/ui/checkbox"
 import { useState } from 'react'
 import { BlurFade } from '@/src/components/magicui/blur-fade'
 import { RainbowButton } from '@/src/components/magicui/rainbow-button'
+import { Loader2 } from 'lucide-react'
 
 export type ASSISTANT = {
   id: number,
@@ -19,6 +21,8 @@ export type ASSISTANT = {
 }
 
 const page = () => {
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
   const [selectedAssistants, setselectedAssistants] = useState<ASSISTANT[]>([]);
   const onselect = (obj: ASSISTANT) => {
     const item = selectedAssistants.find((object: ASSISTANT) => object.id == obj.id);
@@ -33,6 +37,8 @@ const page = () => {
     return item ? true : false
   }
   const onClickContinue = async() => { // send all selected assistants to backend
+    // loading effect :
+    setLoading(true)
     await fetch("/api/selected-assistants", {
       method: "POST",
       headers: {
@@ -43,6 +49,9 @@ const page = () => {
     .then(res => res.json())
   .then(resData => console.log(resData))
   .catch(err => console.error(err))
+
+    // push to dashboard now :
+    router.push('/dashboard')
   }
 
   return (
@@ -57,7 +66,9 @@ const page = () => {
           </BlurFade>
         </div>
         <BlurFade delay={0.25 + 3 * 0.05} inView>
-          <RainbowButton disabled={selectedAssistants.length == 0} onClick={onClickContinue} >Continue</RainbowButton>
+          <RainbowButton disabled={selectedAssistants.length == 0 || loading} onClick={onClickContinue}>
+            {loading ? <Loader2 className="animate-spin" /> : 'Continue'}
+          </RainbowButton>
         </BlurFade>
       </div>
 

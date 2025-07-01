@@ -25,7 +25,8 @@ model users {
 }
 
 model userAiAssistants {
-  id               Int      @id @map("_id")
+  ID   String @id @default(auto()) @map("_id") @db.ObjectId
+  id               Int
   name             String
   title            String
   image            String
@@ -34,4 +35,3 @@ model userAiAssistants {
   sampleQuestions  String[]
   uid              String
 }
-
