@@ -9,6 +9,7 @@ import { useState } from 'react'
 import { BlurFade } from '@/src/components/magicui/blur-fade'
 import { RainbowButton } from '@/src/components/magicui/rainbow-button'
 import { Loader2 } from 'lucide-react'
+import { useEffect } from 'react'
 
 export type ASSISTANT = {
   id: number,
@@ -21,6 +22,10 @@ export type ASSISTANT = {
 }
 
 const page = () => {
+  useEffect(() => {
+    
+  }, [])
+  
   const [loading, setLoading] = useState(false)
   const router = useRouter()
   const [selectedAssistants, setselectedAssistants] = useState<ASSISTANT[]>([]);
