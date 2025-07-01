@@ -23,8 +23,21 @@ export type ASSISTANT = {
 
 const page = () => {
   useEffect(() => {
-    
+     getUserAssistants();
   }, [])
+
+  const getUserAssistants = async()=>{
+    const result = await fetch("/api/is-selected", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+    const ak = await result.json()
+    if(ak > 0){
+      router.push('/dashboard')
+    }
+  }
   
   const [loading, setLoading] = useState(false)
   const router = useRouter()
