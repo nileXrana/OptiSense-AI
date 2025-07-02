@@ -1,5 +1,6 @@
 import React from 'react'
 import Provider from './provider';
+import { UserProvider } from '@/context/UserProvider';
 
 export default function WorkspaceLayout({
     children,
@@ -8,9 +9,13 @@ export default function WorkspaceLayout({
 }>){
   return (
     <div>
+      
+      <UserProvider>
         <Provider>
       {children}
       </Provider>
+      </UserProvider>
+      
     </div>
   )
 }

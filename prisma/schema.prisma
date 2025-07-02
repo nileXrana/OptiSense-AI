@@ -21,7 +21,7 @@ model users {
   email String @unique
   credits Int
   picture String
-  orderId String?
+  orderId String? // by default it is null
 }
 
 model userAiAssistants {

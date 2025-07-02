@@ -5,7 +5,7 @@ import { currentUser } from "@clerk/nextjs/server"
 export async function POST(req: NextRequest) {
   const prisma = new PrismaClient()
   const user = await currentUser()
-  const data = await prisma.userAiAssistants.findFirst({
+  const data = await prisma.userAiAssistants.findMany({
   where: { uid: user?.id },
 });
 

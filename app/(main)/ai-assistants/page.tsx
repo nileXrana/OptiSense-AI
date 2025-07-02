@@ -34,7 +34,7 @@ const page = () => {
       },
     })
     const data = await result.json()
-    if(data){
+    if(data.length > 0){
       router.push('/dashboard')
     }
   }

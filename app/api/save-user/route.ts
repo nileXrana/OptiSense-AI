@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
   }
   else {
     console.log("user already exist !")
+    return NextResponse.json(existingUser)
   }
-  return NextResponse.json(body)
 }
 
