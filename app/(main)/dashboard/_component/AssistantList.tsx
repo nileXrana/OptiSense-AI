@@ -10,7 +10,9 @@ import { UserButton } from "@clerk/nextjs";
 import { useUser } from '@clerk/nextjs'
 
 const AssistantList = () => {
+
   const { user, isSignedIn } = useUser()
+
   useEffect(() => {
     const fun = async () => {
       const res = await fetch("/api/is-selected", {
@@ -21,36 +23,30 @@ const AssistantList = () => {
       setmyAssistants(result)
     }
     fun();
-
   }, [])
 
   useEffect(() => {
-    if (!isSignedIn){
-      console.log("not sign in ");
-      return;
-    }
     const fetchData = async ()=>{
         const res =  await fetch('/api/save-user', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            clerkId: user.id,
-            email: user.primaryEmailAddress?.emailAddress,
-            name: user.fullName,
-            picture: user.imageUrl
+            email: user?.primaryEmailAddress?.emailAddress,
           })
         })
         const result = await res.json();
+        setUSER(result)
       }
       fetchData();
-  }, [])
+  }, [user])
   
-
+  // All useState and useContext :
   const [myAssistants, setmyAssistants] = useState([])
   const { selectedAssistant, setselectedAssistant } = useContext<any>(AssistantContext)
-
+  const [USER, setUSER] = useState<any>() // user details from backend :
+  console.log(USER)
   return (
-    <div className='p-3 bg-secondary h-screen'>
+    <div className='p-3 bg-secondary h-screen relative'>
       <h1 className='font-bold text-md text-center'>
         Your Personal AI Assistants
       </h1>
@@ -71,9 +67,16 @@ const AssistantList = () => {
           </div>
         ))}
       </div>
-      <div>
-        <UserButton afterSignOutUrl="/login" />
-        <h1></h1>
+      <div className='absolute bottom-22 left-2 flex gap-3 items-center bg-gray-300 px-3 py-2 rounded-2xl w-[92%] cursor-pointer hover:bg-gray-400'>
+        <UserButton afterSignOutUrl="/signin" />
+        <div className='text-[14px]'>
+        <p className='font-bold'>
+          {USER?.name}
+        </p>
+        <p className='text-gray-600 hover:text-pink-800 cursor-pointer'>
+          {USER?.orderId?"Pro Plan":"Free Plan"}
+        </p>
+        </div>
       </div>
 
     </div>

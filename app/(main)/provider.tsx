@@ -3,7 +3,6 @@ import React from 'react'
 import Header from './_components/Header';
 import { AssistantContext } from '@/context/AssistantContext';
 import { useState } from 'react';
-import { ClerkProvider } from '@clerk/nextjs';
 import { UserProvider } from '@/context/UserProvider';
 
 function Provider({
