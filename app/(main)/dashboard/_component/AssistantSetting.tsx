@@ -18,6 +18,7 @@ import { Button } from '@/components/ui/button'
 import { Ghost } from 'lucide-react'
 import { useEffect } from 'react'
 import ConfirmationAlert from './ConfirmationAlert'
+import { BlurFade } from '@/src/components/magicui/blur-fade'
 
 const AssistantSetting = () => {
   // useState, useContext and useEffect :
@@ -68,7 +69,10 @@ const AssistantSetting = () => {
 
   return selectedAssistant && (
     <div className='p-3 bg-secondary h-screen relative'>
+      <BlurFade duration={0.4}>
       <h1 className='font-bold text-xl'>Settings</h1>
+      </BlurFade>
+      <BlurFade duration={0.6}>
       <div className='mt-4 flex gap-2 items-center bg-white p-2 rounded-2xl'>
         <Image src={selectedAssistant.image} alt='assistant' width={70} height={70}
           className='rounded-xl' />
@@ -77,6 +81,8 @@ const AssistantSetting = () => {
           <h1 className='text-gray-700 dark:text-gray-300'> {selectedAssistant.title} </h1>
         </div>
       </div>
+      </BlurFade>
+      <BlurFade duration={0.8}>
       <div className='mt-3'>
         <h2 className='mb-1 font-bold text-gray-600'>Model : </h2>
         <Select>
@@ -89,10 +95,13 @@ const AssistantSetting = () => {
           </SelectContent>
         </Select>
       </div>
+      </BlurFade>
+      <BlurFade duration={0.8}>
       <div className='mt-3'>
         <h2 className='text-gray-600 font-bold'>Instruction : </h2>
         <Textarea placeholder='Add Instruction' value={text} className='text-gray-600 h-[280px] bg-white' onChange={(e) => handleChange(e.target.value)} />
       </div>
+      </BlurFade>
       <div className='w-full absolute bottom-25 flex gap-10 justify-center items-center'>
         <ConfirmationAlert onDelete={onDelete}>
           <div className='flex text-sm scale-114 mt-1 cursor-pointer'>
