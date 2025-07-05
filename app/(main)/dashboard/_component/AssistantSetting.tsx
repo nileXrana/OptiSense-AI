@@ -27,13 +27,16 @@ const AssistantSetting = () => {
 
   const onDelete = async() => { // delete assistant
     try {
+      setloading(true)
       const res = await fetch("/api/delete-assistant", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({id: selectedAssistant?.id }),
       });
       const data = await res.json();
+      setloading(false)
       toast("Assistant Deleted")
+      window.location.reload(); // reload :
     } catch (error) {
       console.error("Error:", error);
     }
@@ -88,11 +91,10 @@ const AssistantSetting = () => {
       </div>
       <div className='mt-3'>
         <h2 className='text-gray-600 font-bold'>Instruction : </h2>
-        <Textarea placeholder='Add Instruction' value={text} className='text-gray-600 h-[300px] bg-white' onChange={(e) => handleChange(e.target.value)} />
+        <Textarea placeholder='Add Instruction' value={text} className='text-gray-600 h-[280px] bg-white' onChange={(e) => handleChange(e.target.value)} />
       </div>
       <div className='w-full absolute bottom-25 flex gap-10 justify-center items-center'>
         <ConfirmationAlert onDelete={onDelete}>
-          {/* <Button disabled={loading} variant="ghost" className='cursor-pointer'> <Trash /> Delete</Button> */}
           <div className='flex text-sm scale-114 mt-1 cursor-pointer'>
             <Trash />
           </div>

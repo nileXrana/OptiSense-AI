@@ -52,8 +52,8 @@ const AssistantList = () => {
       <Button className='w-full mt-3'>
         Add New Assistant
       </Button>
-      <Input className='bg-white mt-3 mb-1' placeholder='Search' />
-      <div>
+      <Input className='bg-white mt-3 mb-3' placeholder='Search' />
+      <div className='overflow-scroll h-[60%]'>
         {myAssistants.map((assistant: ASSISTANT, index) => (
           <div key={index} className={`p-2 flex gap-3 items-center hover:bg-gray-300 hover:dark:bg-slate-700 cursor-pointer rounded-xl ${assistant.id == selectedAssistant?.id && 'bg-sky-300 hover:bg-sky-300'} `} onClick={() => { setselectedAssistant(assistant) }}>
             <Image src={assistant.image} alt={assistant.name} width={60} height={60}
