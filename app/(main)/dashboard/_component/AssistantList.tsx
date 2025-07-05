@@ -44,7 +44,6 @@ const AssistantList = () => {
   const [myAssistants, setmyAssistants] = useState([])
   const { selectedAssistant, setselectedAssistant } = useContext<any>(AssistantContext)
   const [USER, setUSER] = useState<any>() // user details from backend :
-  console.log(USER)
   return (
     <div className='p-3 bg-secondary h-screen relative'>
       <h1 className='font-bold text-md text-center'>
