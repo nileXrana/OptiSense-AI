@@ -24,8 +24,8 @@ const ConfirmationAlert = ({children,onDelete}: any) => {
       </AlertDialogDescription>
     </AlertDialogHeader>
     <AlertDialogFooter>
-      <AlertDialogCancel>Cancel</AlertDialogCancel>
-      <AlertDialogAction onClick={onDelete}>Delete</AlertDialogAction>
+      <AlertDialogCancel className='cursor-pointer'>Cancel</AlertDialogCancel>
+      <AlertDialogAction className='cursor-pointer' onClick={onDelete}>Delete</AlertDialogAction>
     </AlertDialogFooter>
   </AlertDialogContent>
 </AlertDialog>

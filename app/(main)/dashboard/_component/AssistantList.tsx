@@ -49,7 +49,7 @@ const AssistantList = () => {
       <h1 className='font-bold text-md text-center'>
         Your Personal AI Assistants
       </h1>
-      <Button className='w-full mt-3'>
+      <Button className='w-full mt-3 cursor-pointer'>
         Add New Assistant
       </Button>
       <Input className='bg-white mt-3 mb-3' placeholder='Search' />
