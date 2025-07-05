@@ -25,18 +25,15 @@ const AssistantSetting = () => {
   const [text, settext] = useState<string>()
   const [loading, setloading] = useState(false)
 
-  const onDelete = async() => { // delete assistant 
+  const onDelete = async() => { // delete assistant
     try {
-      setloading(true)
       const res = await fetch("/api/delete-assistant", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({id: selectedAssistant?.id }),
       });
       const data = await res.json();
-      setloading(false)
       toast("Assistant Deleted")
-
     } catch (error) {
       console.error("Error:", error);
     }
@@ -94,7 +91,7 @@ const AssistantSetting = () => {
         <Textarea placeholder='Add Instruction' value={text} className='text-gray-600 h-[300px] bg-white' onChange={(e) => handleChange(e.target.value)} />
       </div>
       <div className='w-full absolute bottom-25 flex gap-10 justify-center items-center'>
-        <ConfirmationAlert disabled={loading} onDelete={onDelete}>
+        <ConfirmationAlert onDelete={onDelete}>
           {/* <Button disabled={loading} variant="ghost" className='cursor-pointer'> <Trash /> Delete</Button> */}
           <div className='flex text-sm scale-114 mt-1 cursor-pointer'>
             <Trash />
