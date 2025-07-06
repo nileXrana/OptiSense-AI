@@ -22,6 +22,7 @@ const AssistantList = () => {
       });
       const result = await res.json();
       setmyAssistants(result)
+      setselectedAssistant(result[0])
     }
     fun();
   }, [])
