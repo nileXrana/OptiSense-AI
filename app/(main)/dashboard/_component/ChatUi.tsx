@@ -10,7 +10,7 @@ const ChatUi = () => {
     const [input, setinput] = useState<string>()
 
     const onSendMessage = ()=>{
-
+        console.log(input)
     }
 
     return (
