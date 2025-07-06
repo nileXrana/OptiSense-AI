@@ -17,7 +17,7 @@ const EmptyChatState = () => {
                     How Can I Assist You Today ?
                 </SparklesText>
             </div>
-            <div className='flex flex-col gap-1 items-center mt-3'>
+            <div className='flex flex-col gap-1 items-center mt-5'>
                 {sampleQuestions && sampleQuestions.map((ele:string,idx: number)=>(
                     <div key={ele} className='text-center text-lg border-2 p-3 rounded-lg hover:bg-gray-200 cursor-pointer flex justify-between items-center w-[90%]'>
                         <BlurFade duration={0.5*idx} blur='5px' key={idx}>
