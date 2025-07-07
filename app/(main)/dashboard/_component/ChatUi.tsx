@@ -25,25 +25,25 @@ const ChatUi = () => {
         if (!input.trim()) return; // check if msg is empty
         setMessages((prev) => [...prev, { role: "user", text: input }]);
         setinput("")
-        const res = await fetch("/api/chat", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ prompt: input, model: selectedModel })
-        });
-        if (!res.ok) throw new Error("Failed to post");
-        const data = await res.json();
-        // add AI response to msg array :
-        const ans = data.candidates[0].content.parts[0].text;
-        setMessages((prev) => [...prev, { role: "ai", text: ans }]);
+        // const res = await fetch("/api/chat", {
+        //     method: "POST",
+        //     headers: { "Content-Type": "application/json" },
+        //     body: JSON.stringify({ prompt: input, model: selectedModel })
+        // });
+        // if (!res.ok) throw new Error("Failed to post");
+        // const data = await res.json();
+        // // add AI response to msg array :
+        // const ans = data.candidates[0].content.parts[0].text;
+        setMessages((prev) => [...prev, { role: "ai", text: "I am nilesh" }]);
     }
 
     return (
-        <div className='p-20 relative h-[90vh] border-2'>
+        <div className={showEmptyChatState?"p-20 relative h-[90vh] border-2":"p-3 relative h-[90vh] border-2"}>
             {showEmptyChatState ? <EmptyChatState /> :
-                <div>
+                <div className='h-[88%] border-2 overflow-auto'>
                     {messages.map((msg, idx) => (
                         <p key={idx} className={msg.role === "user" ? "text-blue-600 text-right" : "text-green-600 text-left"}>
-                            <strong>{msg.role}:</strong> {msg.text}
+                            {msg.text}
                         </p>
                     ))}
                 </div>
