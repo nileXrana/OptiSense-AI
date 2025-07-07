@@ -4,6 +4,7 @@ import Header from './_components/Header';
 import { AssistantContext } from '@/context/AssistantContext';
 import { useState } from 'react';
 import { UserProvider } from '@/context/UserProvider';
+import { ModelProvider } from '@/context/ModelContext';
 
 function Provider({
     children,
@@ -18,7 +19,9 @@ function Provider({
       <AssistantContext.Provider value={{selectedAssistant, setselectedAssistant}}>
       <Header/>
       <UserProvider>
+        <ModelProvider>
       {children}
+        </ModelProvider>
       </UserProvider>
       </AssistantContext.Provider>
     </div>
