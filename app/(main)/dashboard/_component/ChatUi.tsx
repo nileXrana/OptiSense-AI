@@ -7,6 +7,7 @@ import { Send } from 'lucide-react'
 import { useModel } from '@/context/ModelContext'
 import { AssistantContext } from '@/context/AssistantContext'
 import Image from 'next/image'
+import ReactMarkdown from "react-markdown";
 
 const ChatUi = () => {
 
@@ -32,16 +33,16 @@ const ChatUi = () => {
         if (!input.trim()) return; // check if msg is empty
         setMessages((prev) => [...prev, { role: "user", text: input }]);
         setinput("")
-        // const res = await fetch("/api/chat", {
-        //     method: "POST",
-        //     headers: { "Content-Type": "application/json" },
-        //     body: JSON.stringify({ prompt: input, model: selectedModel })
-        // });
-        // if (!res.ok) throw new Error("Failed to post");
-        // const data = await res.json();
-        // // add AI response to msg array :
-        // const ans = data.candidates[0].content.parts[0].text;
-        setMessages((prev) => [...prev, { role: "ai", text: "I am nilesh" }]);
+        const res = await fetch("/api/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ prompt: input, model: selectedModel })
+        });
+        if (!res.ok) throw new Error("Failed to post");
+        const data = await res.json();
+        // add AI response to msg array :
+        const ans = data.candidates[0].content.parts[0].text;
+        setMessages((prev) => [...prev, { role: "ai", text: ans }]);
     }
 
     return (
@@ -51,8 +52,9 @@ const ChatUi = () => {
                     {messages.map((msg, idx) => (
                         <div key={idx} className={msg.role === "user" ? " text-right" : "text-left flex gap-3"}>
                             {msg.role==="ai"&&<Image className=' object-cover rounded-2xl' src={selectedAssistant.image} alt='assist' width={30} height={30} />}
-                            <span className='bg-gray-200 inline-block p-2 px-3 rounded-lg min-w-[50px] text-center'>
-                                {msg.text}
+                            <span className='bg-gray-200 inline-block p-2 px-3 rounded-lg min-w-[50px] text-left'>
+                                <ReactMarkdown>{msg.text}</ReactMarkdown>
+                                
                             </span>
                         </div>
                     ))}
