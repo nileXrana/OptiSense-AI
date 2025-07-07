@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Send } from 'lucide-react'
 import { useModel } from '@/context/ModelContext'
 import { AssistantContext } from '@/context/AssistantContext'
+import Image from 'next/image'
 
 const ChatUi = () => {
 
@@ -46,10 +47,11 @@ const ChatUi = () => {
     return (
         <div className={showEmptyChatState?"p-20 relative h-[90vh] border-2":"p-3 relative h-[90vh] border-2"}>
             {showEmptyChatState ? <EmptyChatState /> :
-                <div className='h-[88%] border-2 overflow-auto p-5'>
+                <div className='h-[88%] overflow-auto p-2'>
                     {messages.map((msg, idx) => (
-                        <div key={idx} className={msg.role === "user" ? "text-blue-600 text-right" : "text-green-600 text-left"}>
-                            <span className='border-2 border-black p-2 inline-block rounded-lg min-w-[80px] text-center'>
+                        <div key={idx} className={msg.role === "user" ? " text-right" : "text-left flex gap-3"}>
+                            {msg.role==="ai"&&<Image className=' object-cover rounded-2xl' src={selectedAssistant.image} alt='assist' width={30} height={30} />}
+                            <span className='bg-gray-200 inline-block p-2 px-3 rounded-lg min-w-[50px] text-center'>
                                 {msg.text}
                             </span>
                         </div>
