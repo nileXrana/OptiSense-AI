@@ -9,8 +9,17 @@ const ChatUi = () => {
 
     const [input, setinput] = useState<string>()
 
-    const onSendMessage = ()=>{
-        
+    const onSendMessage = async () => {
+        const res = await fetch("/api/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                
+            })
+        });
+        if (!res.ok) throw new Error("Failed to post");
+        const data = await res.json();
+        console.log(data);
     }
 
     return (
@@ -24,7 +33,7 @@ const ChatUi = () => {
                             onSendMessage()
                         }
                     }} />
-                <Button>
+                <Button onClick={onSendMessage}>
                     <Send />
                 </Button>
             </div>
