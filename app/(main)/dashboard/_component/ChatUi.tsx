@@ -10,7 +10,8 @@ import { AssistantContext } from '@/context/AssistantContext'
 const ChatUi = () => {
     
     
-    const [input, setinput] = useState<string>()
+    const [input, setinput] = useState<string>("")
+    const [messages, setMessages] = useState<{ role: string; text: string }[]>([]);
     const { selectedModel } = useModel();
     const [showEmptyChatState, setshowEmptyChatState] = useState(true)
     const { selectedAssistant, setselectedAssistant } = useContext<any>(AssistantContext)
@@ -20,6 +21,9 @@ const ChatUi = () => {
     
     const onSendMessage = async () => {
         setshowEmptyChatState(false)
+        // display it :
+        if (!input.trim()) return; // check if msg is empty
+        setMessages((prev) => [...prev, { role:"user", text:input }]);
         const res = await fetch("/api/chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -34,7 +38,11 @@ const ChatUi = () => {
 
     return (
         <div className='p-20 relative h-[90vh] border-2'>
-            {showEmptyChatState&&<EmptyChatState />}
+            {showEmptyChatState?<EmptyChatState/>:
+                <div>
+                    {input}
+                </div>
+            }
             <div className='flex justify-between py-5 gap-5 absolute bottom-2 left-10 w-[90%]'>
                 <Input placeholder='Start Typing Here.....' className='border-2 border-black'
                     onChange={(e) => setinput(e.target.value)}
