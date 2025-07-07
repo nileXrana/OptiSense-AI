@@ -21,7 +21,7 @@ const ChatUi = () => {
     
     const onSendMessage = async () => {
         setshowEmptyChatState(false)
-        // display it :
+        // add user input to msg array :
         if (!input.trim()) return; // check if msg is empty
         setMessages((prev) => [...prev, { role:"user", text:input }]);
         const res = await fetch("/api/chat", {
@@ -32,6 +32,8 @@ const ChatUi = () => {
 
         if (!res.ok) throw new Error("Failed to post");
         const data = await res.json();
+        // add AI response to msg array :
+        setMessages((prev) => [...prev, { role: "ai", text: data.text }]);
         const ans = data.candidates[0].content.parts[0].text;
         console.log(ans);
     }
