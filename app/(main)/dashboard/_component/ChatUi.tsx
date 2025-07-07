@@ -46,7 +46,7 @@ const ChatUi = () => {
     return (
         <div className={showEmptyChatState?"p-20 relative h-[90vh] border-2":"p-3 relative h-[90vh] border-2"}>
             {showEmptyChatState ? <EmptyChatState /> :
-                <div className='h-[88%] border-2 overflow-auto p-3'>
+                <div className='h-[88%] border-2 overflow-auto p-5'>
                     {messages.map((msg, idx) => (
                         <div key={idx} className={msg.role === "user" ? "text-blue-600 text-right" : "text-green-600 text-left"}>
                             <span className='border-2 border-black p-2 inline-block rounded-lg min-w-[80px] text-center'>
