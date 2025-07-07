@@ -25,6 +25,7 @@ const AssistantSetting = () => {
   const { selectedAssistant, setselectedAssistant } = useContext(AssistantContext)
   const [text, settext] = useState<string>()
   const [loading, setloading] = useState(false)
+  const [selectedModel, setSelectedModel] = useState("");
 
   const onDelete = async() => { // delete assistant
     try {
@@ -85,7 +86,7 @@ const AssistantSetting = () => {
       <BlurFade duration={0.8}>
       <div className='mt-3'>
         <h2 className='mb-1 font-bold text-gray-600'>Model : </h2>
-        <Select>
+        <Select onValueChange={(value) => setSelectedModel(value)}>
           <SelectTrigger className="w-full bg-white">
             <SelectValue placeholder="Google Gemini" />
           </SelectTrigger>
