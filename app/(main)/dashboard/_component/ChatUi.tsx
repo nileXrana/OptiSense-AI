@@ -50,8 +50,10 @@ const ChatUi = () => {
             {showEmptyChatState ? <EmptyChatState /> :
                 <div className='h-[88%] overflow-auto p-2'>
                     {messages.map((msg, idx) => (
-                        <div key={idx} className={msg.role === "user" ? " text-right" : "text-left flex gap-3"}>
-                            {msg.role==="ai"&&<Image className=' object-cover rounded-2xl' src={selectedAssistant.image} alt='assist' width={30} height={30} />}
+                        <div key={idx} className={msg.role === "user" ? " text-right m-2" : "text-left flex gap-3 items-start m-2"}>
+                            {/* <span className='w-10 h-10'> */}
+                            {msg.role==="ai"&&<Image className=' object-cover rounded-full' src={selectedAssistant.image} alt='assist' width={30} height={30} />}
+                            {/* </span> */}
                             <span className='bg-gray-200 inline-block p-2 px-3 rounded-lg min-w-[50px] text-left'>
                                 <ReactMarkdown>{msg.text}</ReactMarkdown>
                                 
