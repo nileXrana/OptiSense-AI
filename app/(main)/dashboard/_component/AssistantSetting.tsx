@@ -19,7 +19,6 @@ import { Ghost } from 'lucide-react'
 import { useEffect } from 'react'
 import ConfirmationAlert from './ConfirmationAlert'
 import { BlurFade } from '@/src/components/magicui/blur-fade'
-import { ModelProvider } from '@/context/ModelContext'
 import { useModel } from '@/context/ModelContext'
 
 const AssistantSetting = () => {

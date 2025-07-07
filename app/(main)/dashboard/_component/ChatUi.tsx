@@ -4,17 +4,21 @@ import EmptyChatState from './EmptyChatState'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Send } from 'lucide-react'
+import { useModel } from '@/context/ModelContext'
 
 const ChatUi = () => {
 
     const [input, setinput] = useState<string>()
+    const { selectedModel } = useModel();
 
     const onSendMessage = async () => {
+        console.log(selectedModel)
         const res = await fetch("/api/chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({prompt: input})
+            body: JSON.stringify({prompt: input, model: selectedModel})
         });
+
         if (!res.ok) throw new Error("Failed to post");
         const data = await res.json();
         const ans = data.candidates[0].content.parts[0].text;
