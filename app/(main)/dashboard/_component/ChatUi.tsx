@@ -1,5 +1,5 @@
 "use client"
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import EmptyChatState from './EmptyChatState'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -15,10 +15,15 @@ const ChatUi = () => {
     const { selectedModel } = useModel();
     const [showEmptyChatState, setshowEmptyChatState] = useState(true)
     const { selectedAssistant, setselectedAssistant } = useContext<any>(AssistantContext)
+    const messagesEndRef = useRef<HTMLDivElement>(null);
     useEffect(() => { // when suddenly change assistant :
         setshowEmptyChatState(true)
         setMessages([])
     }, [selectedAssistant])
+
+    useEffect(() => {
+  messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+}, [messages]);
 
     const onSendMessage = async () => {
         setshowEmptyChatState(false)
@@ -41,12 +46,15 @@ const ChatUi = () => {
     return (
         <div className={showEmptyChatState?"p-20 relative h-[90vh] border-2":"p-3 relative h-[90vh] border-2"}>
             {showEmptyChatState ? <EmptyChatState /> :
-                <div className='h-[88%] border-2 overflow-auto'>
+                <div className='h-[88%] border-2 overflow-auto p-3'>
                     {messages.map((msg, idx) => (
-                        <p key={idx} className={msg.role === "user" ? "text-blue-600 text-right" : "text-green-600 text-left"}>
-                            {msg.text}
-                        </p>
+                        <div key={idx} className={msg.role === "user" ? "text-blue-600 text-right" : "text-green-600 text-left"}>
+                            <span className='border-2 border-black p-2 inline-block rounded-lg min-w-[80px] text-center'>
+                                {msg.text}
+                            </span>
+                        </div>
                     ))}
+                    <div ref={messagesEndRef} />
                 </div>
             }
             <div className='flex justify-between py-5 gap-5 absolute bottom-2 left-10 w-[90%]'>
