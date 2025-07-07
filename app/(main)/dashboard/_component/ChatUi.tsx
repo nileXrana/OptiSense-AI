@@ -15,8 +15,9 @@ const ChatUi = () => {
     const { selectedModel } = useModel();
     const [showEmptyChatState, setshowEmptyChatState] = useState(true)
     const { selectedAssistant, setselectedAssistant } = useContext<any>(AssistantContext)
-    useEffect(() => {
+    useEffect(() => { // when suddenly change assistant :
         setshowEmptyChatState(true)
+        setMessages([])
     }, [selectedAssistant])
 
     const onSendMessage = async () => {
