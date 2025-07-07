@@ -12,7 +12,6 @@ const ChatUi = () => {
     const { selectedModel } = useModel();
 
     const onSendMessage = async () => {
-        console.log(selectedModel)
         const res = await fetch("/api/chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },

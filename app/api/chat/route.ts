@@ -14,10 +14,10 @@ export async function POST(req: NextRequest) {
   // }
   try{
     const ai = new GoogleGenAI({});
-    const { prompt } = await req.json();
+    const body = await req.json();
     const res = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
-      contents: prompt,
+      model: body.model == "pro" ? "gemini-2.5-pro" : "gemini-2.5-flash",
+      contents: body.prompt,
     });
     return NextResponse.json(res)
   }catch (err) {
