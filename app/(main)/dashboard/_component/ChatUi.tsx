@@ -58,7 +58,7 @@ const ChatUi = () => {
                     {messages.map((msg, idx) => (
                         <motion.div key={idx} className={msg.role === "user" ? " text-right m-3" : "text-left flex gap-3 items-start m-3"} initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.4, delay: idx * 0.1 }}>
+                            transition={{ duration: 0.4, delay: 0.1 }}>
                             {/* <span className='w-10 h-10'> */}
                             {msg.role === "ai" && <Image className=' object-cover rounded-full' src={selectedAssistant.image} alt='assist' width={30} height={30} />}
                             {/* </span> */}
