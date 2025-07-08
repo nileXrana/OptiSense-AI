@@ -29,9 +29,10 @@ const ChatUi = () => {
     }, [messages]);
 
     const onSendMessage = async () => {
+        if (input.length === 0) return; // check if msg is empty
+        console.log("funx called !")
         setshowEmptyChatState(false)
         // add user input to msg array :
-        if (!input.trim()) return; // check if msg is empty
         setMessages((prev) => [...prev, { role: "user", text: input }]);
         setInput("")
         const res = await fetch("/api/chat", {
@@ -52,8 +53,8 @@ const ChatUi = () => {
     }
 
     return (
-        <div className={showEmptyChatState ? "p-20 relative h-[90vh] border-2" : "p-3 relative h-[90vh] border-2"}>
-            {showEmptyChatState ? <EmptyChatState input={input} setInput={setInput}/> :
+        <div className={showEmptyChatState ? "p-20 relative h-[90vh] border-2" : "p-3 pl-0 relative h-[90vh] border-2"}>
+            {showEmptyChatState ? <EmptyChatState input={input} setInput={setInput} onSendMessage={onSendMessage}/> :
                 <div className='h-[88%] overflow-auto p-2'>
                     {messages.map((msg, idx) => (
                         <motion.div key={idx} className={msg.role === "user" ? " text-right m-3" : "text-left flex gap-3 items-start m-3"} initial={{ opacity: 0, y: 20 }}
