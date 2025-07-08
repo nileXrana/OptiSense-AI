@@ -53,7 +53,7 @@ const ChatUi = () => {
     }
 
     return (
-        <div className={showEmptyChatState ? "p-20 relative h-[90vh] border-2 bg" : "p-3 pl-0 relative h-[90vh] border-2 bg-[url('/wall4.jpg')] bg-cover bg-center"}>
+        <div className={showEmptyChatState ? "p-20 relative h-[90vh] border-2 bg" : "p-3 pl-0 relative h-[90vh] border-2 bg-[url('/wall6.jpg')] bg-cover bg-center"}>
             {showEmptyChatState ? <EmptyChatState input={input} setInput={setInput} onSendMessage={onSendMessage}/> :
                 <div className='h-[88%] overflow-auto p-2'>
                     {messages.map((msg, idx) => (
