@@ -36,7 +36,11 @@ const ChatUi = () => {
         const res = await fetch("/api/chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ prompt: input, model: selectedModel })
+            body: JSON.stringify({ 
+                model: selectedModel,
+                instruction: selectedAssistant.instruction,
+                userInstruction: input,
+            })
         });
         if (!res.ok) throw new Error("Failed to post");
         const data = await res.json();
