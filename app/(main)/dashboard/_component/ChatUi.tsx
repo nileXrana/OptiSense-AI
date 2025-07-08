@@ -28,12 +28,12 @@ const ChatUi = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
 
-    const onSendMessage = async () => {
-        if (input.length === 0) return; // check if msg is empty
-        console.log("funx called !")
+    const onSendMessage = async (sampleQues?: string) => {
         setshowEmptyChatState(false)
         // add user input to msg array :
-        setMessages((prev) => [...prev, { role: "user", text: input }]);
+        const message = sampleQues ?? input;
+        if (!message.trim()) return;; // check if msg is empty
+        setMessages((prev) => [...prev, { role: "user", text: message }]);
         setInput("")
         const res = await fetch("/api/chat", {
             method: "POST",
@@ -42,7 +42,7 @@ const ChatUi = () => {
                 model: selectedModel,
                 instruction: selectedAssistant.instruction,
                 userInstruction: selectedAssistant.userInstruction,
-                input: input,
+                input: message,
             })
         });
         if (!res.ok) throw new Error("Failed to post");
@@ -53,7 +53,7 @@ const ChatUi = () => {
     }
 
     return (
-        <div className={showEmptyChatState ? "p-20 relative h-[90vh] border-2" : "p-3 pl-0 relative h-[90vh] border-2"}>
+        <div className={showEmptyChatState ? "p-20 relative h-[90vh] border-2 bg" : "p-3 pl-0 relative h-[90vh] border-2 bg-[url('/wall3.jpg')] bg-cover bg-center"}>
             {showEmptyChatState ? <EmptyChatState input={input} setInput={setInput} onSendMessage={onSendMessage}/> :
                 <div className='h-[88%] overflow-auto p-2'>
                     {messages.map((msg, idx) => (
@@ -63,7 +63,7 @@ const ChatUi = () => {
                             {/* <span className='w-10 h-10'> */}
                             {msg.role === "ai" && <Image className=' object-cover rounded-full' src={selectedAssistant.image} alt='assist' width={30} height={30} />}
                             {/* </span> */}
-                            <span className={msg.role === "user" ? "bg-gray-200 inline-block p-2 px-3 rounded-lg min-w-[50px] text-left" : "bg-sky-200 nline-block p-2 px-3 rounded-lg min-w-[50px] text-left"}>
+                            <span className={msg.role === "user" ? "bg-green-100 inline-block p-2 px-3 rounded-lg min-w-[50px] text-left shadow-black shadow-xs" : "bg-sky-100 nline-block p-2 px-3 rounded-lg min-w-[50px] text-left shadow-md shadow-black"}>
                                 <ReactMarkdown>{msg.text}</ReactMarkdown>
 
                             </span>
@@ -73,14 +73,16 @@ const ChatUi = () => {
                 </div>
             }
             <div className='flex justify-between py-5 gap-5 absolute bottom-2 left-10 w-[90%]'>
-                <Input value={input} placeholder='Start Typing Here.....' className='border-2 border-black'
+                <Input value={input} placeholder='Start Typing Here.....' className='border-2 border-black bg-white'
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={(e) => {
                         if (e.key === "Enter") {
                             onSendMessage()
                         }
                     }} />
-                <Button onClick={onSendMessage} className='cursor-pointer'>
+                <Button onClick={()=>{
+                    onSendMessage()
+                }} className='cursor-pointer'>
                     <Send />
                 </Button>
             </div>

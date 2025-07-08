@@ -4,7 +4,7 @@ export default [
         name: 'Jack',
         title: 'Fitness Coach 💪',
         image: '/fitness-coach.png',
-        instruction: `Answer fitness-related questions only.`,
+        instruction: `Answer fitness-related questions only as you are a fitness coach.`,
         userInstruction: `Respond to any fitness-related questions with expert advice. If the query is unrelated, clarify that you are a fitness coach.`,
         sampleQuestions: [
             "🏋️ What's the best workout for building muscle?",

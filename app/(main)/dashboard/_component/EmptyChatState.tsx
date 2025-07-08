@@ -8,7 +8,7 @@ import { BlurFade } from '@/src/components/magicui/blur-fade'
 type Props = {
   input: string;
   setInput: React.Dispatch<React.SetStateAction<string>>;
-  onSendMessage: () => void;
+  onSendMessage: (sampleQues?: string) => void;
 };
 
 const EmptyChatState = ({ input, setInput, onSendMessage }: Props) => {
@@ -26,8 +26,7 @@ const EmptyChatState = ({ input, setInput, onSendMessage }: Props) => {
             <div className='flex flex-col gap-1 items-center mt-5'>
                 {sampleQuestions && sampleQuestions.map((ele:string,idx: number)=>(
                     <div key={ele} className='text-center text-lg border-2 p-3 rounded-lg hover:bg-gray-200 cursor-pointer flex justify-between items-center w-[90%]' onClick={()=>{
-                        setInput(ele)
-                        onSendMessage()
+                        onSendMessage(ele)
                     }}>
                         <BlurFade duration={0.5*idx} blur='5px' key={idx}>
                         {ele}
