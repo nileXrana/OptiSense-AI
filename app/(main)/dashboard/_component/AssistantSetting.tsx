@@ -89,6 +89,7 @@ const AssistantSetting = () => {
         <h2 className='mb-1 font-bold text-gray-600'>Model : </h2>
         <Select onValueChange={(value) => setSelectedModel(value)}>
           <SelectTrigger className="w-full bg-white">
+            <Image src={"/google.png"} alt='google' width={20} height={20}/>
             <SelectValue placeholder="Google Gemini" />
           </SelectTrigger>
           <SelectContent>
