@@ -8,6 +8,7 @@ import { useModel } from '@/context/ModelContext'
 import { AssistantContext } from '@/context/AssistantContext'
 import Image from 'next/image'
 import ReactMarkdown from "react-markdown";
+import { motion } from "framer-motion";
 
 const ChatUi = () => {
 
@@ -24,8 +25,8 @@ const ChatUi = () => {
     }, [selectedAssistant])
 
     useEffect(() => {
-  messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-}, [messages]);
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [messages]);
 
     const onSendMessage = async () => {
         setshowEmptyChatState(false)
@@ -36,10 +37,11 @@ const ChatUi = () => {
         const res = await fetch("/api/chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ 
+            body: JSON.stringify({
                 model: selectedModel,
                 instruction: selectedAssistant.instruction,
-                userInstruction: input,
+                userInstruction: selectedAssistant.userInstruction,
+                input: input,
             })
         });
         if (!res.ok) throw new Error("Failed to post");
@@ -50,19 +52,21 @@ const ChatUi = () => {
     }
 
     return (
-        <div className={showEmptyChatState?"p-20 relative h-[90vh] border-2":"p-3 relative h-[90vh] border-2"}>
+        <div className={showEmptyChatState ? "p-20 relative h-[90vh] border-2" : "p-3 relative h-[90vh] border-2"}>
             {showEmptyChatState ? <EmptyChatState /> :
                 <div className='h-[88%] overflow-auto p-2'>
                     {messages.map((msg, idx) => (
-                        <div key={idx} className={msg.role === "user" ? " text-right m-3" : "text-left flex gap-3 items-start m-3"}>
+                        <motion.div key={idx} className={msg.role === "user" ? " text-right m-3" : "text-left flex gap-3 items-start m-3"} initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.4, delay: idx * 0.1 }}>
                             {/* <span className='w-10 h-10'> */}
-                            {msg.role==="ai"&&<Image className=' object-cover rounded-full' src={selectedAssistant.image} alt='assist' width={30} height={30} />}
+                            {msg.role === "ai" && <Image className=' object-cover rounded-full' src={selectedAssistant.image} alt='assist' width={30} height={30} />}
                             {/* </span> */}
-                            <span className={msg.role==="user"?"bg-gray-200 inline-block p-2 px-3 rounded-lg min-w-[50px] text-left":"bg-sky-300 nline-block p-2 px-3 rounded-lg min-w-[50px] text-left"}>
+                            <span className={msg.role === "user" ? "bg-gray-200 inline-block p-2 px-3 rounded-lg min-w-[50px] text-left" : "bg-sky-200 nline-block p-2 px-3 rounded-lg min-w-[50px] text-left"}>
                                 <ReactMarkdown>{msg.text}</ReactMarkdown>
-                                
+
                             </span>
-                        </div>
+                        </motion.div>
                     ))}
                     <div ref={messagesEndRef} />
                 </div>
