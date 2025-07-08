@@ -13,7 +13,7 @@ import { motion } from "framer-motion";
 const ChatUi = () => {
 
 
-    const [input, setinput] = useState<string>("")
+    const [input, setInput] = useState<string>("")
     const [messages, setMessages] = useState<{ role: string; text: string }[]>([]);
     const { selectedModel } = useModel();
     const [showEmptyChatState, setshowEmptyChatState] = useState(true)
@@ -33,7 +33,7 @@ const ChatUi = () => {
         // add user input to msg array :
         if (!input.trim()) return; // check if msg is empty
         setMessages((prev) => [...prev, { role: "user", text: input }]);
-        setinput("")
+        setInput("")
         const res = await fetch("/api/chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -53,7 +53,7 @@ const ChatUi = () => {
 
     return (
         <div className={showEmptyChatState ? "p-20 relative h-[90vh] border-2" : "p-3 relative h-[90vh] border-2"}>
-            {showEmptyChatState ? <EmptyChatState /> :
+            {showEmptyChatState ? <EmptyChatState input={input} setInput={setInput}/> :
                 <div className='h-[88%] overflow-auto p-2'>
                     {messages.map((msg, idx) => (
                         <motion.div key={idx} className={msg.role === "user" ? " text-right m-3" : "text-left flex gap-3 items-start m-3"} initial={{ opacity: 0, y: 20 }}
@@ -73,7 +73,7 @@ const ChatUi = () => {
             }
             <div className='flex justify-between py-5 gap-5 absolute bottom-2 left-10 w-[90%]'>
                 <Input value={input} placeholder='Start Typing Here.....' className='border-2 border-black'
-                    onChange={(e) => setinput(e.target.value)}
+                    onChange={(e) => setInput(e.target.value)}
                     onKeyDown={(e) => {
                         if (e.key === "Enter") {
                             onSendMessage()

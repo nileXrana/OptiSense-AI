@@ -5,7 +5,12 @@ import { AssistantContext } from '@/context/AssistantContext'
 import { ChevronRight } from 'lucide-react'
 import { BlurFade } from '@/src/components/magicui/blur-fade'
 
-const EmptyChatState = () => {
+type Props = {
+  input: string;
+  setInput: React.Dispatch<React.SetStateAction<string>>;
+};
+
+const EmptyChatState = ({ input, setInput }: Props) => {
 
     const { selectedAssistant, setselectedAssistant } = useContext<any>(AssistantContext)
     const sampleQuestions: string[] = selectedAssistant?.sampleQuestions
