@@ -20,6 +20,7 @@ import { Textarea } from '@/components/ui/textarea'
 import AssistantAvatar from './AssistantAvatar'
 import { toast } from 'sonner'
 import { useUser } from '@clerk/nextjs';
+import { Loader2Icon } from 'lucide-react'
 
 const AddNewAssistant = ({ children }: any) => {
 
@@ -37,6 +38,7 @@ const AddNewAssistant = ({ children }: any) => {
     }
     // useState :
     const [selectedAssistant, setselectedAssistant] = useState<ASSISTANT>(DEFAULT_ASSISTANT)
+    const [loading, setloading] = useState(false)
 
     const onHandleInputChange = (field: string,value: string)=>{
         setselectedAssistant((prev:any)=>({
@@ -50,6 +52,7 @@ const AddNewAssistant = ({ children }: any) => {
             toast('please enter all details')
             return; 
         }
+        setloading(true)
         // add it to backend :
         await fetch("/api/selected-assistants", {
       method: "POST",
@@ -61,6 +64,8 @@ const AddNewAssistant = ({ children }: any) => {
     .then(res => res.json())
   .then(resData => console.log(resData))
   .catch(err => console.error(err))
+
+  setloading(false)
     }
 
     return (
@@ -117,8 +122,9 @@ const AddNewAssistant = ({ children }: any) => {
                                 </div>
 
                                 <div className='flex gap-5 justify-end mt-5'>
-                                    <Button>Cancel</Button>
-                                    <Button onClick={onSave}>Add</Button>
+                                    <Button disabled={loading}>Cancel</Button>
+                                    <Button disabled={loading} onClick={onSave}>{loading?<Loader2Icon className='animate-spin'/>:<div>Add</div>}</Button>
+                                    
                                 </div>
                             </div>
                         </div>
