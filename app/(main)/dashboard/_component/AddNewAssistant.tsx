@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from 'react'
 import {
     Dialog,
@@ -21,6 +22,7 @@ import AssistantAvatar from './AssistantAvatar'
 import { toast } from 'sonner'
 import { useUser } from '@clerk/nextjs';
 import { Loader2Icon } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 const AddNewAssistant = ({ children}: any) => {
 
@@ -36,6 +38,7 @@ const AddNewAssistant = ({ children}: any) => {
             userInstruction:'' ,
             uid: user?.id
     }
+    const router = useRouter()
     // useState :
     const [selectedAssistant, setselectedAssistant] = useState<ASSISTANT>(DEFAULT_ASSISTANT)
     const [loading, setloading] = useState(false)
@@ -66,6 +69,7 @@ const AddNewAssistant = ({ children}: any) => {
   .catch(err => console.error(err))
 
   setloading(false)
+  window.location.reload(); 
     }
 
     return (
