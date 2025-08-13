@@ -69,7 +69,7 @@ const AddNewAssistant = ({ children}: any) => {
   .catch(err => console.error(err))
 
   setloading(false)
-  window.location.reload(); 
+  window.location.reload()
     }
 
     return (

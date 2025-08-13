@@ -7,19 +7,10 @@ export async function POST(req: NextRequest) {
   const user = await currentUser();
   try {
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    const { instruction, id } = await req.json();
-    // const updatedAssistant = await prisma.userAiAssistants.update({
-    //   where: {
-    //     id: id,
-    //     uid: user.id,
-    //   },
-    //   data: {
-    //     userInstruction: instruction,
-    //   },
-    // });
+    const { instruction, name } = await req.json();
     const assistant = await prisma.userAiAssistants.findFirst({
   where: {
-    id: id,         // numeric id
+    name: name,         // numeric id
     uid: user.id,   // user’s Clerk uid
   },
 });

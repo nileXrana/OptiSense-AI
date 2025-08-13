@@ -51,11 +51,12 @@ const AssistantSetting = () => {
       const res = await fetch("/api/user-instruct", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ instruction: text, id: selectedAssistant?.id }),
+        body: JSON.stringify({ instruction: text, name: selectedAssistant?.name }),
       });
       const data = await res.json();
       setloading(false)
       toast("Saved Successfully")
+      window.location.reload(); // reload :
     } catch (error) {
       console.error("Error:", error);
     }
