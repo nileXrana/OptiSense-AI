@@ -55,7 +55,7 @@ const AssistantList = () => {
         </h1>
       </BlurFade>
       <BlurFade duration={0.8}>
-        <AddNewAssistant>
+        <AddNewAssistant >
           <Button className='w-full mt-3 cursor-pointer'>
             Add New Assistant
           </Button>

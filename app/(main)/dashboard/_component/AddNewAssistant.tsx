@@ -22,7 +22,7 @@ import { toast } from 'sonner'
 import { useUser } from '@clerk/nextjs';
 import { Loader2Icon } from 'lucide-react'
 
-const AddNewAssistant = ({ children }: any) => {
+const AddNewAssistant = ({ children}: any) => {
 
     const { user } = useUser();
     // defaultAssistant :
@@ -122,8 +122,8 @@ const AddNewAssistant = ({ children }: any) => {
                                 </div>
 
                                 <div className='flex gap-5 justify-end mt-5'>
-                                    <Button disabled={loading}>Cancel</Button>
-                                    <Button disabled={loading} onClick={onSave}>{loading?<Loader2Icon className='animate-spin'/>:<div>Add</div>}</Button>
+                    
+                                    <Button className='cursor-pointer' disabled={loading} onClick={onSave}>{loading?<Loader2Icon className='animate-spin'/>:<div>Add</div>}</Button>
                                     
                                 </div>
                             </div>
