@@ -9,6 +9,8 @@ import { AssistantContext } from '@/context/AssistantContext'
 import Image from 'next/image'
 import ReactMarkdown from "react-markdown";
 import { motion } from "framer-motion";
+import { RotatingLines } from 'react-loader-spinner';
+import { Loader2 } from "lucide-react"
 
 const ChatUi = () => {
 
@@ -19,6 +21,7 @@ const ChatUi = () => {
     const [showEmptyChatState, setshowEmptyChatState] = useState(true)
     const { selectedAssistant, setselectedAssistant } = useContext<any>(AssistantContext)
     const messagesEndRef = useRef<HTMLDivElement>(null);
+    const [isLoading, setisLoading] = useState(false)
     useEffect(() => { // when suddenly change assistant :
         setshowEmptyChatState(true)
         setMessages([])
@@ -35,6 +38,7 @@ const ChatUi = () => {
         if (!message.trim()) return;; // check if msg is empty
         setMessages((prev) => [...prev, { role: "user", text: message }]);
         setInput("")
+        setisLoading(true)
         const res = await fetch("/api/chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -47,6 +51,7 @@ const ChatUi = () => {
         });
         if (!res.ok) throw new Error("Failed to post");
         const data = await res.json();
+        setisLoading(false)
         // add AI response to msg array :
         const ans = data.candidates[0].content.parts[0].text;
         setMessages((prev) => [...prev, { role: "ai", text: ans }]);
@@ -69,6 +74,11 @@ const ChatUi = () => {
                             </span>
                         </motion.div>
                     ))}
+                    {isLoading && 
+                        <div className='ml-3'>
+                            <Loader2 className="mr-2 h-7 w-7 animate-spin" />
+                        </div>
+                    }
                     <div ref={messagesEndRef} />
                 </div>
             }
