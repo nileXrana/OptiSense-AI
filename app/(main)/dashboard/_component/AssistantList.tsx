@@ -67,7 +67,7 @@ const AssistantList = () => {
       <div className='overflow-scroll h-[60%]'>
         {myAssistants.map((assistant: ASSISTANT, index) => (
           <BlurFade key={index} duration={0.3 * index}>
-            <div key={index} className={`p-2 flex gap-3 items-center hover:bg-gray-300 hover:dark:bg-slate-700 cursor-pointer rounded-xl ${assistant.id == selectedAssistant?.id && 'bg-purple-300 hover:bg-purple-300'} `} onClick={() => { setselectedAssistant(assistant) }}>
+            <div key={index} className={`p-2 flex gap-3 items-center hover:bg-gray-300 hover:dark:bg-slate-700 cursor-pointer rounded-xl ${assistant.name == selectedAssistant?.name && 'bg-purple-300 hover:bg-purple-300'} `} onClick={() => { setselectedAssistant(assistant) }}>
               <Image src={assistant.image} alt={assistant.name} width={60} height={60}
                 className='rounded-xl w-[60px] h-[60px] object-cover'>
               </Image>
