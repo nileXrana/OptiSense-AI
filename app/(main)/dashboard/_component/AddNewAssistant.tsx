@@ -17,6 +17,8 @@ import { Assistant } from 'next/font/google'
 import { ASSISTANT } from '../../ai-assistants/page'
 import { number } from 'motion/react'
 import { Textarea } from '@/components/ui/textarea'
+import AssistantAvatar from './AssistantAvatar'
+import { toast } from 'sonner'
 
 const AddNewAssistant = ({ children }: any) => {
 
@@ -38,6 +40,13 @@ const AddNewAssistant = ({ children }: any) => {
             ...prev,
             [field]:value
         }))
+    }
+
+    const onSave=()=>{
+        if(!selectedAssistant?.name || !selectedAssistant.title || !selectedAssistant.userInstruction){
+            toast('please enter all details')
+            return; 
+        }
     }
 
     return (
@@ -64,8 +73,12 @@ const AddNewAssistant = ({ children }: any) => {
                             </div>
                             <div className='col-span-2 ml-3'>
                                 <div className='flex gap-5'>
-                                    {selectedAssistant && <Image src={selectedAssistant?.image} alt='assistant' width={150} height={150} className='w-[100px] h-[100px] rounded-xl cursor-pointer object-cover' 
-                                    />}
+                                    {selectedAssistant && 
+                                    <AssistantAvatar selectedImage={(v: string)=>onHandleInputChange('image',v)}>
+                                    <Image src={selectedAssistant?.image} alt='assistant' width={150} height={150} className='w-[100px] h-[100px] rounded-xl cursor-pointer object-cover' 
+                                    />
+                                    </AssistantAvatar>
+                                    }
                                     <div className='flex flex-col gap-3'>
                                         <Input placeholder='Name of Assistant' className='w-full'
                                         value={selectedAssistant?.name}
