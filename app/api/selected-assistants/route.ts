@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
   const body = await req.json()
   for (const obj of body) {
   const existing = await prisma.userAiAssistants.findFirst({
-    where: { id: obj.id, uid: user?.id },
+    where: {uid: user?.id, name: obj.name},
   });
   if (!existing) {
     await prisma.userAiAssistants.create({

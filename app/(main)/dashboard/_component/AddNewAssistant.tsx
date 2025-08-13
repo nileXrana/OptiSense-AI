@@ -19,9 +19,11 @@ import { number } from 'motion/react'
 import { Textarea } from '@/components/ui/textarea'
 import AssistantAvatar from './AssistantAvatar'
 import { toast } from 'sonner'
+import { useUser } from '@clerk/nextjs';
 
 const AddNewAssistant = ({ children }: any) => {
 
+    const { user } = useUser();
     // defaultAssistant :
     const DEFAULT_ASSISTANT = {
         image:'/bug-fixer.avif',
@@ -30,7 +32,8 @@ const AddNewAssistant = ({ children }: any) => {
             instruction:'',
             id:0,
             sampleQuestions:[],
-            userInstruction:'' 
+            userInstruction:'' ,
+            uid: user?.id
     }
     // useState :
     const [selectedAssistant, setselectedAssistant] = useState<ASSISTANT>(DEFAULT_ASSISTANT)
@@ -42,11 +45,22 @@ const AddNewAssistant = ({ children }: any) => {
         }))
     }
 
-    const onSave=()=>{
+    const onSave= async()=>{
         if(!selectedAssistant?.name || !selectedAssistant.title || !selectedAssistant.userInstruction){
             toast('please enter all details')
             return; 
         }
+        // add it to backend :
+        await fetch("/api/selected-assistants", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify([selectedAssistant])
+    })
+    .then(res => res.json())
+  .then(resData => console.log(resData))
+  .catch(err => console.error(err))
     }
 
     return (
@@ -104,7 +118,7 @@ const AddNewAssistant = ({ children }: any) => {
 
                                 <div className='flex gap-5 justify-end mt-5'>
                                     <Button>Cancel</Button>
-                                    <Button>Add</Button>
+                                    <Button onClick={onSave}>Add</Button>
                                 </div>
                             </div>
                         </div>
