@@ -34,7 +34,7 @@ const AssistantSetting = () => {
       const res = await fetch("/api/delete-assistant", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({id: selectedAssistant?.id }),
+        body: JSON.stringify({name: selectedAssistant?.name }),
       });
       const data = await res.json();
       setloading(false)
