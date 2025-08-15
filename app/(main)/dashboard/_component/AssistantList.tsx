@@ -109,7 +109,7 @@ const AssistantList = () => {
   <DropdownMenuContent align='start' className='w-[200px] p-1 m-3'>
     <DropdownMenuLabel>My Account</DropdownMenuLabel>
     <DropdownMenuSeparator />
-    <DropdownMenuItem onClick={()=>setopenProfile(false)}> <UserCircle/> Profile</DropdownMenuItem>
+    <DropdownMenuItem onClick={()=>setopenProfile(true)}> <UserCircle/> Profile</DropdownMenuItem>
     <DropdownMenuItem> <LogOut/> LogOut</DropdownMenuItem>
   </DropdownMenuContent>
 </DropdownMenu>
