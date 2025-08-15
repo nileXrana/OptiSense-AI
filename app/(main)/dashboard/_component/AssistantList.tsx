@@ -104,7 +104,7 @@ const AssistantList = () => {
         </div>
       </div>
   </DropdownMenuTrigger>
-  <DropdownMenuContent  align='start'>
+  <DropdownMenuContent align='start' className='w-[200px] p-1 m-3'>
     <DropdownMenuLabel>My Account</DropdownMenuLabel>
     <DropdownMenuSeparator />
     <DropdownMenuItem> <UserCircle/> Profile</DropdownMenuItem>
