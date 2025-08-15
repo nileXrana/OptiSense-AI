@@ -19,10 +19,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { LogOut, UserCircle } from 'lucide-react'
+import Profile from './Profile'
 
 const AssistantList = () => {
 
   const { user, isSignedIn } = useUser()
+  const [openProfile, setopenProfile] = useState(false)
 
   useEffect(() => {
     const fun = async () => {
@@ -107,10 +109,12 @@ const AssistantList = () => {
   <DropdownMenuContent align='start' className='w-[200px] p-1 m-3'>
     <DropdownMenuLabel>My Account</DropdownMenuLabel>
     <DropdownMenuSeparator />
-    <DropdownMenuItem> <UserCircle/> Profile</DropdownMenuItem>
+    <DropdownMenuItem onClick={()=>setopenProfile(false)}> <UserCircle/> Profile</DropdownMenuItem>
     <DropdownMenuItem> <LogOut/> LogOut</DropdownMenuItem>
   </DropdownMenuContent>
 </DropdownMenu>
+
+<Profile openDialog={openProfile}/>
 
     </div>
   )
