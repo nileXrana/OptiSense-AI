@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
         name: name,
         uid: user.id,
       },
-    });
+    })
     if (!assistant) {
       return NextResponse.json({ error: "Assistant not found" }, { status: 404 });
     }
