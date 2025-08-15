@@ -10,6 +10,15 @@ import { UserButton } from "@clerk/nextjs";
 import { useUser } from '@clerk/nextjs'
 import { BlurFade } from '@/src/components/magicui/blur-fade'
 import AddNewAssistant from './AddNewAssistant'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { LogOut, UserCircle } from 'lucide-react'
 
 const AssistantList = () => {
 
@@ -79,7 +88,11 @@ const AssistantList = () => {
           </BlurFade>
         ))}
       </div>
-      <div className='absolute bottom-22 left-2 flex gap-3 items-center bg-gray-300 px-3 py-2 rounded-2xl w-[92%] cursor-pointer hover:bg-gray-400'>
+      
+
+      <DropdownMenu>
+  <DropdownMenuTrigger>
+        <div className='absolute bottom-22 left-2 flex gap-3 items-center bg-gray-300 px-3 py-2 rounded-2xl w-[92%] cursor-pointer hover:bg-gray-400'>
         <UserButton afterSignOutUrl="/signin" />
         <div className='text-[14px]'>
           <p className='font-bold'>
@@ -90,6 +103,14 @@ const AssistantList = () => {
           </p>
         </div>
       </div>
+  </DropdownMenuTrigger>
+  <DropdownMenuContent  align='start'>
+    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+    <DropdownMenuSeparator />
+    <DropdownMenuItem> <UserCircle/> Profile</DropdownMenuItem>
+    <DropdownMenuItem> <LogOut/> LogOut</DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
 
     </div>
   )
