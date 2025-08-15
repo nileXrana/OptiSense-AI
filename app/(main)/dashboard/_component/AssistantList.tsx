@@ -120,11 +120,11 @@ const AssistantList = () => {
         <DropdownMenuContent align='start' className='w-[200px] p-1 m-3'>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => {
+          <DropdownMenuItem className='cursor-pointer' onClick={() => {
             setDropdownOpen(false);
             setTimeout(() => setOpenDialog(true), 100);
           }}> <UserCircle /> Profile</DropdownMenuItem>
-          <DropdownMenuItem> <LogOut /> LogOut</DropdownMenuItem>
+          <DropdownMenuItem className='cursor-pointer'> <LogOut /> LogOut</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
