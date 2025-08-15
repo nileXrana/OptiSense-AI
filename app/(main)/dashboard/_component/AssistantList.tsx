@@ -114,7 +114,7 @@ const AssistantList = () => {
   </DropdownMenuContent>
 </DropdownMenu>
 
-<Profile openDialog={openProfile}/>
+<Profile USER={USER} openDialog={openProfile}/>
 
     </div>
   )
