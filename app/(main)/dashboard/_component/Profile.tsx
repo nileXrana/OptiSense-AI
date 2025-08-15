@@ -12,6 +12,7 @@ import {
 import Image from 'next/image';
 import { Progress } from "@/components/ui/progress"
 import { Button } from '@/components/ui/button';
+import { WalletCardsIcon } from 'lucide-react';
 
 const Profile = ({ openDialog, USER }: any) => {
     const { user, isLoaded } = useUser();
@@ -50,7 +51,7 @@ const Profile = ({ openDialog, USER }: any) => {
                             <p className='flex p-1 items-center justify-between font-bold'>Current Plan <span className='bg-gray-200 p-2 text-sm rounded-md'>{USER?.orderId ? "Pro Plan" : "Free Plan"}</span></p>
                         </div>
                         <div className='p-4 border rounded-xl'>
-                            <div className='flex flex-col gap-1'>
+                            <div className='flex justify-between items-center  gap-1'>
                                 <div className='flex flex-col gap-1'>
                                     <h2 className='font-bold text-lg'>Pro Plan</h2>
                                     <h2>500,000 Tokens</h2>
@@ -58,7 +59,7 @@ const Profile = ({ openDialog, USER }: any) => {
                                 <h2 className='font-bold text-lg'>$10 / Month</h2>
                             </div>
                             <hr className='my-3'/>
-                            <Button>Upgrade</Button>
+                            <Button className='w-full'> <WalletCardsIcon/> Upgrade</Button>
                         </div>
                     </div>
                 {/* </div> */}
