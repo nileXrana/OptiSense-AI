@@ -176,8 +176,8 @@ const AssistantList = () => {
             <hr className='my-3'></hr>
             <div className='p-2 flex flex-col gap-2'>
               <h3 className='font-bold'>Token Usage</h3>
-              <span className='bg-gray-200 rounded-sm p-2'>{USER?.tokenUsed}/{USER?.credits}</span>
               <Progress value={progress} />
+              <span className='bg-gray-200 rounded-sm p-2'>{USER?.tokenUsed}/{USER?.credits}</span>
               <p className='flex p-1 items-center justify-between font-bold'>Current Plan <span className='bg-gray-200 p-2 text-sm rounded-md'>{USER?.orderId ? "Pro Plan" : "Free Plan"}</span></p>
             </div>
             <div className='p-4 border rounded-xl'>
