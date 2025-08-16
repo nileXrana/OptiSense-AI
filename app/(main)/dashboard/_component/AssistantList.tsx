@@ -61,7 +61,8 @@ const AssistantList = () => {
       const result = await res.json();
       setUSER(result)
     }
-    fetchData();
+    {user && fetchData()}
+    
   }, [user])
 
   // All useState and useContext :

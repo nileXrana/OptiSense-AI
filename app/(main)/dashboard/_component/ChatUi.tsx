@@ -55,6 +55,14 @@ const ChatUi = () => {
         // add AI response to msg array :
         const ans = data.candidates[0].content.parts[0].text;
         setMessages((prev) => [...prev, { role: "ai", text: ans }]);
+        updateUserToken(ans)
+    }
+
+    const updateUserToken = (resp: string)=>{
+        const tokenCount = resp.trim() ? resp.trim().split(/\s+/).length : 0
+        console.log(tokenCount)
+        // now update user token :
+
     }
 
     return (
