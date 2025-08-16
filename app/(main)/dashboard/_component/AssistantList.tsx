@@ -184,9 +184,9 @@ const AssistantList = () => {
               <div className='flex justify-between items-center  gap-1'>
                 <div className='flex flex-col gap-1'>
                   <h2 className='font-bold text-lg'>Pro Plan</h2>
-                  <h2>500,000 Tokens</h2>
+                  <h2>5,00000 Tokens</h2>
                 </div>
-                <h2 className='font-bold text-lg'>$10 / Month</h2>
+                <h2 className='font-bold text-lg flex'>&#8377;10</h2>
               </div>
               <hr className='my-3' />
               <Button className='w-full'> <WalletCardsIcon /> Upgrade</Button>
