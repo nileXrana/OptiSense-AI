@@ -10,6 +10,7 @@ import { UserButton } from "@clerk/nextjs";
 import { useClerk, useUser } from "@clerk/nextjs";
 import { BlurFade } from '@/src/components/magicui/blur-fade'
 import AddNewAssistant from './AddNewAssistant'
+import CheckoutButton from './CheckoutButton'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -206,7 +207,7 @@ const AssistantList = () => {
                 <h2 className='font-bold text-lg flex'>&#8377;10</h2>
               </div>
               <hr className='my-3' />
-              <Button className='w-full'> <WalletCardsIcon /> Upgrade</Button>
+              <CheckoutButton amount={10} /> {/* ₹10 payment */}
             </div>
             <div className='mt-3 flex justify-end'>
             </div>
