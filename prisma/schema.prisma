@@ -20,6 +20,7 @@ model users {
   name  String
   email String @unique
   credits Int
+  tokenUsed Int
   picture String
   orderId String? // by default it is null
 }

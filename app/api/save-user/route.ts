@@ -16,7 +16,8 @@ export async function POST(req: NextRequest) {
         data: {
           name: body.name,
           email: body.email,
-          credits: 5000,
+          credits: 100000, // free credits (if user takes premium extra credits will be added on this)
+          tokenUsed: 0,
           picture: body.picture
         },
       });

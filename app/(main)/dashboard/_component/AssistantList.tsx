@@ -69,6 +69,7 @@ const AssistantList = () => {
   const [myAssistants, setmyAssistants] = useState([])
   const { selectedAssistant, setselectedAssistant } = useContext<any>(AssistantContext)
   const [USER, setUSER] = useState<any>() // user details from backend :
+  const [tokenUsed, settokenUsed] = useState(0)
   return (
     <div className='p-3 bg-secondary h-screen relative'>
       <BlurFade duration={0.4}>
@@ -156,8 +157,8 @@ const AssistantList = () => {
             <hr className='my-3'></hr>
             <div className='p-2 flex flex-col gap-2'>
               <h3 className='font-bold'>Token Usage</h3>
-              <p>0/0</p>
-              <Progress value={33} />
+              <p>0/{USER?.credits}</p>
+              <Progress value={50} />
               <p className='flex p-1 items-center justify-between font-bold'>Current Plan <span className='bg-gray-200 p-2 text-sm rounded-md'>{USER?.orderId ? "Pro Plan" : "Free Plan"}</span></p>
             </div>
             <div className='p-4 border rounded-xl'>
