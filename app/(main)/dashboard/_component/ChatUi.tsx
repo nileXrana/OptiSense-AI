@@ -58,11 +58,17 @@ const ChatUi = () => {
         updateUserToken(ans)
     }
 
-    const updateUserToken = (resp: string)=>{
+    const updateUserToken = async(resp: string)=>{
         const tokenCount = resp.trim() ? resp.trim().split(/\s+/).length : 0
         console.log(tokenCount)
-        // now update user token :
-
+        // now update tokenUsed :
+        const res = await fetch("/api/updateToken", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                
+            })
+        });
     }
 
     return (

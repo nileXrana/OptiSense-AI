@@ -59,6 +59,7 @@ const AssistantList = () => {
         })
       })
       const result = await res.json();
+      console.log(result)
       setUSER(result)
     }
     {user && fetchData()}
@@ -157,7 +158,7 @@ const AssistantList = () => {
             <hr className='my-3'></hr>
             <div className='p-2 flex flex-col gap-2'>
               <h3 className='font-bold'>Token Usage</h3>
-              <p>0/{USER?.credits}</p>
+              <p>{USER?.tokenUsed}/{USER?.credits}</p>
               <Progress value={50} />
               <p className='flex p-1 items-center justify-between font-bold'>Current Plan <span className='bg-gray-200 p-2 text-sm rounded-md'>{USER?.orderId ? "Pro Plan" : "Free Plan"}</span></p>
             </div>
