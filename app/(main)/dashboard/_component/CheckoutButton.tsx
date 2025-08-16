@@ -87,7 +87,7 @@ export default function CheckoutButton({ amount,setrefresh }: CheckoutButtonProp
       <Script src="https://checkout.razorpay.com/v1/checkout.js" />
       <Button
         onClick={startPayment}
-        className="px-4 py-2 bg-blue-600 w-full cursor-pointer text-white rounded-lg"
+        className="px-4 py-2 bg-blue-600 w-full hover:bg-blue-700 cursor-pointer text-white rounded-lg"
       > <WalletCardsIcon />
         Upgrade To Pro
       </Button>
