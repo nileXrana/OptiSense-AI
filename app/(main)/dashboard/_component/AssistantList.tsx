@@ -19,7 +19,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { LogOut, UserCircle, WalletCardsIcon } from 'lucide-react'
-import Profile from './Profile'
 import {
   Dialog,
   DialogContent,
