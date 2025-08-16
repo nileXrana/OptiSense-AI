@@ -73,8 +73,7 @@ const AssistantList = () => {
   }, [user])
 
   useEffect(() => {
-    
-
+    fetchData()
   }, [refresh])
   
 
@@ -214,8 +213,8 @@ const AssistantList = () => {
                 </div>
                 <h2 className='font-bold text-lg flex'>&#8377;10</h2>
               </div>
-              <hr className='my-3' />
-              <CheckoutButton amount={10} /> {/* ₹10 payment */}
+                <hr className='my-3' />
+                <CheckoutButton setrefresh={setrefresh} amount={10} /> {/* ₹10 payment */}
             </div>
             <div className='mt-3 flex justify-end'>
             </div>

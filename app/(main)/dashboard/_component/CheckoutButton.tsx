@@ -11,52 +11,75 @@ declare global {
 
 interface CheckoutButtonProps {
   amount: number;
+  setrefresh: (value: boolean) => void;
 }
 
-export default function CheckoutButton({ amount }: CheckoutButtonProps) {
+export default function CheckoutButton({ amount,setrefresh }: CheckoutButtonProps) {
 
   const router = useRouter();
 
   const startPayment = async () => {
-    // 1. Create order from backend
-    const res = await fetch("/api/create-order", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ amount }),
-    });
-    const order = await res.json();
+    try {
+      // 1. Create order from backend
+      const res = await fetch("/api/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount }),
+      });
 
-    // 2. Open Razorpay popup
-    const options = {
-      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-      amount: order.amount,
-      currency: order.currency,
-      name: "Personal AI Assistant",
-      description: "Subscription Payment",
-      order_id: order.id,
-      handler: async function (response: any) {
-        // 3. Verify payment
-        const verifyRes = await fetch("/api/verify", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(response),
-        });
-        const verify = await verifyRes.json();
-        if(verify.success){
-            router.refresh()
-            alert(verify.message);
-        }
-      },
-      prefill: {
-        name: "Customer Name",
-        email: "customer@example.com",
-        contact: "9876543210",
-      },
-      theme: { color: "#3399cc" },
-    };
+      if (!res.ok) {
+        throw new Error('Failed to create order');
+      }
 
-    const rzp = new window.Razorpay(options);
-    rzp.open();
+      const order = await res.json();
+
+      if (order.error) {
+        alert('Error creating order: ' + order.error);
+        return;
+      }
+
+      // 2. Open Razorpay popup
+      const options = {
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+        amount: order.amount,
+        currency: order.currency,
+        name: "Personal AI Assistant",
+        description: "Pro Plan Subscription - 500,000 Tokens",
+        order_id: order.id,
+        handler: async function (response: any) {
+          try {
+            // 3. Verify payment
+            const verifyRes = await fetch("/api/verify", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(response),
+            });
+            const verify = await verifyRes.json();
+            if (verify.success) {
+              alert(verify.message);
+              setrefresh(true); // Trigger refresh in parent component
+            } else {
+              alert("Payment verification failed: " + verify.message);
+            }
+          } catch (error) {
+            console.error('Payment verification error:', error);
+            alert('Payment verification failed. Please contact support.');
+          }
+        },
+        prefill: {
+          name: "Customer Name",
+          email: "customer@example.com",
+          contact: "9876543210",
+        },
+        theme: { color: "#3399cc" },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (error) {
+      console.error('Payment initiation error:', error);
+      alert('Failed to initiate payment. Please try again.');
+    }
   };
 
   return (
