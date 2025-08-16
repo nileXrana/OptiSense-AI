@@ -66,11 +66,24 @@ const AssistantList = () => {
     
   }, [user])
 
+  const fetchData = async () => {
+      const res = await fetch('/api/save-user', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: user?.primaryEmailAddress?.emailAddress,
+        })
+      })
+      const result = await res.json();
+      console.log(result)
+      setUSER(result)
+    }
+    {user && fetchData()}
+
   // All useState and useContext :
   const [myAssistants, setmyAssistants] = useState([])
   const { selectedAssistant, setselectedAssistant } = useContext<any>(AssistantContext)
   const [USER, setUSER] = useState<any>() // user details from backend :
-  const [tokenUsed, settokenUsed] = useState(0)
   return (
     <div className='p-3 bg-secondary h-screen relative'>
       <BlurFade duration={0.4}>
@@ -124,6 +137,8 @@ const AssistantList = () => {
           <DropdownMenuItem className='cursor-pointer' onClick={() => {
             setDropdownOpen(false);
             setTimeout(() => setOpenDialog(true), 100);
+            fetchData();
+
           }}> <UserCircle /> Profile</DropdownMenuItem>
           <DropdownMenuItem className='cursor-pointer'> <LogOut /> LogOut</DropdownMenuItem>
         </DropdownMenuContent>
