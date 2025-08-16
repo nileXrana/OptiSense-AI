@@ -1,18 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { PrismaClient } from '@/lib/generated/prisma';
-import { currentUser } from "@clerk/nextjs/server"
 
 export async function POST(req: Request) {
-    const user = await currentUser()
     const prisma = new PrismaClient();
     const body = await req.json();
-    if (!user) return null;
+    
     try {
         const updatedUser = await prisma.users.update({
-            where: { email: user?.primaryEmailAddressId || undefined }, // change type if your id is String
+            where: { email: body.email }, // change type if your id is String
             data: {
-                name: body.name,
-                email: body.email,
+                tokenUsed: {
+                    increment: body.tokenCount
+                }
             },
         });
     }

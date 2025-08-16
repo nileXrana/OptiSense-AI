@@ -11,10 +11,11 @@ import ReactMarkdown from "react-markdown";
 import { motion } from "framer-motion";
 import { RotatingLines } from 'react-loader-spinner';
 import { Loader2 } from "lucide-react"
+import { useUser } from '@clerk/nextjs'
 
 const ChatUi = () => {
 
-
+    const { user } = useUser();
     const [input, setInput] = useState<string>("")
     const [messages, setMessages] = useState<{ role: string; text: string }[]>([]);
     const { selectedModel } = useModel();
@@ -60,13 +61,15 @@ const ChatUi = () => {
 
     const updateUserToken = async(resp: string)=>{
         const tokenCount = resp.trim() ? resp.trim().split(/\s+/).length : 0
-        console.log(tokenCount)
+        if(!user) return null // not signIn :
+        const email = user.primaryEmailAddress?.emailAddress;
         // now update tokenUsed :
         const res = await fetch("/api/updateToken", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                
+                email: email,
+                tokenCount : tokenCount
             })
         });
     }
