@@ -27,7 +27,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Progress } from '@radix-ui/react-progress'
+import { Progress } from '@/components/ui/progress'
 
 const AssistantList = () => {
 
@@ -77,10 +77,13 @@ const AssistantList = () => {
       const result = await res.json();
       console.log(result)
       setUSER(result)
+
+      // one more work :
+      setprogress(result.tokenUsed/result.credits*100)
     }
-    {user && fetchData()}
 
   // All useState and useContext :
+  const [progress, setprogress] = useState(0)
   const [myAssistants, setmyAssistants] = useState([])
   const { selectedAssistant, setselectedAssistant } = useContext<any>(AssistantContext)
   const [USER, setUSER] = useState<any>() // user details from backend :
@@ -173,8 +176,8 @@ const AssistantList = () => {
             <hr className='my-3'></hr>
             <div className='p-2 flex flex-col gap-2'>
               <h3 className='font-bold'>Token Usage</h3>
-              <p>{USER?.tokenUsed}/{USER?.credits}</p>
-              <Progress value={50} />
+              <span className='bg-gray-200 rounded-sm p-2'>{USER?.tokenUsed}/{USER?.credits}</span>
+              <Progress value={progress} />
               <p className='flex p-1 items-center justify-between font-bold'>Current Plan <span className='bg-gray-200 p-2 text-sm rounded-md'>{USER?.orderId ? "Pro Plan" : "Free Plan"}</span></p>
             </div>
             <div className='p-4 border rounded-xl'>
