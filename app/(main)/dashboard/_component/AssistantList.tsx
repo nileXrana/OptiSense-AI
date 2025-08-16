@@ -80,7 +80,13 @@ const AssistantList = () => {
 
       // one more work :
       const ak = result.tokenUsed/result.credits*100
-      if(ak >= 100) setprogress(100)
+      if(ak >= 100){
+        setprogress(100)
+        setUSER((prev: object) => ({
+  ...prev,
+  tokenUsed: USER.credits,
+}));
+      }
       else setprogress(ak)
     }
 

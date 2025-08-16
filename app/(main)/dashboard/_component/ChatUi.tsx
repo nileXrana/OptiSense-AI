@@ -85,6 +85,36 @@ const ChatUi = () => {
 
     }
 
+    useEffect(() => {
+        const checkTokenStatus = async () => {
+            if (!user?.primaryEmailAddress?.emailAddress) return;
+            
+            try {
+                const res = await fetch("/api/updateToken", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        email: user.primaryEmailAddress.emailAddress,
+                        tokenCount: 0
+                    })
+                });
+
+                if (!res.ok) {
+                    throw new Error('Failed to check token status');
+                }
+
+                const result = await res.json();
+                console.log(result);
+                settokenExceeded(result.tE);
+            } catch (error) {
+                console.error('Error checking token status:', error);
+            }
+        };
+
+        checkTokenStatus();
+    }, [user]) // v imp :
+    
+
     return (
         <div className={showEmptyChatState ? "p-20 relative h-[90vh] border-2 bg" : "p-3 pl-0 relative h-[90vh] border-2 bg-[url('/wall15.avif')] bg-cover bg-center"}>
             {showEmptyChatState ? <EmptyChatState input={input} setInput={setInput} onSendMessage={onSendMessage}/> :

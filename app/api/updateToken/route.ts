@@ -15,11 +15,11 @@ export async function POST(req: Request) {
                 }
             },
         });
-        
+
         // send status of tokenExceeded :
-        if(updatedUser.tokenUsed >= updatedUser.credits){
+        if (updatedUser.tokenUsed >= updatedUser.credits) {
             return NextResponse.json({ message: "POST request successful", tE: true });
-        }else{
+        } else {
             return NextResponse.json({ message: "POST request successful", tE: false });
         }
 
