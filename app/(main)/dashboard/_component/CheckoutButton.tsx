@@ -57,7 +57,7 @@ export default function CheckoutButton({ amount,setrefresh }: CheckoutButtonProp
             const verify = await verifyRes.json();
             if (verify.success) {
               alert(verify.message);
-              setrefresh(true); // Trigger refresh in parent component
+              window.location.reload(); // jaruri hai :
             } else {
               alert("Payment verification failed: " + verify.message);
             }

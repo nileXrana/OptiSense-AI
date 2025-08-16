@@ -66,16 +66,26 @@ export async function POST(req: NextRequest) {
             console.log("Current user data:", USER);
 
             // Update user with order ID and credits
-            const updated = await prisma.users.update({
+            if(USER.tokenUsed < USER.credits){
+                const updated = await prisma.users.update({
                 where: { email: email },
                 data: { 
                     orderId: razorpay_order_id,
-                    tokenUsed: 0,
-                    credits: 500000
+                    credits:{
+                        increment: 500000
+                    }
                 },
             });
-
-            console.log("User updated successfully:", updated);
+            }else{
+                const updated = await prisma.users.update({
+                    where: { email: email },
+                    data: { 
+                        orderId: razorpay_order_id,
+                        tokenUsed: 0,
+                        credits: 500000
+                    },
+                });
+            }
 
             return NextResponse.json({
                 success: true,
