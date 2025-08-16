@@ -7,7 +7,7 @@ import Image from 'next/image'
 import { ASSISTANT } from '../../ai-assistants/page'
 import { AssistantContext } from '@/context/AssistantContext'
 import { UserButton } from "@clerk/nextjs";
-import { useUser } from '@clerk/nextjs'
+import { useClerk, useUser } from "@clerk/nextjs";
 import { BlurFade } from '@/src/components/magicui/blur-fade'
 import AddNewAssistant from './AddNewAssistant'
 import {
@@ -28,10 +28,14 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Progress } from '@/components/ui/progress'
+import { useRouter } from "next/navigation";
+
 
 const AssistantList = () => {
 
   const { user, isSignedIn } = useUser()
+  const { signOut } = useClerk();
+  const router = useRouter();
   const [openProfile, setopenProfile] = useState(false)
   const [openDialog, setOpenDialog] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
@@ -88,6 +92,11 @@ const AssistantList = () => {
 }));
       }
       else setprogress(ak)
+    }
+
+    function signOFF(){
+      signOut()
+      router.push("/")
     }
 
   // All useState and useContext :
@@ -151,7 +160,7 @@ const AssistantList = () => {
             fetchData();
 
           }}> <UserCircle /> Profile</DropdownMenuItem>
-          <DropdownMenuItem className='cursor-pointer'> <LogOut /> LogOut</DropdownMenuItem>
+          <DropdownMenuItem onClick={signOFF} className='cursor-pointer'> <LogOut /> SignOut</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
