@@ -15,13 +15,15 @@ export async function POST(req: Request) {
                 }
             },
         });
-    }
-    catch (error) {
+        
+        // send status of tokenExceeded :
+        if(updatedUser.tokenUsed >= updatedUser.credits){
+            return NextResponse.json({ message: "POST request successful", tE: true });
+        }else{
+            return NextResponse.json({ message: "POST request successful", tE: false });
+        }
+
+    } catch (error) {
         return NextResponse.json({ error: "Error fetching users" }, { status: 500 });
     }
-
-
-
-
-    return NextResponse.json({ message: "POST request successful", data: body });
 }

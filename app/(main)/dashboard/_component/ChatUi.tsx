@@ -23,6 +23,7 @@ const ChatUi = () => {
     const { selectedAssistant, setselectedAssistant } = useContext<any>(AssistantContext)
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const [isLoading, setisLoading] = useState(false)
+    const [tokenExceeded, settokenExceeded] = useState(false)
     useEffect(() => { // when suddenly change assistant :
         setshowEmptyChatState(true)
         setMessages([])
@@ -34,6 +35,12 @@ const ChatUi = () => {
 
     const onSendMessage = async (sampleQues?: string) => {
         setshowEmptyChatState(false)
+        // check if user exceed limit :
+        if(tokenExceeded){
+            setInput("")
+            alert("token exceeded ! Updrade to pro plan !")
+            return;
+        }
         // add user input to msg array :
         const message = sampleQues ?? input;
         if (!message.trim()) return;; // check if msg is empty
@@ -72,6 +79,10 @@ const ChatUi = () => {
                 tokenCount : tokenCount
             })
         });
+        // check tokenExceeded :
+        const result = await res.json()
+        settokenExceeded(result.tE)
+
     }
 
     return (

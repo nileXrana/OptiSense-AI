@@ -79,7 +79,9 @@ const AssistantList = () => {
       setUSER(result)
 
       // one more work :
-      setprogress(result.tokenUsed/result.credits*100)
+      const ak = result.tokenUsed/result.credits*100
+      if(ak >= 100) setprogress(100)
+      else setprogress(ak)
     }
 
   // All useState and useContext :
