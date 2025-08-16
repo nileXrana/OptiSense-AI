@@ -40,6 +40,7 @@ const AssistantList = () => {
   const [openProfile, setopenProfile] = useState(false)
   const [openDialog, setOpenDialog] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [refresh, setrefresh] = useState(false)
 
   useEffect(() => {
     const fun = async () => {
@@ -70,6 +71,12 @@ const AssistantList = () => {
     {user && fetchData()}
     
   }, [user])
+
+  useEffect(() => {
+    
+
+  }, [refresh])
+  
 
   const fetchData = async () => {
       const res = await fetch('/api/save-user', {
@@ -105,6 +112,7 @@ const AssistantList = () => {
   const [myAssistants, setmyAssistants] = useState([])
   const { selectedAssistant, setselectedAssistant } = useContext<any>(AssistantContext)
   const [USER, setUSER] = useState<any>() // user details from backend :
+
   return (
     <div className='p-3 bg-secondary h-screen relative'>
       <BlurFade duration={0.4}>

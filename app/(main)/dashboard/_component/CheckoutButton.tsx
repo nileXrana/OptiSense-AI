@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { WalletCardsIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import Script from "next/script";
 
 declare global {
@@ -13,6 +14,9 @@ interface CheckoutButtonProps {
 }
 
 export default function CheckoutButton({ amount }: CheckoutButtonProps) {
+
+  const router = useRouter();
+
   const startPayment = async () => {
     // 1. Create order from backend
     const res = await fetch("/api/create-order", {
@@ -27,7 +31,7 @@ export default function CheckoutButton({ amount }: CheckoutButtonProps) {
       key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
       amount: order.amount,
       currency: order.currency,
-      name: "My SaaS Project",
+      name: "Personal AI Assistant",
       description: "Subscription Payment",
       order_id: order.id,
       handler: async function (response: any) {
@@ -38,7 +42,10 @@ export default function CheckoutButton({ amount }: CheckoutButtonProps) {
           body: JSON.stringify(response),
         });
         const verify = await verifyRes.json();
-        alert(verify.message);
+        if(verify.success){
+            router.refresh()
+            alert(verify.message);
+        }
       },
       prefill: {
         name: "Customer Name",
