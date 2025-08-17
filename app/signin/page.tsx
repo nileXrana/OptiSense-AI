@@ -13,7 +13,7 @@ import UserLogger from '@/components/userLogger'
 import { BlurFade } from '@/src/components/magicui/blur-fade'
 import { Button } from '@/components/ui/button'
 import { ModeToggle } from '@/components/ui/mode-toggle'
-import { ArrowLeft, CheckCircle } from 'lucide-react'
+import { CheckCircle } from 'lucide-react'
 import Link from 'next/link'
 
 // Add custom CSS for animations
@@ -45,7 +45,7 @@ const openLinkedIn = () => {
         <header className="p-6 flex justify-between items-center">
           <BlurFade delay={0.1}>
             <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-              <ArrowLeft className="h-5 w-5" />
+              
               <div className="flex items-center gap-3">
                 <div className="relative">
                   {/* AI Assistant Robot Head */}
@@ -89,7 +89,7 @@ const openLinkedIn = () => {
                 <h1 className="text-4xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
                   Welcome Back to OptiSense AI
                 </h1>
-                <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
+                <p className="max-sm:hidden text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
                   Sign in to access your personal AI assistants and continue your productivity journey.
                 </p>
                 
