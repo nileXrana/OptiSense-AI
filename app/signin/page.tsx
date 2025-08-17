@@ -64,7 +64,7 @@ const page = () => {
             {/* Left Side - Welcome Content */}
             <BlurFade delay={0.3}>
               <div className="text-center lg:text-left">
-                <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                <h1 className="text-4xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
                   Welcome Back to AI Helper
                 </h1>
                 <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
