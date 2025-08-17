@@ -6,7 +6,8 @@ import { BlurFade } from '@/src/components/magicui/blur-fade'
 import { RainbowButton } from '@/src/components/magicui/rainbow-button'
 import { SparklesText } from '@/src/components/magicui/sparkles-text'
 import Image from 'next/image'
-import { Bot, MessageSquare, Users, Zap, CheckCircle, Star } from 'lucide-react'
+import { Bot, MessageSquare, Users, Zap, CheckCircle, Star, Send, Quote } from 'lucide-react'
+import { useState } from 'react'
 
 // Add custom CSS for animations
 const customStyles = `
@@ -17,10 +18,33 @@ const customStyles = `
   .animate-spin-slow {
     animation: spin-slow 8s linear infinite;
   }
+  @keyframes heartbeat {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.1); }
+    50% { transform: scale(1.3); }
+    75% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+  .heartbeat {
+    animation: heartbeat 1.2s ease-in-out infinite;
+    display: inline-block;
+  }
 `
 
 export default function Home() {
   const router = useRouter();
+  const [feedback, setFeedback] = useState('');
+  const [rating, setRating] = useState(0);
+  const [hoveredRating, setHoveredRating] = useState(0);
+  const [userName, setUserName] = useState('');
+  const [feedbackList, setFeedbackList] = useState([
+    { id: 1, name: "Sarah M.", feedback: "Amazing AI assistants! The custom creation feature is fantastic.", rating: 5, avatar: "SM" },
+    { id: 2, name: "Alex J.", feedback: "Great productivity boost. Love the variety of specialized assistants.", rating: 5, avatar: "AJ" },
+    { id: 3, name: "Emily R.", feedback: "Easy to use and very helpful for my daily tasks.", rating: 4, avatar: "ER" },
+    { id: 4, name: "Michael K.", feedback: "The coding assistant saved me hours of work!", rating: 5, avatar: "MK" },
+    { id: 5, name: "Lisa T.", feedback: "Excellent platform with intuitive design.", rating: 4, avatar: "LT" }
+  ]);
+
   const signInPage = () => {
     router.push('/signin')
   }
@@ -32,6 +56,31 @@ export default function Home() {
         behavior: 'smooth',
         block: 'start'
       });
+    }
+  }
+
+  const openLinkedIn = () => {
+    window.open('https://linkedin.com/in/nilexrana', '_blank');
+  }
+
+  const submitFeedback = () => {
+    if (feedback.trim() && rating > 0 && userName.trim()) {
+      const getInitials = (name: string) => {
+        return name.split(' ').map((word: string) => word[0]).join('').toUpperCase().slice(0, 2);
+      };
+      
+      const newFeedback = {
+        id: feedbackList.length + 1,
+        name: userName.trim(),
+        feedback: feedback.trim(),
+        rating: rating,
+        avatar: getInitials(userName.trim())
+      };
+      setFeedbackList([newFeedback, ...feedbackList]);
+      setFeedback('');
+      setRating(0);
+      setHoveredRating(0);
+      setUserName('');
     }
   }
 
@@ -66,7 +115,7 @@ export default function Home() {
   return (
     <>
       <style jsx global>{customStyles}</style>
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-purple-900 dark:to-indigo-900">
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-purple-900 dark:to-indigo-900 pb-16">
       {/* Header */}
       <header className="p-6 flex justify-between items-center">
         <BlurFade delay={0.1}>
@@ -320,7 +369,7 @@ export default function Home() {
               <RainbowButton onClick={signInPage} className="px-12 py-4 text-xl">
                 🎯 Start Free Now
               </RainbowButton>
-              <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
+              <div className="flex items-center justify-center gap-2 text-sm text-gray-700 dark:text-gray-300">
                 <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                 <span>100+ satisfied users</span>
               </div>
@@ -329,8 +378,127 @@ export default function Home() {
         </BlurFade>
       </section>
 
+      {/* Feedback Section */}
+      <section className="px-6 py-12 max-w-6xl mx-auto">
+        <BlurFade delay={0.2}>
+          <div className="bg-gradient-to-r from-purple-50 to-blue-50 dark:from-gray-800 dark:to-gray-700 rounded-3xl p-8 border border-purple-100 dark:border-purple-800">
+            <div className="grid lg:grid-cols-2 gap-8">
+              
+              {/* Feedback Form */}
+              <div>
+                <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                  Share Your Experience
+                </h3>
+                <p className="text-gray-600 dark:text-gray-400 mb-6">
+                  Help us improve by sharing your feedback
+                </p>
+                
+                {/* Rating Stars */}
+                <div className="mb-4">
+                  <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">Rating</label>
+                  <div className="flex gap-1">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        onClick={() => setRating(star)}
+                        onMouseEnter={() => setHoveredRating(star)}
+                        onMouseLeave={() => setHoveredRating(0)}
+                        className="transition-colors duration-200"
+                      >
+                        <Star 
+                          className={`h-6 w-6 ${
+                            star <= (hoveredRating || rating) 
+                              ? 'fill-yellow-400 text-yellow-400' 
+                              : 'text-gray-300 dark:text-gray-600'
+                          }`}
+                        />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Name Input */}
+                <div className="mb-4">
+                  <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                    Your Name <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={userName}
+                    onChange={(e) => setUserName(e.target.value)}
+                    placeholder="Enter your full name"
+                    className="w-full p-3 border border-purple-200 dark:border-purple-700 rounded-xl bg-white/50 dark:bg-gray-800/50 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    required
+                  />
+                </div>
+
+                {/* Feedback Input */}
+                <div className="mb-4">
+                  <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">Your Feedback</label>
+                  <textarea
+                    value={feedback}
+                    onChange={(e) => setFeedback(e.target.value)}
+                    placeholder="Tell us about your experience with OptiSense AI..."
+                    className="w-full p-3 border border-purple-200 dark:border-purple-700 rounded-xl bg-white/50 dark:bg-gray-800/50 focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
+                    rows={3}
+                  />
+                </div>
+
+                <Button 
+                  onClick={submitFeedback}
+                  disabled={!feedback.trim() || rating === 0 || !userName.trim()}
+                  className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <Send className="h-4 w-4 mr-2" />
+                  Submit Feedback
+                </Button>
+              </div>
+
+              {/* Feedback Display */}
+              <div>
+                <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                  What Users Say
+                </h3>
+                <div className="space-y-4 max-h-80 overflow-y-auto pr-2">
+                  {feedbackList.slice(0, 5).map((item) => (
+                    <div key={item.id} className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-xl p-4 border border-purple-100 dark:border-purple-700">
+                      <div className="flex items-start gap-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                          {item.avatar}
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="font-semibold text-gray-900 dark:text-gray-100">{item.name}</span>
+                            <div className="flex gap-0.5">
+                              {[...Array(5)].map((_, i) => (
+                                <Star 
+                                  key={i} 
+                                  className={`h-3 w-3 ${
+                                    i < item.rating 
+                                      ? 'fill-yellow-400 text-yellow-400' 
+                                      : 'text-gray-300 dark:text-gray-600'
+                                  }`}
+                                />
+                              ))}
+                            </div>
+                          </div>
+                          <p className="text-sm text-gray-700 dark:text-gray-300 relative">
+                            <Quote className="h-3 w-3 text-purple-400 absolute -left-1 -top-1" />
+                            <span className="ml-2">{item.feedback}</span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </BlurFade>
+      </section>
+
       {/* Footer */}
-      <footer className="px-6 py-8 border-t border-purple-100 dark:border-purple-800 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm">
+      <footer className="px-6 py-8 w-[85vw] rounded-xl m-auto border-t border-purple-100 dark:border-purple-800 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm">
         <BlurFade delay={0.2}>
           <div className="max-w-6xl mx-auto text-center">
             <div className="flex items-center justify-center gap-3 mb-4">
@@ -364,6 +532,23 @@ export default function Home() {
           </div>
         </BlurFade>
       </footer>
+
+      {/* Fixed Footer */}
+      <div className="fixed bottom-0 left-0 right-0 bg-slate-800 dark:bg-gray-900/95 backdrop-blur-md border-t border-purple-200 dark:border-purple-700 py-3 z-50 shadow-lg">
+        <div className="text-center">
+          <p className="text-sm text-gray-300 dark:text-gray-300">
+            Made with{' '}
+            <span className="heartbeat text-red-600 dark:text-red-400" style={{fontSize: '16px'}}>❤️</span>
+            {' '}by{' '}
+            <button 
+              onClick={openLinkedIn}
+              className="hover:scale-110 underline underline-offset-2 dark:text-purple-400 hover:text-blue-500 dark:hover:text-purple-300 font-semibold decoration-2 transition-all duration-200 cursor-pointer dark:hover:decoration-purple-300"
+            >
+              nileXrana
+            </button>
+          </p>
+        </div>
+      </div>
       </div>
     </>
   );
