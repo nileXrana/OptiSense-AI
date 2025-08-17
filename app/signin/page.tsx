@@ -46,7 +46,7 @@ const page = () => {
                   <div className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-green-400 rounded-full border border-white animate-pulse"></div>
                 </div>
                 <span className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                  AI Helper
+                  OptiSense AI
                 </span>
               </div>
             </Link>
@@ -65,7 +65,7 @@ const page = () => {
             <BlurFade delay={0.3}>
               <div className="text-center lg:text-left">
                 <h1 className="text-4xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                  Welcome Back to AI Helper
+                  Welcome Back to OptiSense AI
                 </h1>
                 <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
                   Sign in to access your personal AI assistants and continue your productivity journey.
@@ -122,7 +122,7 @@ const page = () => {
                         <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white animate-pulse"></div>
                       </div>
                     </div>
-                    <h2 className="text-2xl font-bold mb-2">Sign In to AI Helper</h2>
+                    <h2 className="text-2xl font-bold mb-2">Sign In to OptiSense AI</h2>
                     <p className="text-gray-600 dark:text-gray-400">Choose your preferred sign-in method</p>
                   </div>
 

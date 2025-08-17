@@ -25,6 +25,16 @@ export default function Home() {
     router.push('/signin')
   }
 
+  const learnMore = () => {
+    const featuresSection = document.getElementById('features-section');
+    if (featuresSection) {
+      featuresSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  }
+
   const assistants = [
     { name: 'Jack', title: 'Fitness Coach', icon: '💪', image: '/fitness-coach.png' },
     { name: 'Emma', title: 'Grammar Fixer', icon: '✍️', image: '/grammer-fixer.jpg' },
@@ -84,7 +94,7 @@ export default function Home() {
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-white animate-pulse"></div>
             </div>
             <span className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-              AI Helper
+              OptiSense AI
             </span>
           </div>
         </BlurFade>
@@ -92,7 +102,7 @@ export default function Home() {
         <BlurFade delay={0.2}>
           <div className="flex items-center gap-4">
             <ModeToggle />
-            <Button onClick={signInPage} className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
+            <Button onClick={signInPage} className="cursor-pointer bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
               Sign In
             </Button>
           </div>
@@ -111,8 +121,8 @@ export default function Home() {
         
         <BlurFade delay={0.5}>
           <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-4xl mx-auto leading-relaxed">
-            Meet your team of specialized AI assistants ready to help with coding, writing, fitness, finance, and more. 
-            Can't find what you need? Create your own custom AI assistant with unique personality and expertise.
+            Meet your team of specialized AI assistants ready to help with coding, writing, fitness, finance, and more.
+            Can't find what you need? <br />Create your own custom AI assistant with unique personality and expertise.
           </p>
         </BlurFade>
 
@@ -121,7 +131,7 @@ export default function Home() {
             <RainbowButton onClick={signInPage} className="px-8 py-4 text-lg">
               🚀 Get Started Free
             </RainbowButton>
-            <Button variant="outline" className="px-8 py-4 text-lg border-2 hover:bg-purple-50 dark:hover:bg-purple-900/20">
+            <Button onClick={learnMore} variant="outline" className="cursor-pointer px-8 py-4 text-lg border-2 hover:bg-purple-50 dark:hover:bg-purple-900/20">
               📖 Learn More
             </Button>
           </div>
@@ -135,8 +145,8 @@ export default function Home() {
               <div className="text-sm text-gray-600 dark:text-gray-400">AI Assistants</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-blue-600">500K</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Tokens Available</div>
+              <div className="text-3xl font-bold text-blue-600">100K</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">Free Tokens</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-indigo-600">24/7</div>
@@ -147,7 +157,7 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="px-6 py-16 max-w-6xl mx-auto">
+      <section id="features-section" className="px-6 py-16 max-w-6xl mx-auto">
         <BlurFade delay={0.2}>
           <h2 className="text-4xl font-bold text-center mb-4">Why Choose Our AI Assistants?</h2>
           <p className="text-gray-600 dark:text-gray-400 text-center mb-12 text-lg">
@@ -181,7 +191,7 @@ export default function Home() {
           {assistants.map((assistant, index) => (
             <BlurFade key={index} delay={0.3 + index * 0.1}>
               <div className="group cursor-pointer">
-                <div className="relative overflow-hidden rounded-2xl bg-gray-300 dark:bg-gray-800/70 backdrop-blur-sm p-4 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-purple-100 dark:border-purple-800">
+                <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-200 to-purple-100 dark:from-gray-800 dark:to-gray-700 shadow-lg shadow-indigo-400 dark:shadow-gray-600 backdrop-blur-sm p-4 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-purple-100 dark:border-purple-800">
                   <div className="aspect-square relative mb-3 overflow-hidden rounded-xl">
                     <Image 
                       src={assistant.image} 
@@ -243,9 +253,9 @@ export default function Home() {
             <BlurFade delay={0.6}>
               <Button 
                 onClick={signInPage}
-                className="bg-white text-purple-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold rounded-xl"
+                className="bg-white text-purple-600 hover:bg-gray-100 cursor-pointer px-8 py-4 text-lg font-semibold rounded-xl"
               >
-                🚀 Start Building Your AI Assistant
+                 Start Building Your AI Assistant
               </Button>
             </BlurFade>
           </div>
@@ -284,7 +294,7 @@ export default function Home() {
                   <p className="mb-6">Join thousands who are already boosting their productivity</p>
                   <Button 
                     onClick={signInPage}
-                    className="bg-white/20 hover:bg-white/30 backdrop-blur-sm border border-white/30"
+                    className="bg-white/20 cursor-pointer hover:bg-white/30 backdrop-blur-sm border border-white/30"
                   >
                     Start Your Journey
                   </Button>
@@ -312,7 +322,7 @@ export default function Home() {
               </RainbowButton>
               <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
                 <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                <span>Join 1000+ satisfied users</span>
+                <span>100+ satisfied users</span>
               </div>
             </div>
           </div>
@@ -345,11 +355,11 @@ export default function Home() {
                 <div className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-green-400 rounded-full border border-white animate-pulse"></div>
               </div>
               <span className="text-lg font-semibold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                AI Helper
+                OptiSense AI
               </span>
             </div>
             <p className="text-gray-600 dark:text-gray-400">
-              © 2025 AI Helper. Your personal AI assistant companions.
+              © 2025 OptiSense AI. Your personal AI Assistant companion.
             </p>
           </div>
         </BlurFade>
