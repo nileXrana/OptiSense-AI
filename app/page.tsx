@@ -230,15 +230,15 @@ export default function Home() {
           {/* Stats */}
           <BlurFade delay={0.9}>
             <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto">
-              <div className="text-center">
+              <div className="text-center scale-125">
                 <div className="text-3xl font-bold text-purple-600">10+</div>
                 <div className="text-sm text-gray-600 dark:text-gray-400">AI Assistants</div>
               </div>
-              <div className="text-center">
+              <div className="text-center scale-125">
                 <div className="text-3xl font-bold text-blue-600">100K</div>
                 <div className="text-sm text-gray-600 dark:text-gray-400">Free Tokens</div>
               </div>
-              <div className="text-center">
+              <div className="text-center scale-125">
                 <div className="text-3xl font-bold text-indigo-600">24/7</div>
                 <div className="text-sm text-gray-600 dark:text-gray-400">Always Available</div>
               </div>
@@ -343,7 +343,7 @@ export default function Home() {
               <BlurFade delay={0.6}>
                 <Button
                   onClick={signInPage}
-                  className="bg-white text-purple-600 hover:bg-gray-100 cursor-pointer px-8 py-4 text-lg font-semibold rounded-xl"
+                  className="bg-white max-sm:w-[100%] max-sm:text-sm text-purple-600 hover:bg-gray-100 cursor-pointer px-8 py-4 text-lg font-semibold rounded-xl"
                 >
                   Start Building Your AI Assistant
                 </Button>
@@ -431,7 +431,7 @@ export default function Home() {
                     Share Your Experience
                   </h3>
                   <p className="text-gray-600 dark:text-gray-400 mb-6">
-                    Help us improve by sharing your feedback
+                    Help us improve by sharing your valuable feedback !
                   </p>
 
                   {/* Rating Stars */}
@@ -487,7 +487,7 @@ export default function Home() {
                   <Button
                     onClick={submitFeedback}
                     disabled={!feedback.trim() || rating === 0 || !userName.trim()}
-                    className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="cursor-pointer bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <Send className="h-4 w-4 mr-2" />
                     Submit Feedback
@@ -497,7 +497,7 @@ export default function Home() {
                 {/* Feedback Display */}
                 <div>
                   <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                    What Users Say
+                    What Users Are Saying
                   </h3>
                   <div className="space-y-4 max-h-80 overflow-y-auto pr-2">
                     {feedbackList.slice(0, 5).map((item) => (

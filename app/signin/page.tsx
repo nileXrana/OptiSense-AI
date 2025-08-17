@@ -1,3 +1,4 @@
+"use client"
 import {
   ClerkProvider,
   SignInButton,
@@ -15,9 +16,30 @@ import { ModeToggle } from '@/components/ui/mode-toggle'
 import { ArrowLeft, CheckCircle } from 'lucide-react'
 import Link from 'next/link'
 
+// Add custom CSS for animations
+const customStyles = `
+  @keyframes heartbeat {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.1); }
+    50% { transform: scale(1.3); }
+    75% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+  .heartbeat {
+    animation: heartbeat 1.2s ease-in-out infinite;
+    display: inline-block;
+  }
+`
+
 const page = () => {
+
+const openLinkedIn = () => {
+    window.open('https://linkedin.com/in/nilexrana', '_blank');
+  }
+
   return (
     <ClerkProvider>
+      <style jsx global>{customStyles}</style>
       <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-purple-900 dark:to-indigo-900">
         {/* Header */}
         <header className="p-6 flex justify-between items-center">
@@ -72,7 +94,7 @@ const page = () => {
                 </p>
                 
                 {/* Benefits */}
-                <div className="space-y-4 mb-8">
+                <div className="max-md:hidden space-y-4 mb-8">
                   <div className="flex items-center gap-3 justify-center lg:justify-start">
                     <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
                     <span className="text-gray-700 dark:text-gray-300">Access 10+ specialized AI assistants</span>
@@ -96,7 +118,7 @@ const page = () => {
             {/* Right Side - Sign In Card */}
             <BlurFade delay={0.5}>
               <div className="w-full max-w-md mx-auto">
-                <div className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-purple-100 dark:border-purple-800">
+                <div className=" bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-purple-100 dark:border-purple-800">
                   
                   {/* Logo and Title */}
                   <div className="text-center mb-8">
@@ -172,13 +194,29 @@ const page = () => {
 
                   {/* Security Note */}
                   <div className="mt-6 p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl border border-indigo-100 dark:border-indigo-800">
-                    <p className="text-sm text-indigo-700 dark:text-indigo-300 text-center">
+                    <p className="text-sm text-indigo-700 dark:text-indigo-300">
                       🔒 Your data is secure and encrypted. We never store your personal conversations.
                     </p>
                   </div>
                 </div>
               </div>
             </BlurFade>
+          </div>
+        </div>
+
+        <div className="fixed bottom-0 left-0 right-0 bg-slate-800 dark:bg-gray-900/95 backdrop-blur-md border-t border-purple-200 dark:border-purple-700 py-3 z-50 shadow-lg">
+          <div className="text-center">
+            <p className="text-sm text-gray-300 dark:text-gray-300">
+              Made with{' '}
+              <span className="heartbeat text-red-600 dark:text-red-400" style={{ fontSize: '16px' }}>❤️</span>
+              {' '}by{' '}
+              <button
+                onClick={openLinkedIn}
+                className="hover:scale-110 underline underline-offset-2 dark:text-purple-400 hover:text-blue-500 dark:hover:text-purple-300 font-semibold decoration-2 transition-all duration-200 cursor-pointer dark:hover:decoration-purple-300"
+              >
+                nileXrana
+              </button>
+            </p>
           </div>
         </div>
 
