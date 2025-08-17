@@ -36,3 +36,13 @@ model userAiAssistants {
   sampleQuestions  String[]
   uid              String
 }
+
+model feedback {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  no        Int
+  name      String
+  feedback  String
+  rating    Int
+  avatar    String
+  createdAt DateTime @default(now())
+}

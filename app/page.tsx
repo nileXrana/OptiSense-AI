@@ -38,11 +38,27 @@ export default function Home() {
   const [hoveredRating, setHoveredRating] = useState(0);
   const [userName, setUserName] = useState('');
   const [feedbackList, setFeedbackList] = useState([
-    { id: 1, name: "Sarah M.", feedback: "Amazing AI assistants! The custom creation feature is fantastic.", rating: 5, avatar: "SM" },
-    { id: 2, name: "Alex J.", feedback: "Great productivity boost. Love the variety of specialized assistants.", rating: 5, avatar: "AJ" },
-    { id: 3, name: "Emily R.", feedback: "Easy to use and very helpful for my daily tasks.", rating: 4, avatar: "ER" },
-    { id: 4, name: "Michael K.", feedback: "The coding assistant saved me hours of work!", rating: 5, avatar: "MK" },
-    { id: 5, name: "Lisa T.", feedback: "Excellent platform with intuitive design.", rating: 4, avatar: "LT" }
+    {
+      no: 1,
+      name: 'Nilex Rana',
+      feedback: 'This AI assistant is amazing! It has helped me with my coding tasks and writing emails efficiently.',
+      rating: 5,
+      avatar: 'NR'
+    },
+    {
+      no: 2,
+      name: 'John Doe',
+      feedback: 'I love the custom AI feature. I created my own assistant for fitness coaching and it works great!',
+      rating: 4,
+      avatar: 'JD'
+    },
+    {
+      no: 3,
+      name: 'Jane Smith',
+      feedback: 'The assistants are very helpful, especially for writing YouTube scripts. Highly recommend!',
+      rating: 5,
+      avatar: 'JS'
+    }
   ]);
 
   const signInPage = () => {
@@ -63,19 +79,36 @@ export default function Home() {
     window.open('https://linkedin.com/in/nilexrana', '_blank');
   }
 
-  const submitFeedback = () => {
+  const submitFeedback = async() => {
     if (feedback.trim() && rating > 0 && userName.trim()) {
       const getInitials = (name: string) => {
         return name.split(' ').map((word: string) => word[0]).join('').toUpperCase().slice(0, 2);
       };
       
       const newFeedback = {
-        id: feedbackList.length + 1,
+        no: feedbackList.length + 1,
         name: userName.trim(),
         feedback: feedback.trim(),
         rating: rating,
         avatar: getInitials(userName.trim())
       };
+
+      // add newFeedback to database :
+      const result = await fetch('/api/feedback', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newFeedback),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log('Success:', data);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+
       setFeedbackList([newFeedback, ...feedbackList]);
       setFeedback('');
       setRating(0);
@@ -381,7 +414,7 @@ export default function Home() {
       {/* Feedback Section */}
       <section className="px-6 py-12 max-w-6xl mx-auto">
         <BlurFade delay={0.2}>
-          <div className="bg-gradient-to-r from-purple-50 to-blue-50 dark:from-gray-800 dark:to-gray-700 rounded-3xl p-8 border border-purple-100 dark:border-purple-800">
+          <div className="bg-gradient-to-r from-blue-100 to-purple-200 dark:from-gray-800 dark:to-gray-700 rounded-3xl p-8 border border-purple-100 dark:border-purple-800">
             <div className="grid lg:grid-cols-2 gap-8">
               
               {/* Feedback Form */}
