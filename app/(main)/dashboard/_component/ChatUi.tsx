@@ -140,8 +140,8 @@ const ChatUi = () => {
                     <div ref={messagesEndRef} />
                 </div>
             }
-            <div className='flex justify-between py-5 gap-5 absolute bottom-2 left-10 w-[90%]'>
-                <Input value={input} placeholder='Start Typing Here.....' className='border-2 border-black bg-white'
+            <div className='flex justify-between py-4 gap-5 absolute bottom-0 left-10 w-[90%]'>
+                <Input value={input} placeholder='Start Typing Here...' className='border-2 border-black bg-white'
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={(e) => {
                         if (e.key === "Enter") {

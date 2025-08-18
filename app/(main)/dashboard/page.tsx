@@ -12,7 +12,7 @@ const page = () => {
       {/* Header */}
       <header className="p-3 flex justify-between items-center border-b border-purple-100 dark:border-purple-800 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm">
         <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 ml-3">
             <div className="relative">
               {/* AI Assistant Robot Head */}
               <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg shadow-lg">
@@ -41,16 +41,18 @@ const page = () => {
           </div>
         </Link>
         
-        <div className="flex items-center gap-4">
+        <div className="flex items-center mr-3 gap-5">
           <ModeToggle />
-          <UserButton 
+          <div className='scale-110 transform hover:scale-120 flex items-center'>
+          <UserButton
             afterSignOutUrl="/"
             appearance={{
               elements: {
-                avatarBox: "w-10 h-10"
+                avatarBox: "w-15 h-15"
               }
             }}
           />
+          </div>
         </div>
       </header>
 

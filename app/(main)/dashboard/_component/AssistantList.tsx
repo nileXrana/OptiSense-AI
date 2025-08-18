@@ -109,11 +109,18 @@ const AssistantList = () => {
   // All useState and useContext :
   const [progress, setprogress] = useState(0)
   const [myAssistants, setmyAssistants] = useState([])
+  const [searchTerm, setSearchTerm] = useState('')
   const { selectedAssistant, setselectedAssistant } = useContext<any>(AssistantContext)
   const [USER, setUSER] = useState<any>() // user details from backend :
 
+  // Filter assistants based on search term
+  const filteredAssistants = myAssistants.filter((assistant: ASSISTANT) =>
+    assistant.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    assistant.title.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+
   return (
-    <div className='p-3 bg-secondary h-screen relative'>
+    <div className='p-3 bg-secondary h-screen'>
       <BlurFade duration={0.4}>
         <h1 className='font-bold text-md text-center'>
           Your Personal AI Assistants
@@ -127,33 +134,51 @@ const AssistantList = () => {
         </AddNewAssistant>
       </BlurFade>
       <BlurFade duration={1.2}>
-        <Input className='bg-white mt-3 mb-3' placeholder='Search' />
+        <Input 
+          className='bg-white mt-3 mb-3 text-center' 
+          placeholder='Search Assistants' 
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
       </BlurFade>
       <div className='overflow-scroll h-[60%]'>
-        {myAssistants.map((assistant: ASSISTANT, index) => (
-          <BlurFade key={index} duration={0.3 * index}>
-            <div key={index} className={`p-2 flex gap-3 items-center hover:bg-gray-300 hover:dark:bg-slate-700 cursor-pointer rounded-xl ${assistant.name == selectedAssistant?.name && 'bg-purple-300 hover:bg-purple-300'} `} onClick={() => { setselectedAssistant(assistant) }}>
-              <Image src={assistant.image} alt={assistant.name} width={60} height={60}
-                className='rounded-xl w-[60px] h-[60px] object-cover'>
-              </Image>
-              <div>
-                <h1 className='text-md font-bold'>{assistant.name}</h1>
-                <h1 className='text-sm text-gray-600 dark:text-gray-300'>{assistant.title}</h1>
+        {filteredAssistants.length > 0 ? (
+          filteredAssistants.map((assistant: ASSISTANT, index) => (
+            <BlurFade key={index} duration={0.3 * index}>
+              <div key={index} className={`p-2 flex gap-3 items-center hover:bg-gray-300 hover:dark:bg-slate-700 cursor-pointer rounded-xl ${assistant.name == selectedAssistant?.name && 'bg-purple-300 hover:bg-purple-300'} `} onClick={() => { setselectedAssistant(assistant) }}>
+                <Image src={assistant.image} alt={assistant.name} width={60} height={60}
+                  className='rounded-xl w-[60px] h-[60px] object-cover'>
+                </Image>
+                <div>
+                  <h1 className='text-md font-bold'>{assistant.name}</h1>
+                  <h1 className='text-sm text-gray-600 dark:text-gray-300'>{assistant.title}</h1>
+                </div>
               </div>
-            </div>
-          </BlurFade>
-        ))}
+            </BlurFade>
+          ))
+        ) : (
+          <div className='p-4 text-center text-gray-500 dark:text-gray-400'>
+            {searchTerm ? (
+              <>
+                <p>No assistants found for "{searchTerm}"</p>
+                <p className='text-sm mt-1'>Try a different search term</p>
+              </>
+            ) : (
+              <p>No assistants available</p>
+            )}
+          </div>
+        )}
       </div>
 
       <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
         <DropdownMenuTrigger>
-          <div className='absolute bottom-22 left-2 flex gap-3 items-center bg-gray-300 px-3 py-2 rounded-2xl w-[92%] cursor-pointer hover:bg-gray-400'>
+          <div style={{ width: 'calc(100vw / 5)' }} className='fixed bottom-3 left-0 scale-90 flex gap-3 items-center bg-gray-300 px-3 py-2  rounded-2xl w-[92%] cursor-pointer hover:bg-gray-400'>
             <UserButton afterSignOutUrl="/signin" />
             <div className='text-[14px]'>
               <p className='font-bold'>
                 {USER?.name}
               </p>
-              <p className='text-gray-600 hover:text-pink-800 cursor-pointer'>
+              <p className='text-gray-600 font-bold hover:text-pink-800 cursor-pointer'>
                 {USER?.orderId ? "Pro Plan" : "Free Plan"}
               </p>
             </div>

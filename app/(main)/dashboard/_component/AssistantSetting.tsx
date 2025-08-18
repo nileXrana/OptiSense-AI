@@ -106,7 +106,7 @@ const AssistantSetting = () => {
         <Textarea placeholder='Add Instruction' value={text} className='text-gray-600 h-[280px] bg-white' onChange={(e) => handleChange(e.target.value)} />
       </div>
       </BlurFade>
-      <div className='w-full absolute bottom-25 flex gap-10 justify-center items-center'>
+      <div style={{ width: 'calc(100vw / 5)' }} className=' fixed bottom-3 flex gap-10 items-center justify-center-safe right-0 scale-90 px-3 py-2 w-[92%]'>
         <ConfirmationAlert onDelete={onDelete}>
           <div className='flex text-sm scale-114 mt-1 cursor-pointer'>
             <Trash />
