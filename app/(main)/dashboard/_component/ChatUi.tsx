@@ -140,7 +140,7 @@ const ChatUi = () => {
                     <div ref={messagesEndRef} />
                 </div>
             }
-            <div style={{width: 'calc(100vw/5*3)', left: 'calc(100vw/5'}} className='flex justify-between gap-5 fixed bottom-6 scale-90'>
+            <div className='flex justify-between gap-5 fixed bottom-6 left-4 right-4 scale-90 lg:left-[calc(20%+1rem)] lg:right-[calc(20%+1rem)] md:left-[calc(25%+1rem)] md:right-4'>
                 <Input value={input} placeholder='Start Typing Here...' className='border-2 border-black dark:border-gray-600 bg-white dark:bg-gray-800 dark:text-white dark:placeholder-gray-400'
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={(e) => {

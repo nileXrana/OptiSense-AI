@@ -71,7 +71,7 @@ const AssistantSetting = () => {
   }
 
   return selectedAssistant && (
-    <div className='p-3 dark:bg-gray-900 bg-zinc-200 h-screen relative '>
+    <div className='p-3 dark:bg-gray-900 bg-zinc-200 h-screen w-full relative'>
       <BlurFade duration={0.4}>
       <h1 className='font-bold text-xl pl-1 dark:text-gray-200'>Setting</h1>
       </BlurFade>
@@ -106,13 +106,24 @@ const AssistantSetting = () => {
         <Textarea placeholder='Add Instruction' value={text} className='text-gray-600 dark:text-gray-200 h-[280px] bg-white' onChange={(e) => handleChange(e.target.value)} />
       </div>
       </BlurFade>
-      <div style={{ width: 'calc(100vw / 5)' }} className=' fixed bottom-3 flex gap-10 items-center justify-center-safe right-0 scale-90 px-3 py-2 w-[92%]'>
+      
+      {/* Spacer to prevent content from being hidden behind buttons */}
+      <div className='h-20'></div>
+      
+      {/* Background overlay to prevent white space at bottom */}
+      <div className='fixed bottom-0 left-0 right-0 h-20 bg-zinc-200 dark:bg-gray-900 lg:w-[20%] lg:right-auto pointer-events-none z-0'></div>
+      
+      {/* Delete and Save buttons */}
+      <div className='fixed bottom-3 left-3 right-3 flex gap-4 items-center justify-center px-3 py-2 z-10 lg:left-0 lg:right-auto lg:w-[calc(20%-0.75rem)]'>
         <ConfirmationAlert onDelete={onDelete}>
-          <div className='flex text-sm scale-114 mt-1 cursor-pointer'>
-            <Trash />
+          <div className='flex items-center justify-center w-10 h-10 bg-red-500 hover:bg-red-600 text-white rounded-lg cursor-pointer transition-colors'>
+            <Trash size={16} />
           </div>
         </ConfirmationAlert>
-        <Button disabled={loading} onClick={saveIt} className='cursor-pointer'> {loading ? <Loader2Icon className='animate-spin' /> : <Save />}  Save</Button>
+        <Button disabled={loading} onClick={saveIt} className='flex-1 cursor-pointer gap-2'> 
+          {loading ? <Loader2Icon className='animate-spin' size={16} /> : <Save size={16} />}  
+          Save
+        </Button>
       </div>
     </div>
   )

@@ -31,8 +31,12 @@ import {
 import { Progress } from '@/components/ui/progress'
 import { useRouter } from "next/navigation";
 
+interface AssistantListProps {
+  preloadedAssistants?: ASSISTANT[]
+  onMobileClose?: () => void
+}
 
-const AssistantList = () => {
+const AssistantList = ({ preloadedAssistants = [], onMobileClose }: AssistantListProps) => {
 
   const { user, isSignedIn } = useUser()
   const { signOut } = useClerk();
@@ -43,17 +47,26 @@ const AssistantList = () => {
   const [refresh, setrefresh] = useState(false)
 
   useEffect(() => {
-    const fun = async () => {
-      const res = await fetch("/api/is-selected", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-      });
-      const result = await res.json();
-      setmyAssistants(result)
-      setselectedAssistant(result[0])
+    if (preloadedAssistants.length > 0) {
+      // Use preloaded assistants if available
+      setmyAssistants(preloadedAssistants)
+      if (!selectedAssistant) {
+        setselectedAssistant(preloadedAssistants[0])
+      }
+    } else {
+      // Fallback to API call if no preloaded data
+      const fun = async () => {
+        const res = await fetch("/api/is-selected", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+        });
+        const result = await res.json();
+        setmyAssistants(result)
+        setselectedAssistant(result[0])
+      }
+      fun();
     }
-    fun();
-  }, [])
+  }, [preloadedAssistants])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -106,9 +119,18 @@ const AssistantList = () => {
       router.push("/")
     }
 
+  // Handle assistant selection - close mobile overlay if on mobile
+  const handleAssistantSelection = (assistant: ASSISTANT) => {
+    setselectedAssistant(assistant)
+    // Close mobile overlay if callback is provided (mobile only)
+    if (onMobileClose) {
+      onMobileClose()
+    }
+  }
+
   // All useState and useContext :
   const [progress, setprogress] = useState(0)
-  const [myAssistants, setmyAssistants] = useState([])
+  const [myAssistants, setmyAssistants] = useState<ASSISTANT[]>([])
   const [searchTerm, setSearchTerm] = useState('')
   const { selectedAssistant, setselectedAssistant } = useContext<any>(AssistantContext)
   const [USER, setUSER] = useState<any>() // user details from backend :
@@ -120,7 +142,7 @@ const AssistantList = () => {
   )
 
   return (
-    <div className='p-3 bg-zinc-200 dark:bg-gray-900 h-screen'>
+    <div className='p-3 bg-zinc-200 dark:bg-gray-900 h-screen w-full relative'>
       <BlurFade duration={0.4}>
         <h1 className='font-bold text-md text-center dark:text-gray-100'>
           Your Personal AI Assistants
@@ -141,11 +163,11 @@ const AssistantList = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </BlurFade>
-      <div className='overflow-scroll h-[60%]'>
+      <div className='overflow-scroll h-[60vh] '>
         {filteredAssistants.length > 0 ? (
           filteredAssistants.map((assistant: ASSISTANT, index) => (
             <BlurFade key={index} duration={0.3 * index}>
-              <div key={index} className={`p-2 flex gap-3 items-center hover:bg-gray-300 dark:hover:bg-slate-700 cursor-pointer rounded-xl ${assistant.name == selectedAssistant?.name && 'bg-purple-400 dark:bg-purple-600 hover:!bg-purple-400 dark:hover:!bg-purple-500'} `} onClick={() => { setselectedAssistant(assistant) }}>
+              <div key={index} className={`p-2 flex gap-3 items-center hover:bg-gray-300 dark:hover:bg-slate-700 cursor-pointer rounded-xl ${assistant.name == selectedAssistant?.name && 'bg-purple-400 dark:bg-purple-600 hover:!bg-purple-400 dark:hover:!bg-purple-500'} `} onClick={() => handleAssistantSelection(assistant)}>
                 <Image src={assistant.image} alt={assistant.name} width={60} height={60}
                   className='rounded-xl w-[60px] h-[60px] object-cover'>
                 </Image>
@@ -170,9 +192,12 @@ const AssistantList = () => {
         )}
       </div>
 
+      {/* Background overlay to prevent white space at bottom */}
+      <div className='fixed bottom-0 left-0 right-0 h-20 bg-zinc-200 dark:bg-gray-900 lg:w-[20%] pointer-events-none'></div>
+
       <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
         <DropdownMenuTrigger>
-          <div style={{ width: 'calc(100vw / 5)' }} className='fixed bottom-3 left-0 scale-90 flex gap-3 items-center bg-gray-300 dark:bg-gray-700 px-3 py-2  rounded-2xl w-[92%] cursor-pointer hover:bg-gray-400 dark:hover:bg-gray-600'>
+          <div className='fixed bottom-3 left-3 right-3 flex gap-3 items-center bg-gray-300 dark:bg-gray-700 px-3 py-2 rounded-2xl cursor-pointer hover:bg-gray-400 dark:hover:bg-gray-600 lg:left-0 lg:right-auto lg:w-[calc(20%-0.75rem)] max-sm:w-[280px]'>
             <UserButton afterSignOutUrl="/signin" />
             <div className='text-[14px]'>
               <p className='font-bold dark:text-gray-100'>
