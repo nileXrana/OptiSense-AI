@@ -120,14 +120,14 @@ const AssistantList = () => {
   )
 
   return (
-    <div className='p-3 bg-secondary h-screen'>
+    <div className='p-3 bg-zinc-200 dark:bg-gray-900 h-screen'>
       <BlurFade duration={0.4}>
-        <h1 className='font-bold text-md text-center'>
+        <h1 className='font-bold text-md text-center dark:text-gray-100'>
           Your Personal AI Assistants
         </h1>
       </BlurFade>
       <BlurFade duration={0.8}>
-        <AddNewAssistant >
+        <AddNewAssistant>
           <Button className='w-full mt-3 cursor-pointer'>
             Add New Assistant
           </Button>
@@ -135,7 +135,7 @@ const AssistantList = () => {
       </BlurFade>
       <BlurFade duration={1.2}>
         <Input 
-          className='bg-white mt-3 mb-3 text-center' 
+          className='bg-white dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 mt-3 mb-3 text-center' 
           placeholder='Search Assistants' 
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
@@ -145,12 +145,12 @@ const AssistantList = () => {
         {filteredAssistants.length > 0 ? (
           filteredAssistants.map((assistant: ASSISTANT, index) => (
             <BlurFade key={index} duration={0.3 * index}>
-              <div key={index} className={`p-2 flex gap-3 items-center hover:bg-gray-300 hover:dark:bg-slate-700 cursor-pointer rounded-xl ${assistant.name == selectedAssistant?.name && 'bg-purple-300 hover:bg-purple-300'} `} onClick={() => { setselectedAssistant(assistant) }}>
+              <div key={index} className={`p-2 flex gap-3 items-center hover:bg-gray-300 dark:hover:bg-slate-700 cursor-pointer rounded-xl ${assistant.name == selectedAssistant?.name && 'bg-purple-400 dark:bg-purple-600 hover:!bg-purple-400 dark:hover:!bg-purple-500'} `} onClick={() => { setselectedAssistant(assistant) }}>
                 <Image src={assistant.image} alt={assistant.name} width={60} height={60}
                   className='rounded-xl w-[60px] h-[60px] object-cover'>
                 </Image>
                 <div>
-                  <h1 className='text-md font-bold'>{assistant.name}</h1>
+                  <h1 className='text-md font-bold dark:text-gray-100'>{assistant.name}</h1>
                   <h1 className='text-sm text-gray-600 dark:text-gray-300'>{assistant.title}</h1>
                 </div>
               </div>
@@ -172,13 +172,13 @@ const AssistantList = () => {
 
       <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
         <DropdownMenuTrigger>
-          <div style={{ width: 'calc(100vw / 5)' }} className='fixed bottom-3 left-0 scale-90 flex gap-3 items-center bg-gray-300 px-3 py-2  rounded-2xl w-[92%] cursor-pointer hover:bg-gray-400'>
+          <div style={{ width: 'calc(100vw / 5)' }} className='fixed bottom-3 left-0 scale-90 flex gap-3 items-center bg-gray-300 dark:bg-gray-700 px-3 py-2  rounded-2xl w-[92%] cursor-pointer hover:bg-gray-400 dark:hover:bg-gray-600'>
             <UserButton afterSignOutUrl="/signin" />
             <div className='text-[14px]'>
-              <p className='font-bold'>
+              <p className='font-bold dark:text-gray-100'>
                 {USER?.name}
               </p>
-              <p className='text-gray-600 font-bold hover:text-pink-800 cursor-pointer'>
+              <p className='text-gray-600 dark:text-gray-300 font-bold hover:text-pink-800 dark:hover:text-pink-400 cursor-pointer'>
                 {USER?.orderId ? "Pro Plan" : "Free Plan"}
               </p>
             </div>
@@ -219,24 +219,24 @@ const AssistantList = () => {
                 />
               )}
               <div className="text-left">
-                <h2 className="font-semibold text-lg">{user?.fullName || 'User'}</h2>
-                <p className="text-gray-600 text-sm">{user?.primaryEmailAddress?.emailAddress || 'No email'}</p>
+                <h2 className="font-semibold text-lg dark:text-gray-100">{user?.fullName || 'User'}</h2>
+                <p className="text-gray-600 dark:text-gray-400 text-sm">{user?.primaryEmailAddress?.emailAddress || 'No email'}</p>
               </div>
             </div>
             <hr className='my-3'></hr>
             <div className='p-2 flex flex-col gap-2'>
-              <h3 className='font-bold'>Token Usage</h3>
+              <h3 className='font-bold dark:text-gray-100'>Token Usage</h3>
               <Progress value={progress} />
-              <span className='bg-gray-200 rounded-sm p-2'>{USER?.tokenUsed}/{USER?.credits}</span>
-              <p className='flex p-1 items-center justify-between font-bold'>Current Plan <span className='bg-gray-200 p-2 text-sm rounded-md'>{USER?.orderId ? "Pro Plan" : "Free Plan"}</span></p>
+              <span className='bg-gray-200 dark:bg-gray-700 dark:text-gray-100 rounded-sm p-2'>{USER?.tokenUsed}/{USER?.credits}</span>
+              <p className='flex p-1 items-center justify-between font-bold dark:text-gray-100'>Current Plan <span className='bg-gray-200 dark:bg-gray-700 dark:text-gray-100 p-2 text-sm rounded-md'>{USER?.orderId ? "Pro Plan" : "Free Plan"}</span></p>
             </div>
-            <div className='p-4 border rounded-xl'>
+            <div className='p-4 border dark:border-gray-600 rounded-xl'>
               <div className='flex justify-between items-center  gap-1'>
                 <div className='flex flex-col gap-1'>
-                  <h2 className='font-bold text-lg'>Pro Plan</h2>
-                  <h2>5,00000 Tokens</h2>
+                  <h2 className='font-bold text-lg dark:text-gray-100'>Pro Plan</h2>
+                  <h2 className='dark:text-gray-300'>5,00000 Tokens</h2>
                 </div>
-                <h2 className='font-bold text-lg flex'>&#8377;10</h2>
+                <h2 className='font-bold text-lg flex dark:text-gray-100'>&#8377;10</h2>
               </div>
                 <hr className='my-3' />
                 <CheckoutButton setrefresh={setrefresh} amount={10} /> {/* ₹10 payment */}

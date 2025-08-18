@@ -19,7 +19,7 @@ const ChatUi = () => {
     const [input, setInput] = useState<string>("")
     const [messages, setMessages] = useState<{ role: string; text: string }[]>([]);
     const { selectedModel } = useModel();
-    const [showEmptyChatState, setshowEmptyChatState] = useState(true)
+    const [ showEmptyChatState, setshowEmptyChatState] = useState(true)
     const { selectedAssistant, setselectedAssistant } = useContext<any>(AssistantContext)
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const [isLoading, setisLoading] = useState(false)
@@ -116,7 +116,7 @@ const ChatUi = () => {
     
 
     return (
-        <div className={showEmptyChatState ? "p-20 relative h-[90vh] border-2 " : "p-3 pl-0 relative h-[90vh] border-2 bg-[url('/wall26.png')] bg-cover bg-center"}>
+        <div className={showEmptyChatState ? "p-20 relative h-[91vh] border-2 " : "p-3 pl-0 relative h-[91vh] border-2 bg-[url('/wall40.png')] dark:bg-[url('/wall5.jpg')] bg-cover bg-center"}>
             {showEmptyChatState ? <EmptyChatState input={input} setInput={setInput} onSendMessage={onSendMessage}/> :
                 <div className='h-[88%] overflow-auto p-2'>
                     {messages.map((msg, idx) => (
@@ -126,7 +126,7 @@ const ChatUi = () => {
                             {/* <span className='w-10 h-10'> */}
                             {msg.role === "ai" && <Image className=' object-cover rounded-full' src={selectedAssistant.image} alt='assist' width={30} height={30} />}
                             {/* </span> */}
-                            <span className={msg.role === "user" ? "bg-green-50 inline-block p-2 px-3 rounded-lg min-w-[50px] text-left shadow-black shadow-xs" : "bg-sky-50 inline-block p-2 px-3 rounded-lg min-w-[50px] text-left shadow-md shadow-black"}>
+                            <span className={msg.role === "user" ? "bg-green-200 dark:bg-green-800 dark:text-green-100 inline-block p-2 px-3 rounded-lg min-w-[50px] text-left shadow-black shadow-xs" : "bg-sky-200 dark:bg-blue-500 dark:text-blue-100 inline-block p-2 px-3 rounded-lg min-w-[50px] text-left shadow-md shadow-black"}>
                                 <ReactMarkdown>{msg.text}</ReactMarkdown>
 
                             </span>
@@ -134,14 +134,14 @@ const ChatUi = () => {
                     ))}
                     {isLoading && 
                         <div className='ml-3'>
-                            <Loader2 className="mr-2 h-7 w-7 animate-spin" />
+                            <Loader2 className="mr-2 h-7 w-7 animate-spin text-gray-600 dark:text-gray-300" />
                         </div>
                     }
                     <div ref={messagesEndRef} />
                 </div>
             }
-            <div className='flex justify-between py-4 gap-5 absolute bottom-0 left-10 w-[90%]'>
-                <Input value={input} placeholder='Start Typing Here...' className='border-2 border-black bg-white'
+            <div className='flex justify-between py-4 gap-5 absolute bottom-1 left-10 w-[90%]'>
+                <Input value={input} placeholder='Start Typing Here...' className='border-2 border-black dark:border-gray-600 bg-white dark:bg-gray-800 dark:text-white dark:placeholder-gray-400'
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={(e) => {
                         if (e.key === "Enter") {

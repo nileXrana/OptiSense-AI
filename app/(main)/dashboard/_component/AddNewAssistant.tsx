@@ -79,7 +79,7 @@ const AddNewAssistant = ({ children}: any) => {
                 <DialogHeader>
                     <DialogTitle>Add New Assistant</DialogTitle>
                     <DialogDescription asChild>
-                        <div className='grid grid-cols-3 mt-5'>
+                        <div className='grid grid-cols-3 mt-5 '>
                             <div className='border-r-2'>
                                 <Button variant={'secondary'} size={'sm'} className='w-full mb-2 cursor-pointer hover:scale-108'
                                 onClick={()=> setselectedAssistant(DEFAULT_ASSISTANT)}>+ Create New Assistant</Button>
