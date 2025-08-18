@@ -116,7 +116,7 @@ const ChatUi = () => {
     
 
     return (
-        <div className={showEmptyChatState ? "p-20 relative h-[90vh] border-2 bg" : "p-3 pl-0 relative h-[90vh] border-2 bg-[url('/wall15.avif')] bg-cover bg-center"}>
+        <div className={showEmptyChatState ? "p-20 relative h-[90vh] border-2 " : "p-3 pl-0 relative h-[90vh] border-2 bg-[url('/wall26.png')] bg-cover bg-center"}>
             {showEmptyChatState ? <EmptyChatState input={input} setInput={setInput} onSendMessage={onSendMessage}/> :
                 <div className='h-[88%] overflow-auto p-2'>
                     {messages.map((msg, idx) => (
@@ -126,7 +126,7 @@ const ChatUi = () => {
                             {/* <span className='w-10 h-10'> */}
                             {msg.role === "ai" && <Image className=' object-cover rounded-full' src={selectedAssistant.image} alt='assist' width={30} height={30} />}
                             {/* </span> */}
-                            <span className={msg.role === "user" ? "bg-green-100 inline-block p-2 px-3 rounded-lg min-w-[50px] text-left shadow-black shadow-xs" : "bg-sky-100 nline-block p-2 px-3 rounded-lg min-w-[50px] text-left shadow-md shadow-black"}>
+                            <span className={msg.role === "user" ? "bg-green-50 inline-block p-2 px-3 rounded-lg min-w-[50px] text-left shadow-black shadow-xs" : "bg-sky-50 inline-block p-2 px-3 rounded-lg min-w-[50px] text-left shadow-md shadow-black"}>
                                 <ReactMarkdown>{msg.text}</ReactMarkdown>
 
                             </span>

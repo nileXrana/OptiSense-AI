@@ -71,7 +71,7 @@ const AssistantSetting = () => {
   }
 
   return selectedAssistant && (
-    <div className='p-3 bg-secondary h-screen relative'>
+    <div className='p-3 bg-secondary h-screen relative '>
       <BlurFade duration={0.4}>
       <h1 className='font-bold text-xl'>Settings</h1>
       </BlurFade>

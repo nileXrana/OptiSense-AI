@@ -174,7 +174,7 @@ const openLinkedIn = () => {
                     
                     <SignedIn>
                       <div className="text-center">
-                        <p className="text-green-600 dark:text-green-400 mb-4 font-medium">✅ You're signed in!</p>
+                        <p className="text-green-600 dark:text-green-400 mb-4 font-medium">✅ You're Signed In!</p>
                         <UserButton 
                           afterSignOutUrl="/"
                           appearance={{
