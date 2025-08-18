@@ -7,14 +7,12 @@ import { useRouter } from 'next/navigation'
 const userLogger = () => {
   const router = useRouter()
   const { user, isSignedIn } = useUser()
-  const {User,setUser} = useContext(UserContext);
+  const { User, setUser } = useContext(UserContext);
   useEffect(() => {
-    if (isSignedIn && user){
-      // redirect to ai-assistants page :
-      router.push('/ai-assistants')
-      // send user details to backend :
-      const fetchData = async ()=>{
-        const res =  await fetch('/api/save-user', {
+    if (isSignedIn && user) {
+      const getUserAssistants = async () => {
+        // send user details to backend :
+        const res = await fetch('/api/save-user', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -24,13 +22,28 @@ const userLogger = () => {
             picture: user.imageUrl
           })
         })
-        const result = await res.json();
-        setUser(result) // user details is saved in state :
+        const resu = await res.json();
+        setUser(resu) // user details is saved in state :
+
+        // check if user has selected assistants or not :
+        const result = await fetch("/api/is-selected", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+        })
+        const data = await result.json()
+        if (data.length > 0) {
+          router.push('/dashboard')
+        } else {
+          router.push('/ai-assistants')
+        }
       }
-      fetchData();
+
+      getUserAssistants();
     }
-  }, [user,isSignedIn])
-  
+  }, [user, isSignedIn])
+
   return (
     <div></div>
   )

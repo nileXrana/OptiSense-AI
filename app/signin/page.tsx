@@ -15,6 +15,7 @@ import { Button } from '@/components/ui/button'
 import { ModeToggle } from '@/components/ui/mode-toggle'
 import { CheckCircle } from 'lucide-react'
 import Link from 'next/link'
+import { Loader2Icon } from 'lucide-react'
 
 // Add custom CSS for animations
 const customStyles = `
@@ -46,6 +47,7 @@ const openLinkedIn = () => {
           <BlurFade delay={0.1}>
             <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
               
+
               <div className="flex items-center gap-3">
                 <div className="relative">
                   {/* AI Assistant Robot Head */}
@@ -153,7 +155,7 @@ const openLinkedIn = () => {
                     <SignedOut>
                       <div className="space-y-3">
                         <SignInButton mode="modal">
-                          <Button className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white py-3 text-lg font-semibold rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl">
+                          <Button className="cursor-pointer w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white py-3 text-lg font-semibold rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl">
                             Sign In
                           </Button>
                         </SignInButton>
@@ -163,7 +165,7 @@ const openLinkedIn = () => {
                         </div>
                         
                         <SignUpButton mode="modal">
-                          <Button variant="outline" className="w-full border-2 border-indigo-200 dark:border-indigo-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 py-3 text-lg font-semibold rounded-xl transition-all duration-300">
+                          <Button variant="outline" className="cursor-pointer w-full border-2 border-indigo-200 dark:border-indigo-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 py-3 text-lg font-semibold rounded-xl transition-all duration-300">
                             Create Account
                           </Button>
                         </SignUpButton>
@@ -182,11 +184,12 @@ const openLinkedIn = () => {
                           }}
                         />
                         <div className="mt-4">
-                          <Link href="/dashboard">
-                            <Button className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white py-3 text-lg font-semibold rounded-xl">
-                              Go to Dashboard
+                         
+                            <Button className="cursor-pointer w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white py-3 text-lg font-semibold rounded-xl">
+                              <Loader2Icon className="animate-spin mr-1 h-5 w-5" />
+                              Loading...
                             </Button>
-                          </Link>
+                          
                         </div>
                       </div>
                     </SignedIn>
