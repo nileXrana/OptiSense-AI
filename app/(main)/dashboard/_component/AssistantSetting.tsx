@@ -111,16 +111,16 @@ const AssistantSetting = () => {
       <div className='h-20'></div>
       
       {/* Background overlay to prevent white space at bottom */}
-      <div className='fixed bottom-0 left-0 right-0 h-20 bg-zinc-200 dark:bg-gray-900 lg:w-[20%] lg:right-auto pointer-events-none z-0'></div>
+      <div className='fixed bottom-0 left-0 right-0 h-20 bg-zinc-200 dark:bg-gray-900 lg:w-[20%] lg:left-auto lg:right-0 pointer-events-none z-0'></div>
       
       {/* Delete and Save buttons */}
-      <div className='fixed bottom-3 left-3 right-3 flex gap-4 items-center justify-center px-3 py-2 z-10 lg:left-0 lg:right-auto lg:w-[calc(20%-0.75rem)]'>
+      <div className='fixed bottom-3 left-3 right-3 flex gap-2 md:gap-3 items-center justify-end px-2 md:px-3 py-2 z-20 lg:left-auto lg:right-3 lg:w-[calc(20%-0.75rem)] md:left-4 md:right-4'>
         <ConfirmationAlert onDelete={onDelete}>
-          <div className='flex items-center justify-center w-10 h-10 bg-red-500 hover:bg-red-600 text-white rounded-lg cursor-pointer transition-colors'>
+          <div className='flex items-center justify-center w-10 h-10 bg-red-500 hover:bg-red-600 text-white rounded-lg cursor-pointer transition-colors flex-shrink-0'>
             <Trash size={16} />
           </div>
         </ConfirmationAlert>
-        <Button disabled={loading} onClick={saveIt} className='flex-1 cursor-pointer gap-2'> 
+        <Button disabled={loading} onClick={saveIt} className='flex-1 max-w-[200px] md:max-w-[160px] cursor-pointer gap-2 text-sm'> 
           {loading ? <Loader2Icon className='animate-spin' size={16} /> : <Save size={16} />}  
           Save
         </Button>

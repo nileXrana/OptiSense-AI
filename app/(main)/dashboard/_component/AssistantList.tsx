@@ -34,9 +34,10 @@ import { useRouter } from "next/navigation";
 interface AssistantListProps {
   preloadedAssistants?: ASSISTANT[]
   onMobileClose?: () => void
+  initialUserData?: any
 }
 
-const AssistantList = ({ preloadedAssistants = [], onMobileClose }: AssistantListProps) => {
+const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserData }: AssistantListProps) => {
 
   const { user, isSignedIn } = useUser()
   const { signOut } = useClerk();
@@ -69,21 +70,26 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose }: AssistantLis
   }, [preloadedAssistants])
 
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch('/api/save-user', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: user?.primaryEmailAddress?.emailAddress,
+    // Use initial user data from parent if available
+    if (initialUserData) {
+      setUSER(initialUserData);
+    } else if (user) {
+      // Fallback to fetch if no initial data
+      const fetchInitialUserData = async () => {
+        const res = await fetch('/api/save-user', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: user?.primaryEmailAddress?.emailAddress,
+          })
         })
-      })
-      const result = await res.json();
-      console.log(result)
-      setUSER(result)
+        const result = await res.json();
+        console.log(result)
+        setUSER(result)
+      }
+      fetchInitialUserData();
     }
-    {user && fetchData()}
-    
-  }, [user])
+  }, [user, initialUserData])
 
   useEffect(() => {
     fetchData()
@@ -193,11 +199,11 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose }: AssistantLis
       </div>
 
       {/* Background overlay to prevent white space at bottom */}
-      <div className='fixed bottom-0 left-0 right-0 h-20 bg-zinc-200 dark:bg-gray-900 lg:w-[20%] pointer-events-none'></div>
+      <div className='fixed bottom-0 left-0 right-0 h-20 bg-zinc-200 dark:bg-gray-900 lg:w-[20%] pointer-events-none z-0'></div>
 
       <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
         <DropdownMenuTrigger>
-          <div className='fixed bottom-3 left-3 right-3 flex gap-3 items-center bg-gray-300 dark:bg-gray-700 px-3 py-2 rounded-2xl cursor-pointer hover:bg-gray-400 dark:hover:bg-gray-600 lg:left-0 lg:right-auto lg:w-[calc(20%-0.75rem)] max-sm:w-[280px]'>
+          <div className='fixed bottom-3 left-3 right-3 flex gap-3 items-center bg-gray-400 dark:bg-gray-700 px-3 py-2 rounded-2xl cursor-pointer hover:bg-gray-500 dark:hover:bg-gray-600 lg:left-[6px] lg:right-auto lg:w-[calc(20%-0.75rem)] md:left-3 md:right-auto md:w-[calc(25%-0.75rem)] max-sm:w-[280px] z-10'>
             <UserButton afterSignOutUrl="/signin" />
             <div className='text-[14px]'>
               <p className='font-bold dark:text-gray-100'>
@@ -209,14 +215,13 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose }: AssistantLis
             </div>
           </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align='start' className='w-[200px] p-1 m-3'>
+        <DropdownMenuContent align='start' className='w-[200px] p-1 m-3 mb-16 md:mb-16 lg:mb-3'>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem className='cursor-pointer' onClick={() => {
             setDropdownOpen(false);
             setTimeout(() => setOpenDialog(true), 100);
             fetchData();
-
           }}> <UserCircle /> Profile</DropdownMenuItem>
           <DropdownMenuItem onClick={signOFF} className='cursor-pointer'> <LogOut /> SignOut</DropdownMenuItem>
         </DropdownMenuContent>

@@ -10,16 +10,27 @@ import { VscSettingsGear } from "react-icons/vsc";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { IoClose } from "react-icons/io5";
 import { AssistantContext } from '@/context/AssistantContext'
+import { useUser } from '@clerk/nextjs'
 
 const page = () => {
 
   const [showSettings, setShowSettings] = useState(false)
   const [showAssistantList, setShowAssistantList] = useState(false)
   const [myAssistants, setMyAssistants] = useState([])
+  const [initialUserData, setInitialUserData] = useState(null)
+  const [mounted, setMounted] = useState(false)
   const { setselectedAssistant } = useContext(AssistantContext)
+  const { user } = useUser()
+
+  // Handle hydration
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Load assistants immediately when dashboard loads
   useEffect(() => {
+    if (!mounted) return
+    
     const loadAssistants = async () => {
       try {
         const res = await fetch("/api/is-selected", {
@@ -36,7 +47,37 @@ const page = () => {
       }
     }
     loadAssistants();
-  }, [])
+  }, [mounted])
+
+  // Load initial user data once when dashboard loads
+  useEffect(() => {
+    if (!mounted || !user?.primaryEmailAddress?.emailAddress) return;
+    
+    const loadInitialUserData = async () => {
+      try {
+        const res = await fetch('/api/save-user', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: user.primaryEmailAddress!.emailAddress,
+          })
+        });
+        const result = await res.json();
+        setInitialUserData(result);
+      } catch (error) {
+        console.error("Error loading initial user data:", error);
+      }
+    }
+    
+    loadInitialUserData();
+  }, [mounted, user])
+
+  // Prevent hydration mismatch by not rendering until mounted
+  if (!mounted) {
+    return <div className="h-screen w-full flex items-center justify-center">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
+    </div>
+  }
 
   return (
     <div className='h-screen w-full fixed'>
@@ -104,7 +145,7 @@ const page = () => {
         {/* Desktop Layout */}
         <div className='hidden lg:grid lg:grid-cols-5 h-full'>
           <div className=''>
-            <AssistantList preloadedAssistants={myAssistants}/>
+            <AssistantList preloadedAssistants={myAssistants} initialUserData={initialUserData}/>
           </div>
           <div className='col-span-3'>
             <ChatUi/>
@@ -117,7 +158,7 @@ const page = () => {
         {/* Tablet Layout */}
         <div className='hidden md:grid lg:hidden md:grid-cols-4 h-full'>
           <div className=''>
-            <AssistantList preloadedAssistants={myAssistants}/>
+            <AssistantList preloadedAssistants={myAssistants} initialUserData={initialUserData}/>
           </div>
           <div className='col-span-3'>
             <ChatUi/>
@@ -144,6 +185,7 @@ const page = () => {
               <div className='h-[calc(100vh-120px)] overflow-hidden'>
                 <AssistantList 
                   preloadedAssistants={myAssistants} 
+                  initialUserData={initialUserData}
                   onMobileClose={() => setShowAssistantList(false)}
                 />
               </div>

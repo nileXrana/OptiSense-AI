@@ -24,6 +24,13 @@ const ChatUi = () => {
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const [isLoading, setisLoading] = useState(false)
     const [tokenExceeded, settokenExceeded] = useState(false)
+    const [mounted, setMounted] = useState(false)
+
+    // Handle hydration
+    useEffect(() => {
+        setMounted(true)
+    }, [])
+
     useEffect(() => { // when suddenly change assistant :
         setshowEmptyChatState(true)
         setMessages([])
@@ -86,6 +93,8 @@ const ChatUi = () => {
     }
 
     useEffect(() => {
+        if (!mounted) return;
+        
         const checkTokenStatus = async () => {
             if (!user?.primaryEmailAddress?.emailAddress) return;
             
@@ -112,24 +121,31 @@ const ChatUi = () => {
         };
 
         checkTokenStatus();
-    }, [user]) // v imp :
+    }, [mounted, user]) // v imp :
     
+    // Prevent hydration mismatch
+    if (!mounted) {
+        return <div className="h-full flex items-center justify-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
+        </div>
+    }
 
     return (
-        <div className={showEmptyChatState ? "p-20 h-full border-2 relative" : "p-3 pl-0 relative h-[91vh] border-2 bg-[url('/wall40.png')] dark:bg-[url('/wall5.jpg')] bg-cover bg-center"}>
+        <div className={showEmptyChatState ? "p-4 pt-16 md:p-20 h-full border-2 relative" : "p-3 pl-0 relative h-[91vh] border-2 bg-[url('/wall40.png')] dark:bg-[url('/wall5.jpg')] bg-cover bg-center"}>
             {showEmptyChatState ? <EmptyChatState input={input} setInput={setInput} onSendMessage={onSendMessage}/> :
-                <div style={{height: 'calc(100%-70px)'}} className='bg-green-200 relative overflow-auto p-2'>
+                <div style={{height: 'calc(100%-70px)'}} className='relative overflow-y-auto overflow-x-hidden p-2 max-h-[calc(100vh-160px)]'>
                     {messages.map((msg, idx) => (
-                        <motion.div key={idx} className={msg.role === "user" ? " text-right m-3" : "text-left flex gap-3 items-start m-3"} initial={{ opacity: 0, y: 20 }}
+                        <motion.div key={idx} className={msg.role === "user" ? "text-right m-3 max-w-full" : "text-left flex gap-3 items-start m-3 max-w-full"} initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.4, delay: 0.1 }}>
                             {/* <span className='w-10 h-10'> */}
-                            {msg.role === "ai" && <Image className=' object-cover rounded-full' src={selectedAssistant.image} alt='assist' width={30} height={30} />}
+                            {msg.role === "ai" && <Image className='object-cover rounded-full flex-shrink-0' src={selectedAssistant.image} alt='assist' width={30} height={30} />}
                             {/* </span> */}
-                            <span className={msg.role === "user" ? "bg-green-200 dark:bg-green-800 dark:text-green-100 inline-block p-2 px-3 rounded-lg min-w-[50px] text-left shadow-black shadow-xs" : "bg-sky-200 dark:bg-blue-500 dark:text-blue-100 inline-block p-2 px-3 rounded-lg min-w-[50px] text-left shadow-md shadow-black"}>
-                                <ReactMarkdown>{msg.text}</ReactMarkdown>
-
-                            </span>
+                            <div className={msg.role === "user" ? "bg-green-200 dark:bg-green-800 dark:text-green-100 inline-block p-2 px-3 rounded-lg min-w-[50px] max-w-[85%] text-left shadow-black shadow-xs break-words overflow-wrap-anywhere" : "bg-sky-200 dark:bg-blue-500 dark:text-blue-100 inline-block p-2 px-3 rounded-lg min-w-[50px] max-w-[calc(100%-3rem)] text-left shadow-md shadow-black break-words overflow-wrap-anywhere"}>
+                                <div className="prose prose-sm max-w-none break-words whitespace-pre-wrap">
+                                    <ReactMarkdown>{msg.text}</ReactMarkdown>
+                                </div>
+                            </div>
                         </motion.div>
                     ))}
                     {isLoading && 
