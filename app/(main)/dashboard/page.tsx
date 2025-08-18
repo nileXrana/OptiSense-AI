@@ -57,13 +57,13 @@ const page = () => {
       </header>
 
       <div className='grid grid-cols-5 h-[calc(100vh-88px)]'>
-        <div className='hidden md:block'>
+        <div className=''>
             <AssistantList/>
         </div>
         <div className='max-md:col-span-5 md:col-span-4 lg:col-span-3'>
             <ChatUi/>
         </div>
-        <div className='hidden lg:block'>
+        <div className='max-lg:hidden'>
             <AssistantSetting/>
         </div>
       </div>

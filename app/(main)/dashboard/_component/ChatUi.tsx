@@ -116,9 +116,9 @@ const ChatUi = () => {
     
 
     return (
-        <div className={showEmptyChatState ? "p-20 relative h-[91vh] border-2 " : "p-3 pl-0 relative h-[91vh] border-2 bg-[url('/wall40.png')] dark:bg-[url('/wall5.jpg')] bg-cover bg-center"}>
+        <div className={showEmptyChatState ? "p-20 h-full border-2 relative" : "p-3 pl-0 relative h-[91vh] border-2 bg-[url('/wall40.png')] dark:bg-[url('/wall5.jpg')] bg-cover bg-center"}>
             {showEmptyChatState ? <EmptyChatState input={input} setInput={setInput} onSendMessage={onSendMessage}/> :
-                <div className='h-[88%] overflow-auto p-2'>
+                <div style={{height: 'calc(100%-70px)'}} className='bg-green-200 relative overflow-auto p-2'>
                     {messages.map((msg, idx) => (
                         <motion.div key={idx} className={msg.role === "user" ? " text-right m-3" : "text-left flex gap-3 items-start m-3"} initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -140,7 +140,7 @@ const ChatUi = () => {
                     <div ref={messagesEndRef} />
                 </div>
             }
-            <div className='flex justify-between py-4 gap-5 absolute bottom-1 left-10 w-[90%]'>
+            <div style={{width: 'calc(100vw/5*3)', left: 'calc(100vw/5'}} className='flex justify-between gap-5 fixed bottom-6 scale-90'>
                 <Input value={input} placeholder='Start Typing Here...' className='border-2 border-black dark:border-gray-600 bg-white dark:bg-gray-800 dark:text-white dark:placeholder-gray-400'
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={(e) => {
@@ -150,7 +150,7 @@ const ChatUi = () => {
                     }} />
                 <Button onClick={()=>{
                     onSendMessage()
-                }} className='cursor-pointer'>
+                }} className='cursor-pointer block '>
                     <Send />
                 </Button>
             </div>
