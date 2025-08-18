@@ -8,6 +8,7 @@ import { SparklesText } from '@/src/components/magicui/sparkles-text'
 import Image from 'next/image'
 import { Bot, MessageSquare, Users, Zap, CheckCircle, Star, Send, Quote } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { Loader2Icon } from "lucide-react";
 
 // Add custom CSS for animations
 const customStyles = `
@@ -38,6 +39,7 @@ export default function Home() {
   const [rating, setRating] = useState(0);
   const [hoveredRating, setHoveredRating] = useState(0);
   const [userName, setUserName] = useState('');
+  const [submitF, setsubmitF] = useState(false)
   const [feedbackList, setFeedbackList] = useState([
     {
       no: 1,
@@ -54,19 +56,28 @@ export default function Home() {
 
   useEffect(() => {
   const fetchData = async () => {
-    const feedback =  await fetch('/api/get-feedback', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .catch((error) => {
-        console.error('Error:', error);
+    try {
+      const feedback = await fetch('/api/get-feedback', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
-      if(feedback){
-        const result = await feedback.json()
-        setFeedbackList(result);
+      
+      if (feedback && feedback.ok) {
+        const result = await feedback.json();
+        // Ensure result is an array before setting it
+        if (Array.isArray(result)) {
+          setFeedbackList(result);
+        } else {
+          console.warn('API response is not an array:', result);
+          // Keep the default array if API doesn't return an array
+        }
       }
+    } catch (error) {
+      console.error('Error fetching feedback:', error);
+      // Keep the default array on error
+    }
   }
   fetchData()
 }, [])
@@ -86,6 +97,10 @@ export default function Home() {
   }
 
   const submitFeedback = async () => {
+    // confirmation before submitting
+    const isConfirm = confirm("Feedback once submitted cannot be modified. SUBMIT?");
+    if(!isConfirm) return;
+
     if (feedback.trim() && rating > 0 && userName.trim()) {
       const getInitials = (name: string) => {
         return name.split(' ').map((word: string) => word[0]).join('').toUpperCase().slice(0, 2);
@@ -100,26 +115,39 @@ export default function Home() {
       };
 
       // add newFeedback to database :
-      const result = await fetch('/api/feedback', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newFeedback),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log('Success:', data);
-        })
-        .catch((error) => {
-          console.error('Error:', error);
+      try {
+        setsubmitF(true)
+        const response = await fetch('/api/feedback', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newFeedback),
         });
+
+        if (response.ok) {
+          // Check if response has content before parsing JSON
+          const contentType = response.headers.get('content-type');
+          if (contentType && contentType.includes('application/json')) {
+            const data = await response.json();
+            console.log('Success:', data);
+          } else {
+            console.log('Success: Feedback submitted');
+          }
+        } else {
+          console.error('Failed to submit feedback:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error submitting feedback:', error);
+      }
 
       setFeedbackList([newFeedback, ...feedbackList]);
       setFeedback('');
       setRating(0);
       setHoveredRating(0);
       setUserName('');
+      setsubmitF(false);
+      alert("Thank you for your valuable feedback ❤️")
     }
   }
 
@@ -156,7 +184,7 @@ export default function Home() {
   return (
     <>
       <style jsx global>{customStyles}</style>
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-purple-900 dark:to-indigo-900 pb-16">
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-purple-950 dark:to-black pb-16">
         {/* Header */}
         <header className="p-6 flex justify-between items-center">
           <BlurFade delay={0.1}>
@@ -219,7 +247,7 @@ export default function Home() {
           <BlurFade delay={0.7}>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
               <RainbowButton onClick={signInPage} className="px-8 py-4 text-lg">
-                🚀 Get Started Free
+                ⏻ Get Started
               </RainbowButton>
               <Button onClick={learnMore} variant="outline" className="cursor-pointer px-8 py-4 text-lg border-2 hover:bg-purple-50 dark:hover:bg-purple-900/20">
                 📖 Learn More
@@ -408,7 +436,7 @@ export default function Home() {
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <RainbowButton onClick={signInPage} className="px-12 py-4 text-xl">
-                  🎯 Start Free Now
+                  🎯 Start Now
                 </RainbowButton>
                 <div className="flex items-center justify-center gap-2 text-sm text-gray-700 dark:text-gray-300">
                   <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
@@ -486,11 +514,12 @@ export default function Home() {
 
                   <Button
                     onClick={submitFeedback}
-                    disabled={!feedback.trim() || rating === 0 || !userName.trim()}
+                    disabled={submitF || !feedback.trim() || rating === 0 || !userName.trim()}
                     className="cursor-pointer bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <Send className="h-4 w-4 mr-2" />
-                    Submit Feedback
+                    {submitF ? <Loader2Icon className="h-4 w-4 animate-spin" /> : 'Submit Feedback'}
+            
                   </Button>
                 </div>
 
@@ -500,7 +529,7 @@ export default function Home() {
                     What Users Are Saying
                   </h3>
                   <div className="space-y-4 max-h-80 overflow-y-auto pr-2">
-                    {feedbackList.slice(0, 5).map((item) => (
+                    {Array.isArray(feedbackList) && feedbackList.slice(0, 5).map((item) => (
                       <div key={item.no} className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-xl p-4 border border-purple-100 dark:border-purple-700">
                         <div className="flex items-start gap-3">
                           <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-semibold text-sm">
@@ -566,14 +595,18 @@ export default function Home() {
                 </span>
               </div>
               <p className="text-gray-600 dark:text-gray-400">
-                © 2025 OptiSense AI. Your personal AI Assistant companion.
+                For any queries, support or additional feedback, please mail us.
+              </p>
+              <p className="text-gray-600 font-bold dark:text-gray-400">imp.communicate@gmail.com</p>
+              <p className="text-gray-600 dark:text-gray-400">
+                © 2025 OptiSense AI, all rights reserved.
               </p>
             </div>
           </BlurFade>
         </footer>
 
         {/* Fixed Footer */}
-        <div className="fixed bottom-0 left-0 right-0 bg-slate-800 dark:bg-gray-900/95 backdrop-blur-md border-t border-purple-200 dark:border-purple-700 py-3 z-50 shadow-lg">
+        <div className="fixed bottom-0 left-0 right-0 bg-slate-800 dark:bg-slate-900 backdrop-blur-md border-t border-purple-400 py-3 z-50 shadow-lg">
           <div className="text-center">
             <p className="text-sm text-gray-300 dark:text-gray-300">
               Made with{' '}
@@ -591,8 +624,5 @@ export default function Home() {
       </div>
     </>
   );
-}
-function setFeedbackList(result: any) {
-  throw new Error("Function not implemented.");
 }
 

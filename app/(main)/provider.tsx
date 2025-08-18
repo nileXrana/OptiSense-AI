@@ -17,7 +17,7 @@ function Provider({
   return (
     <div>
       <AssistantContext.Provider value={{selectedAssistant, setselectedAssistant}}>
-      <Header/>
+      
       <UserProvider>
         <ModelProvider>
       {children}
