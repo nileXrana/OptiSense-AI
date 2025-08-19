@@ -9,6 +9,7 @@ import Image from 'next/image'
 import { Bot, MessageSquare, Users, Zap, CheckCircle, Star, Send, Quote } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Loader2Icon } from "lucide-react";
+import { useUser } from '@clerk/nextjs'
 
 // Add custom CSS for animations
 const customStyles = `
@@ -40,6 +41,7 @@ export default function Home() {
   const [hoveredRating, setHoveredRating] = useState(0);
   const [userName, setUserName] = useState('');
   const [submitF, setsubmitF] = useState(false)
+  const { isSignedIn, user } = useUser();
   const [feedbackList, setFeedbackList] = useState([
     {
       no: 1,
@@ -247,7 +249,7 @@ export default function Home() {
           <BlurFade delay={0.7}>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
               <RainbowButton onClick={signInPage} className="px-8 py-4 text-lg">
-                ⏻ Get Started
+                ⏻ Dashboard
               </RainbowButton>
               <Button onClick={learnMore} variant="outline" className="cursor-pointer px-8 py-4 text-lg border-2 hover:bg-purple-50 dark:hover:bg-purple-900/20">
                 📖 Learn More
