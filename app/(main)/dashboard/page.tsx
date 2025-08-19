@@ -20,6 +20,8 @@ const page = () => {
   const [myAssistants, setMyAssistants] = useState([])
   const [initialUserData, setInitialUserData] = useState(null)
   const [mounted, setMounted] = useState(false)
+  const [isLoadingAssistants, setIsLoadingAssistants] = useState(true)
+  const [isLoadingUserData, setIsLoadingUserData] = useState(true)
   const { setselectedAssistant } = useContext(AssistantContext)
   const { user, isSignedIn, isLoaded } = useUser()
   const router = useRouter()
@@ -44,6 +46,7 @@ const page = () => {
   useEffect(() => {
     if (!mounted || !isSignedIn) return
     
+    setIsLoadingAssistants(true)
     const loadAssistants = async () => {
       try {
         const res = await fetch("/api/is-selected", {
@@ -57,6 +60,8 @@ const page = () => {
         }
       } catch (error) {
         console.error("Error loading assistants:", error);
+      } finally {
+        setIsLoadingAssistants(false)
       }
     }
     loadAssistants();
@@ -66,6 +71,7 @@ const page = () => {
   useEffect(() => {
     if (!mounted || !isSignedIn || !user?.primaryEmailAddress?.emailAddress) return;
     
+    setIsLoadingUserData(true)
     const loadInitialUserData = async () => {
       try {
         const res = await fetch('/api/save-user', {
@@ -79,6 +85,8 @@ const page = () => {
         setInitialUserData(result);
       } catch (error) {
         console.error("Error loading initial user data:", error);
+      } finally {
+        setIsLoadingUserData(false)
       }
     }
     
@@ -97,6 +105,48 @@ const page = () => {
     return <div className="h-screen w-full flex items-center justify-center">
       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
     </div>
+  }
+
+  // Show loading interface while fetching assistants and user data
+  if (isLoadingAssistants || isLoadingUserData) {
+    return (
+      <div className="h-screen w-full bg-gradient-to-br from-purple-50 via-pink-50 to-indigo-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-indigo-900/20 flex items-center justify-center">
+        <div className="text-center space-y-6">
+          {/* User Image at top center */}
+          <div className="mb-8">
+            <div className="relative w-32 h-32 mx-auto mb-6">
+              <img 
+                src={user?.imageUrl || "/robot.jpg"} 
+        
+                alt="User Profile" 
+                className="w-full h-full object-cover rounded-full shadow-2xl border-4 border-purple-200 dark:border-purple-800 animate-pulse"
+              />
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-400/20 to-pink-400/20 animate-pulse"></div>
+            </div>
+          </div>
+          
+          <div className="relative">
+            <div className="animate-spin rounded-full h-16 w-16 border-4 border-purple-200 dark:border-purple-800 border-t-purple-600 dark:border-t-purple-400 mx-auto"></div>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-6 h-6 bg-purple-600 dark:bg-purple-400 rounded-full animate-pulse"></div>
+            </div>
+          </div>
+          <div className="space-y-3">
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-white animate-pulse">
+              Your assistants are on the way!
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 max-w-md mx-auto">
+              We&apos;re preparing your personalized AI Experience...
+            </p>
+            <div className="flex justify-center space-x-1 mt-4">
+              <div className="w-2 h-2 bg-purple-600 dark:bg-purple-400 rounded-full animate-bounce"></div>
+              <div className="w-2 h-2 bg-purple-600 dark:bg-purple-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+              <div className="w-2 h-2 bg-purple-600 dark:bg-purple-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
