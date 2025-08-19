@@ -132,10 +132,10 @@ const page = () => {
           </div>
           <div className="space-y-3">
             <h2 className="text-2xl font-bold text-gray-800 dark:text-white animate-pulse">
-              Your assistants are on the way!
+              Your Assistants Are On The Way!
             </h2>
             <p className="text-gray-600 dark:text-gray-300 max-w-md mx-auto">
-              We&apos;re preparing your personalized AI Experience...
+              We&apos;re Preparing Your Personalized AI Experience...
             </p>
             <div className="flex justify-center space-x-1 mt-4">
               <div className="w-2 h-2 bg-purple-600 dark:bg-purple-400 rounded-full animate-bounce"></div>
