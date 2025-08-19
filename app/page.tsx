@@ -94,6 +94,8 @@ export default function Home() {
     }
   }
 
+  
+
   const openLinkedIn = () => {
     window.open('https://linkedin.com/in/nilexrana', '_blank');
   }
@@ -189,7 +191,7 @@ export default function Home() {
       <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-purple-950 dark:to-black pb-16">
         {/* Header */}
         <header className="p-6 flex justify-between items-center">
-          <BlurFade delay={0.1}>
+          <BlurFade delay={0.1} >
             <div className="flex items-center gap-3">
               <div className="relative">
                 {/* AI Assistant Robot Head */}
@@ -213,7 +215,7 @@ export default function Home() {
                 {/* Assistant indicator */}
                 <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-white animate-pulse"></div>
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="max-sm:text-lg text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                 OptiSense AI
               </span>
             </div>
@@ -222,8 +224,8 @@ export default function Home() {
           <BlurFade delay={0.2}>
             <div className="flex items-center gap-4">
               <ModeToggle />
-              <Button onClick={signInPage} className="cursor-pointer bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
-                Sign In
+              <Button onClick={signInPage} className="max-sm:hidden cursor-pointer bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
+                {isSignedIn? `Hey ${user?.firstName}` : 'Sign In'}
               </Button>
             </div>
           </BlurFade>
