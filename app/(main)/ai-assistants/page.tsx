@@ -13,6 +13,7 @@ import { useEffect } from 'react'
 import { ModeToggle } from '@/components/ui/mode-toggle'
 import Link from 'next/link'
 import { UserButton } from "@clerk/nextjs";
+import { useUser } from '@clerk/nextjs'
 
 // Add custom CSS for animations
 const customStyles = `
@@ -44,7 +45,15 @@ const page = () => {
     getUserAssistants();
   }, [])
 
+  
+  const { isSignedIn } = useUser();
+
   const getUserAssistants = async () => {
+    // chick if signIn or not :
+    if (!isSignedIn) {
+      router.push('/signin')
+      return;
+    }
     const result = await fetch("/api/is-selected", {
       method: "POST",
       headers: {
@@ -59,7 +68,9 @@ const page = () => {
 
   // use states :
   const [loading, setLoading] = useState(false)
-  const router = useRouter()
+  
+  const router = useRouter();
+  
   const [selectedAssistants, setselectedAssistants] = useState<ASSISTANT[]>([]);
 
   const openLinkedIn = () => {
@@ -158,7 +169,7 @@ const page = () => {
             </div>
             <BlurFade delay={0.25 + 3 * 0.05} inView>
               <RainbowButton disabled={selectedAssistants.length == 0 || loading} onClick={onClickContinue}>
-                {loading ? <Loader2 className="animate-spin" /> : 'Continue'}
+                {loading ? <span className='flex gap-1'><Loader2 className="animate-spin" />Loading...</span> : 'Continue'}
               </RainbowButton>
             </BlurFade>
           </div>
