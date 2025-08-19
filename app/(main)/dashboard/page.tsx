@@ -11,6 +11,7 @@ import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { IoClose } from "react-icons/io5";
 import { AssistantContext } from '@/context/AssistantContext'
 import { useUser } from '@clerk/nextjs'
+import { useRouter } from 'next/navigation'
 
 const page = () => {
 
@@ -20,16 +21,28 @@ const page = () => {
   const [initialUserData, setInitialUserData] = useState(null)
   const [mounted, setMounted] = useState(false)
   const { setselectedAssistant } = useContext(AssistantContext)
-  const { user } = useUser()
+  const { user, isSignedIn, isLoaded } = useUser()
+  const router = useRouter()
 
   // Handle hydration
   useEffect(() => {
     setMounted(true)
   }, [])
 
+  // Check authentication when component mounts and user data is loaded
+  useEffect(() => {
+    if (mounted && isLoaded) {
+      if (!isSignedIn) {
+        alert("Sign In First !")
+        router.push('/signin')
+        return
+      }
+    }
+  }, [mounted, isLoaded, isSignedIn, router])
+
   // Load assistants immediately when dashboard loads
   useEffect(() => {
-    if (!mounted) return
+    if (!mounted || !isSignedIn) return
     
     const loadAssistants = async () => {
       try {
@@ -47,11 +60,11 @@ const page = () => {
       }
     }
     loadAssistants();
-  }, [mounted])
+  }, [mounted, isSignedIn])
 
   // Load initial user data once when dashboard loads
   useEffect(() => {
-    if (!mounted || !user?.primaryEmailAddress?.emailAddress) return;
+    if (!mounted || !isSignedIn || !user?.primaryEmailAddress?.emailAddress) return;
     
     const loadInitialUserData = async () => {
       try {
@@ -70,10 +83,17 @@ const page = () => {
     }
     
     loadInitialUserData();
-  }, [mounted, user])
+  }, [mounted, isSignedIn, user])
 
-  // Prevent hydration mismatch by not rendering until mounted
-  if (!mounted) {
+  // Prevent hydration mismatch by not rendering until mounted and user loaded
+  if (!mounted || !isLoaded) {
+    return <div className="h-screen w-full flex items-center justify-center">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
+    </div>
+  }
+
+  // If user is not signed in, show loading while redirecting
+  if (!isSignedIn) {
     return <div className="h-screen w-full flex items-center justify-center">
       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
     </div>

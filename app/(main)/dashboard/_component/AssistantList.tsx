@@ -62,6 +62,12 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
           headers: { "Content-Type": "application/json" },
         });
         const result = await res.json();
+        //
+        if(result.length === 0){
+          alert("No assistants found. Please create one.")
+          router.push('/signin')
+          return;
+        }
         setmyAssistants(result)
         setselectedAssistant(result[0])
       }
