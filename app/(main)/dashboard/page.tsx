@@ -117,7 +117,6 @@ const page = () => {
             <div className="relative w-32 h-32 mx-auto mb-6">
               <img 
                 src={user?.imageUrl || "/robot.jpg"} 
-        
                 alt="User Profile" 
                 className="w-full h-full object-cover rounded-full shadow-2xl border-4 border-purple-200 dark:border-purple-800 animate-pulse"
               />
