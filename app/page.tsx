@@ -433,7 +433,7 @@ export default function Home() {
                 Ready to Meet Your AI Assistants?
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">
-                Start your journey with personalized AI assistance today. No credit card required.
+                Start your journey with personalized AI assistance today !
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
