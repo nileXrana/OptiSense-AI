@@ -135,7 +135,7 @@ const ChatUi = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.4, delay: 0.1 }}>
                             {/* <span className='w-10 h-10'> */}
-                            {msg.role === "ai" && <Image className='object-cover rounded-full flex-shrink-0' src={selectedAssistant.image} alt='assist' width={30} height={30} />}
+                            {msg.role === "ai" && <Image className='object-cover rounded-full flex-shrink-0' src={selectedAssistant.image} alt='assist' width={30} height={30} style={{ width: '30px', height: '30px' }} />}
                             {/* </span> */}
                             <div className={msg.role === "user" ? "bg-green-200 dark:bg-green-800 dark:text-green-100 inline-block p-2 px-3 rounded-lg min-w-[50px] max-w-[85%] text-left shadow-black shadow-xs break-words overflow-wrap-anywhere" : "bg-blue-200 dark:bg-blue-600 dark:text-blue-100 inline-block p-2 px-3 rounded-lg min-w-[50px] max-w-[calc(100%-3rem)] text-left shadow-md shadow-black break-words overflow-wrap-anywhere"}>
                                 <div className="prose prose-sm max-w-none break-words whitespace-pre-wrap">

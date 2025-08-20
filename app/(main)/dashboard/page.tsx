@@ -1,5 +1,6 @@
 "use client"
 import React, { useState, useEffect, useContext } from 'react'
+import Image from 'next/image'
 import AssistantList from './_component/AssistantList'
 import AssistantSetting from './_component/AssistantSetting'
 import ChatUi from './_component/ChatUi'
@@ -115,10 +116,13 @@ const page = () => {
           {/* User Image at top center */}
           <div className="mb-8">
             <div className="relative w-32 h-32 mx-auto mb-6">
-              <img 
-                src={user?.imageUrl || "/robot.jpg"} 
+              <Image 
+                src={user?.imageUrl || "/virtual-girl.jpg"} 
                 alt="User Profile" 
-                className="w-full h-full object-cover rounded-full shadow-2xl border-4 border-purple-200 dark:border-purple-800 animate-pulse"
+                width={128}
+                height={128}
+                priority
+                className="object-cover rounded-full shadow-2xl border-4 border-purple-200 dark:border-purple-800 animate-pulse"
               />
               <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-400/20 to-pink-400/20 animate-pulse"></div>
             </div>

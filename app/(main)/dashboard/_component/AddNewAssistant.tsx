@@ -86,7 +86,7 @@ const AddNewAssistant = ({ children}: any) => {
                                     {AiAssistantsList.map((obj, index) => (
                                         <BlurFade key={obj.id} delay={0.25 + index * 0.1} inView>
                                             <div key={obj.id} className='hover:border-2 border-purple-400 hover:scale-101 transition-all ease-in-out cursor-pointer flex items-center p-2 ' onClick={()=>setselectedAssistant(obj)}>
-                                                <Image src={obj.image} alt={obj.title} width={40} height={40} className='rounded-lg w-[40px] h-[40px] object-cover' />
+                                                <Image src={obj.image} alt={obj.title} width={40} height={40} className='rounded-lg object-cover' style={{ width: '40px', height: '40px' }} />
                                                 <h2 className='text-xs p-2 text-center text-gray-600 dark:text-gray-300'>{obj.title}</h2>
                                             </div>
                                         </BlurFade>
@@ -97,7 +97,7 @@ const AddNewAssistant = ({ children}: any) => {
                                 <div className='flex gap-5'>
                                     {selectedAssistant && 
                                     <AssistantAvatar selectedImage={(v: string)=>onHandleInputChange('image',v)}>
-                                    <Image src={selectedAssistant?.image} alt='assistant' width={150} height={150} className='w-[100px] h-[100px] rounded-xl cursor-pointer object-cover' 
+                                    <Image src={selectedAssistant?.image} alt='assistant' width={100} height={100} className='rounded-xl cursor-pointer object-cover' style={{ width: '100px', height: '100px' }}
                                     />
                                     </AssistantAvatar>
                                     }

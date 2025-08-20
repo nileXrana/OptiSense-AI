@@ -179,7 +179,7 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
             <BlurFade key={index} duration={0.3 * index}>
               <div key={index} className={`p-2 flex gap-3 items-center hover:bg-gray-300 dark:hover:bg-slate-700 cursor-pointer rounded-xl ${assistant.name == selectedAssistant?.name && 'bg-blue-300 dark:bg-blue-600 hover:!bg-blue-300 dark:hover:!bg-blue-600'} `} onClick={() => handleAssistantSelection(assistant)}>
                 <Image src={assistant.image} alt={assistant.name} width={60} height={60}
-                  className='rounded-xl w-[60px] h-[60px] object-cover'>
+                  className='rounded-xl object-cover' style={{ width: '60px', height: '60px' }}>
                 </Image>
                 <div>
                   <h1 className='text-md font-bold dark:text-gray-100'>{assistant.name}</h1>

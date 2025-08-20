@@ -14,9 +14,10 @@ const AssistantAvatar = ({children,selectedImage}: any) => {
             <PopoverContent>
                 <div className='grid grid-cols-5 gap-5'>
                     {AiAssistantsList.map((obj,idx)=>(
-                        <Image src={obj.image} alt={obj.name} width={80} height={80}
+                        <Image src={obj.image} alt={obj.name} width={40} height={40}
                         key={idx}
-                        className='w-[40px] h-[40px] rounded-lg object-cover cursor-pointer' 
+                        className='rounded-lg object-cover cursor-pointer' 
+                        style={{ width: '40px', height: '40px' }}
                         onClick={()=>selectedImage(obj.image)}
                         />
                     ))}

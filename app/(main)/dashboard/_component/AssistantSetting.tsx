@@ -78,7 +78,7 @@ const AssistantSetting = () => {
       <BlurFade duration={0.6}>
       <div className='mt-4 flex gap-2 items-center bg-white dark:bg-gray-800 dark:border p-2 rounded-2xl'>
         <Image src={selectedAssistant.image} alt='assistant' width={70} height={70}
-          className='rounded-xl' />
+          className='rounded-xl' style={{ width: '70px', height: '70px' }} />
         <div className='text-md'>
           <h1 className='font-bold'> {selectedAssistant.name} </h1>
           <h1 className='text-gray-700 dark:text-gray-300'> {selectedAssistant.title} </h1>

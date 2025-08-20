@@ -178,7 +178,9 @@ const page = () => {
               <BlurFade key={obj.id} delay={0.25 + index * 0.1} inView>
                 <div key={obj.id} className='hover:border hover:scale-105 transition-all ease-in-out cursor-pointer bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-2xl p-4 shadow-lg hover:shadow-xl border border-purple-100 dark:border-purple-800 relative' onClick={() => onselect(obj)}>
                   <Checkbox className='absolute border-gray-300 top-2 left-2 z-10' checked={IsAssistantSelected(obj)} />
-                  <Image src={obj.image} alt={obj.title} width={200} height={200} className='rounded-xl w-full object-cover mb-3' />
+                  <div className="aspect-square relative mb-3 overflow-hidden rounded-xl">
+                    <Image src={obj.image} alt={obj.title} fill sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw" className='object-cover' />
+                  </div>
                   <h2 className='text-center font-bold text-lg text-gray-900 dark:text-gray-100'>{obj.name}</h2>
                   <h2 className='text-center text-gray-600 dark:text-gray-300'>{obj.title}</h2>
                 </div>
