@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@/lib/generated/prisma';
-import { currentUser } from '@clerk/nextjs/server';
+import { prisma } from '@/lib/prisma';
+import { currentUser } from "@clerk/nextjs/server"
 
 export async function POST(req: NextRequest) {
-  const prisma = new PrismaClient()
-  const user = await currentUser();
+  
   try {
+    const user = await currentUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     const { instruction, name } = await req.json();
     const assistant = await prisma.userAiAssistants.findFirst({

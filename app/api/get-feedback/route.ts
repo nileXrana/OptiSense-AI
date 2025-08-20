@@ -1,10 +1,10 @@
-import { NextResponse, NextRequest } from "next/server";
-import { PrismaClient } from '@/lib/generated/prisma';
+import { NextRequest, NextResponse } from 'next/server'
+import { prisma } from '@/lib/prisma';
+import { currentUser } from "@clerk/nextjs/server"
 
-const prisma = new PrismaClient();
-
-export async function POST(request: Request) {
-    try {
+export async function POST(req: NextRequest) {
+  
+  try {
     const feedbacks = await prisma.feedback.findMany({
       orderBy: { createdAt: "desc" }, // latest first
     });

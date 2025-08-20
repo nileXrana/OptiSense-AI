@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from '@/lib/generated/prisma';
+import { prisma } from '@/lib/prisma';
 import { currentUser } from "@clerk/nextjs/server"
 import crypto from "crypto";
 
 export async function POST(req: NextRequest) {
-    const prisma = new PrismaClient();
     
     try {
         const user = await currentUser();

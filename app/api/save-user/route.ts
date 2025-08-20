@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@/lib/generated/prisma';
+import { prisma } from '@/lib/prisma'
 
 export async function POST(req: NextRequest) {
   try{
 
-    const prisma = new PrismaClient()
     const body = await req.json()
     // check if user already exist :
     const existingUser = await prisma.users.findUnique({
