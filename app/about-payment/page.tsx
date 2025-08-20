@@ -114,6 +114,10 @@ const page = () => {
                 <h3 className='font-semibold text-gray-800 dark:text-gray-200 mb-3'>Information Usage:</h3>
                 <p>Our primary purpose for collecting information is to facilitate service delivery and customer support. We leverage this information to enhance our AI services, platform content, and user experience.</p>
               </div>
+
+              <div>
+                <h3 className='font-semibold text-gray-800 dark:text-gray-200 mb-3'>Business Name - Nilesh Rana</h3>
+              </div>
               
               <div className='bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-200 dark:border-green-800'>
                 <h3 className='font-semibold text-green-800 dark:text-green-300 mb-2'>Security Measures:</h3>
