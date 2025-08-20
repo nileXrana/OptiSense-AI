@@ -6,14 +6,12 @@ const page = () => {
     <div className='min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-purple-950 dark:to-black'>
       {/* Header */}
       <div className='bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-b border-purple-100 dark:border-purple-800'>
-        <div className='max-w-6xl mx-auto px-6 py-8'>
+        <div className='max-w-6xl mx-auto px-4 py-5'>
           <div className='text-center'>
-            <div className='flex justify-center mb-4'>
-              <div className='p-3 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-lg'>
+            <h1 className='flex justify-center items-center gap-4 text-4xl font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2'>
+                <div className='p-3 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-lg'>
                 <FileText className='h-8 w-8 text-white' />
               </div>
-            </div>
-            <h1 className='text-4xl font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2'>
               Legal Information
             </h1>
             <p className='text-gray-600 dark:text-gray-300 text-lg'>
@@ -23,7 +21,7 @@ const page = () => {
         </div>
       </div>
 
-      <div className='max-w-6xl mx-auto px-6 py-12'>
+      <div className='max-w-6xl mx-auto px-6 py-6'>
         {/* Terms & Conditions Section */}
         <div className='bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-purple-100 dark:border-purple-800 mb-8'>
           <div className='flex items-center gap-3 mb-6'>
@@ -58,9 +56,10 @@ const page = () => {
                 <CheckCircle className='h-4 w-4 text-green-500 mt-1 flex-shrink-0' />
                 <p><strong>E.</strong> For the purpose of these Terms of Use, "you", "your" or "user" shall mean any natural or legal person who has agreed to become a user on the Platform.</p>
               </div>
-              
-              <div className='bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border-l-4 border-purple-500'>
-                <p className='font-semibold text-purple-800 dark:text-purple-300'><strong>F.</strong> ACCESSING, BROWSING OR OTHERWISE USING THE PLATFORM INDICATES YOUR AGREEMENT TO ALL THE TERMS AND CONDITIONS UNDER THESE TERMS OF USE.</p>
+
+              <div className='flex items-start gap-3'>
+                <CheckCircle className='h-4 w-4 text-green-500 mt-1 flex-shrink-0' />
+                <p><strong>F.</strong> ACCESSING, BROWSING OR OTHERWISE USING THE PLATFORM INDICATES YOUR AGREEMENT TO ALL THE TERMS AND CONDITIONS UNDER THESE TERMS OF USE.</p>
               </div>
               
               <div className='mt-6'>
@@ -147,12 +146,15 @@ const page = () => {
         </div>
 
         {/* Contact Information */}
-        <div className='bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 rounded-3xl p-8 text-center border border-purple-200 dark:border-purple-700'>
+        <div className='rounded-3xl p-8 text-center'>
           <h3 className='text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2'>
             Questions or Concerns?
           </h3>
-          <p className='text-gray-600 dark:text-gray-300 mb-4'>
+          <p className='text-gray-600 dark:text-gray-300 mb-2'>
             If you have any questions about these policies, please don't hesitate to contact us.
+          </p>
+          <p className='font-bold text-gray-800 dark:text-gray-200 mb-2'>
+            imp.communicate@gmail.com
           </p>
           <div className='flex justify-center'>
             <div className='bg-white/80 dark:bg-gray-800/80 px-6 py-3 rounded-full shadow-lg border border-purple-200 dark:border-purple-700'>
