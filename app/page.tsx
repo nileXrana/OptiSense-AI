@@ -600,6 +600,7 @@ export default function Home() {
                 For any queries, support or additional feedback, please mail us.
               </p>
               <p className="text-gray-600 font-bold dark:text-gray-400">imp.communicate@gmail.com</p>
+              <p className="text-gray-600 dark:text-gray-400 cursor-pointer underline underline-offset-3" onClick={()=>router.push('/about-payment')}>@Know About Payments</p>
               <p className="text-gray-600 dark:text-gray-400">
                 © 2025 OptiSense AI, all rights reserved.
               </p>
