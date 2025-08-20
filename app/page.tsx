@@ -134,9 +134,6 @@ export default function Home() {
           const contentType = response.headers.get('content-type');
           if (contentType && contentType.includes('application/json')) {
             const data = await response.json();
-            console.log('Success:', data);
-          } else {
-            console.log('Success: Feedback submitted');
           }
         } else {
           console.error('Failed to submit feedback:', response.statusText);
@@ -319,6 +316,7 @@ export default function Home() {
                         src={assistant.image}
                         alt={assistant.name}
                         fill
+                        sizes="(max-width: 768px) 50vw, (max-width: 1024px) 25vw, 200px"
                         className="object-cover group-hover:scale-110 transition-transform duration-300"
                       />
                     </div>

@@ -99,7 +99,6 @@ const page = () => {
       body: JSON.stringify(selectedAssistants)
     })
       .then(res => res.json())
-      .then(resData => console.log(resData))
       .catch(err => console.error(err))
 
     // push to dashboard now :

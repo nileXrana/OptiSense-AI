@@ -21,8 +21,6 @@ export async function POST(req: NextRequest) {
         const body = await req.json();
         const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = body;
 
-        console.log("Payment verification request:", { razorpay_order_id, razorpay_payment_id, email });
-
         // Validate required fields
         if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
             return NextResponse.json(
@@ -40,11 +38,8 @@ export async function POST(req: NextRequest) {
             .update(razorpay_order_id + "|" + razorpay_payment_id)
             .digest("hex");
 
-        console.log("Signature verification:", { expectedSignature, razorpay_signature });
-
         if (expectedSignature === razorpay_signature) {
             // Payment is verified, update user's account
-            console.log("Payment verified, updating user account for:", email);
 
             const USER = await prisma.users.findFirst({
                 where: {
@@ -62,8 +57,6 @@ export async function POST(req: NextRequest) {
                     { status: 404 }
                 );
             }
-
-            console.log("Current user data:", USER);
 
             // Update user with order ID and credits
             if(USER.tokenUsed < USER.credits){
@@ -92,7 +85,6 @@ export async function POST(req: NextRequest) {
                 message: "Payment verified ✅"
             });
         } else {
-            console.log("Signature verification failed");
             return NextResponse.json(
                 {
                     success: false,

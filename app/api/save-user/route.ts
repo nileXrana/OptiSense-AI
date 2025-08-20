@@ -24,7 +24,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({user: "created successfully"})
     }
     else {
-      // console.log("user already exist !")
       return NextResponse.json(existingUser)
     }
   }catch(error){

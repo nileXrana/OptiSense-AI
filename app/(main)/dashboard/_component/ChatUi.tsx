@@ -13,9 +13,10 @@ import { RotatingLines } from 'react-loader-spinner';
 import { Loader2 } from "lucide-react"
 import { useUser } from '@clerk/nextjs'
 
+
 const ChatUi = () => {
 
-    const { user } = useUser();
+    const { user,isSignedIn } = useUser();
     const [input, setInput] = useState<string>("")
     const [messages, setMessages] = useState<{ role: string; text: string }[]>([]);
     const { selectedModel } = useModel();
@@ -96,24 +97,19 @@ const ChatUi = () => {
         if (!mounted) return;
         
         const checkTokenStatus = async () => {
-            if (!user?.primaryEmailAddress?.emailAddress) return;
-            
+            if(!user) return;
+            const email = user.primaryEmailAddress?.emailAddress;
             try {
                 const res = await fetch("/api/updateToken", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        email: user.primaryEmailAddress.emailAddress,
+                        email: email,
                         tokenCount: 0
                     })
                 });
 
-                if (!res.ok) {
-                    throw new Error('Failed to check token status');
-                }
-
                 const result = await res.json();
-                console.log(result);
                 settokenExceeded(result.tE);
             } catch (error) {
                 console.error('Error checking token status:', error);

@@ -65,7 +65,6 @@ const AddNewAssistant = ({ children}: any) => {
       body: JSON.stringify([selectedAssistant])
     })
     .then(res => res.json())
-  .then(resData => console.log(resData))
   .catch(err => console.error(err))
 
   setloading(false)

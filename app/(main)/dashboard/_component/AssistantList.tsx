@@ -90,7 +90,6 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
           })
         })
         const result = await res.json();
-        console.log(result)
         setUSER(result)
       }
       fetchInitialUserData();
@@ -111,7 +110,6 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
         })
       })
       const result = await res.json();
-      console.log(result)
       setUSER(result)
 
       // one more work :
