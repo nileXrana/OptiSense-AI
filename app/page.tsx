@@ -155,14 +155,14 @@ export default function Home() {
 
 
   const assistants = [
-    { name: 'Jack', title: 'Fitness Coach', icon: '💪', image: '/fitness-coach.png' },
-    { name: 'Emma', title: 'Grammar Fixer', icon: '✍️', image: '/grammer-fixer.jpg' },
-    { name: 'Olivia', title: 'Email Writer', icon: '📩', image: '/email-writer.avif' },
-    { name: 'Liam', title: 'YouTube Script Writer', icon: '🎬', image: '/youtube-script-writer.jpg' },
-    { name: 'Harry', title: 'Code Writer', icon: '💻', image: '/code-writer.jpg' },
-    { name: 'James', title: 'Bug Finder', icon: '🐛', image: '/bug-fixer.avif' },
-    { name: 'William', title: 'Finance Assistant', icon: '💰', image: '/finanace.avif' },
-    { name: 'Ethan', title: 'Personal Tutor', icon: '📚', image: '/personal-tutor.jpg' },
+    { name: 'Jack', title: 'Fitness Coach', icon: '💪', image: '/fitness4.png' },
+    { name: 'Kiara', title: 'Virtual Girlfriend', icon: '💖', image: '/gf.png' },
+    { name: 'Devin', title: 'Virtual Boyfriend', icon: '💙', image: '/devin.png' },
+    { name: 'Akhil', title: 'Code Writer', icon: '💻', image: '/code-writer.png' },
+    { name: 'Ganika', title: 'YouTube Script Writer', icon: '🎬', image: '/yt-script.png' },
+    { name: 'James', title: 'Bug Finder', icon: '🐛', image: '/bug-fixer.png' },
+    { name: 'Vittin', title: 'Finance Assistant', icon: '💰', image: '/finance.png' },
+    { name: 'Shiksha', title: 'Personal Tutor', icon: '📚', image: '/personal-tutor.png' },
   ]
 
   const features = [

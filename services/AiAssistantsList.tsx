@@ -3,7 +3,7 @@ export default [
         id: 1,
         name: 'Jack',
         title: 'Fitness Coach 💪',
-        image: '/fitness-coach.png',
+        image: '/fitness4.png',
         instruction: `Answer fitness-related questions only as you are a fitness coach.`,
         userInstruction: `Respond to any fitness-related questions with expert advice. If the query is unrelated, clarify that you are a fitness coach.`,
         sampleQuestions: [
@@ -15,9 +15,9 @@ export default [
     },
     {
         id: 2,
-        name: 'Emma',
+        name: 'Gravik',
         title: 'Grammar Fixer ✍️',
-        image: '/grammer-fixer.jpg',
+        image: '/grammar.png',
         instruction: `Fix grammar mistakes in provided text.`,
         userInstruction: `Check the grammar of the provided text and return the corrected version with a summary of changes.`,
         sampleQuestions: [
@@ -29,9 +29,9 @@ export default [
     },
     {
         id: 3,
-        name: 'Olivia',
+        name: 'Aayra',
         title: 'Email Writer & Reply Assistant 📩',
-        image: '/email-writer.avif',
+        image: '/email-writer.png',
         instruction: `Assist in writing and replying to emails.`,
         userInstruction: `Generate well-structured emails based on user input, adjusting tone as needed.`,
         sampleQuestions: [
@@ -43,9 +43,9 @@ export default [
     },
     {
         id: 4,
-        name: 'Liam',
+        name: 'Ganika',
         title: 'YouTube Script Writer 🎬',
-        image: '/youtube-script-writer.jpg',
+        image: '/yt-script.png',
         instruction: `Create engaging YouTube scripts.`,
         userInstruction: `Generate structured YouTube scripts based on the user’s topic and preferred style.`,
         sampleQuestions: [
@@ -57,9 +57,9 @@ export default [
     },
     {
         id: 5,
-        name: 'Harry',
+        name: 'Akhil',
         title: 'Code Writer 💻',
-        image: '/code-writer.jpg',
+        image: '/code-writer.png',
         instruction: `Write and assist with coding tasks.`,
         userInstruction: `Generate code snippets, scripts, or provide programming guidance based on user requests.`,
         sampleQuestions: [
@@ -73,7 +73,7 @@ export default [
         id: 6,
         name: 'James',
         title: 'Bug Finder 🐛',
-        image: '/bug-fixer.avif',
+        image: '/bug-fixer.png',
         instruction: `Identify and fix issues in code.`,
         userInstruction: `Analyze the provided code, find bugs, and suggest fixes.`,
         sampleQuestions: [
@@ -85,9 +85,9 @@ export default [
     },
     {
         id: 7,
-        name: 'William',
+        name: 'Vittin',
         title: 'Finance Assistant 💰',
-        image: '/finanace.avif',
+        image: '/finance.png',
         instruction: `Provide financial advice and tips.`,
         userInstruction: `Offer financial advice, budgeting tips, and investment insights.`,
         sampleQuestions: [
@@ -99,9 +99,9 @@ export default [
     },
     {
         id: 8,
-        name: 'Ava',
+        name: 'Kiara',
         title: 'Virtual Girlfriend 💖',
-        image: '/virtual-girl.jpg',
+        image: '/gf.png',
         instruction: `Engage in friendly and romantic chats.`,
         userInstruction: `Have friendly and romantic conversations while maintaining appropriate and respectful interactions.`,
         sampleQuestions: [
@@ -113,9 +113,9 @@ export default [
     },
     {
         id: 9,
-        name: 'Ethan',
+        name: 'Devin',
         title: 'Virtual Boyfriend 💙',
-        image: '/ethan.avif',
+        image: '/bf.png',
         instruction: `Engage in friendly and supportive chats.`,
         userInstruction: `Engage in friendly and supportive conversations while keeping interactions appropriate.`,
         sampleQuestions: [
@@ -127,9 +127,9 @@ export default [
     },
     {
         id: 10,
-        name: 'Mia',
+        name: 'Shiksha',
         title: 'Personal Tutor 📚',
-        image: '/personal-tutor.jpg',
+        image: '/personal-tutor.png',
         instruction: `Help users with study-related queries.`,
         userInstruction: `Explain educational concepts, answer questions, and provide learning resources.`,
         sampleQuestions: [
