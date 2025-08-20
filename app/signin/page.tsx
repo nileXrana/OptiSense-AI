@@ -184,12 +184,10 @@ const openLinkedIn = () => {
                           }}
                         />
                         <div className="mt-4">
-                         
-                            <Button className="cursor-pointer w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white py-3 text-lg font-semibold rounded-xl">
-                              <Loader2Icon className="animate-spin mr-1 h-5 w-5" />
-                              Loading...
-                            </Button>
-                          
+                          <Button className="cursor-pointer w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white py-3 text-lg font-semibold rounded-xl">
+                            <Loader2Icon className="animate-spin mr-1 h-5 w-5" />
+                            Loading...
+                          </Button>
                         </div>
                       </div>
                     </SignedIn>
