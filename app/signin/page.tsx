@@ -111,7 +111,7 @@ const openLinkedIn = () => {
                   </div>
                   <div className="flex items-center gap-3 justify-center lg:justify-start">
                     <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
-                    <span className="text-gray-700 dark:text-gray-300">Sign in to get 100K free credits</span>
+                    {/* <span className="text-gray-700 dark:text-gray-300">Sign in to get 100K free credits</span> */}
                   </div>
                   <div className="flex items-center gap-3 justify-center lg:justify-start">
                     <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
