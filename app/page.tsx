@@ -157,7 +157,7 @@ export default function Home() {
   const assistants = [
     { name: 'Jack', title: 'Fitness Coach', icon: '💪', image: '/fitness4.png' },
     { name: 'Kiara', title: 'Virtual Girlfriend', icon: '💖', image: '/gf.png' },
-    { name: 'Devin', title: 'Virtual Boyfriend', icon: '💙', image: '/devin.png' },
+    { name: 'Devin', title: 'Virtual Boyfriend', icon: '💙', image: '/bf.png' },
     { name: 'Akhil', title: 'Code Writer', icon: '💻', image: '/code-writer.png' },
     { name: 'Ganika', title: 'YouTube Script Writer', icon: '🎬', image: '/yt-script.png' },
     { name: 'James', title: 'Bug Finder', icon: '🐛', image: '/bug-fixer.png' },
