@@ -63,7 +63,7 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
         });
         const result = await res.json();
         //
-        if(result.length === 0){
+        if (result.length === 0) {
           alert("No assistants found. Please create one.")
           router.push('/signin')
           return;
@@ -99,35 +99,50 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
   useEffect(() => {
     fetchData()
   }, [refresh])
-  
+
 
   const fetchData = async () => {
-      const res = await fetch('/api/save-user', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: user?.primaryEmailAddress?.emailAddress,
-        })
+    const res = await fetch('/api/save-user', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: user?.primaryEmailAddress?.emailAddress,
       })
-      const result = await res.json();
+    })
+    const result = await res.json();
+    // console.log('User data received:', result)
+    
+    // Check if result has required properties
+    if (result && typeof result.credits !== 'undefined' && typeof result.tokenUsed !== 'undefined') {
       setUSER(result)
 
       // one more work :
-      const ak = result.tokenUsed/result.credits*100
-      if(ak >= 100){
+      const ak = result.tokenUsed / result.credits * 100
+      if (ak >= 100) {
         setprogress(100)
         setUSER((prev: object) => ({
-  ...prev,
-  tokenUsed: USER.credits,
-}));
+          ...prev,
+          tokenUsed: result.credits, // Fixed: use result.credits instead of USER.credits
+        }));
       }
       else setprogress(ak)
+    } else {
+      // console.error('Invalid user data received:', result)
+      // Set default values if API fails
+      setUSER({
+        credits: 100000,
+        tokenUsed: 0,
+        name: 'Unknown User',
+        email: 'unknown@email.com'
+      })
+      setprogress(0)
     }
+  }
 
-    function signOFF(){
-      signOut()
-      router.push("/")
-    }
+  function signOFF() {
+    signOut()
+    router.push("/")
+  }
 
   // Handle assistant selection - close mobile overlay if on mobile
   const handleAssistantSelection = (assistant: ASSISTANT) => {
@@ -166,9 +181,9 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
         </AddNewAssistant>
       </BlurFade>
       <BlurFade duration={1.2}>
-        <Input 
-          className='bg-white dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 mt-3 mb-3 text-center' 
-          placeholder='Search Assistants' 
+        <Input
+          className='bg-white dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 mt-3 mb-3 text-center'
+          placeholder='Search Assistants'
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
@@ -272,8 +287,8 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
                 </div>
                 <h2 className='font-bold text-lg flex dark:text-gray-100'>&#8377;10</h2>
               </div>
-                <hr className='my-3' />
-                <CheckoutButton setrefresh={setrefresh} amount={10} />
+              <hr className='my-3' />
+              <CheckoutButton setrefresh={setrefresh} amount={10} />
             </div>
             <div className='mt-3 flex justify-end'>
             </div>

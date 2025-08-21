@@ -44,10 +44,15 @@ const AddNewAssistant = ({ children}: any) => {
     const [loading, setloading] = useState(false)
 
     const onHandleInputChange = (field: string,value: string)=>{
-        setselectedAssistant((prev:any)=>({
-            ...prev,
-            [field]:value
-        }))
+        // console.log('onHandleInputChange called with field:', field, 'value:', value)
+        setselectedAssistant((prev:any)=>{
+            const newState = {
+                ...prev,
+                [field]:value
+            }
+            // console.log('New state after update:', newState)
+            return newState
+        })
     }
 
     const onSave= async()=>{
