@@ -94,7 +94,7 @@ const AddNewAssistant = ({ children}: any) => {
                                 onClick={()=> setselectedAssistant(DEFAULT_ASSISTANT)}>+ Create New Assistant</Button>
                                 <div className='overflow-y-auto h-[66vh]'>
                                     {AiAssistantsList.map((obj, index) => (
-                                        <BlurFade key={obj.id} delay={0.25 + index * 0.1} inView>
+                                        <BlurFade key={obj.id} delay={0.25 + index * 0.1}>
                                             <div key={obj.id} className='hover:border-2 border-purple-400 hover:scale-101 transition-all ease-in-out cursor-pointer flex items-center p-2 ' onClick={()=>setselectedAssistant(obj)}>
                                                 <Image src={obj.image} alt={obj.title} width={40} height={40} className='rounded-lg object-cover' style={{ width: '40px', height: '40px' }} />
                                                 <h2 className='text-xs p-2 text-center text-gray-600 dark:text-gray-300'>{obj.title}</h2>
