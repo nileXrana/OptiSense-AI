@@ -177,7 +177,7 @@ export default function Home() {
     "🎯 Get expert help for specific tasks and domains",
     "🎨 Create custom AI assistants tailored to your needs",
     "💬 Enjoy natural, human-like conversations",
-    "🚀 Access cutting-edge AI technology instantly",
+    "֎ Access cutting-edge AI technology instantly",
     "📱 Works seamlessly across all devices",
     "🔒 Secure and private interactions"
   ]
@@ -568,10 +568,10 @@ export default function Home() {
         </section>
 
         {/* Footer */}
-        <footer className="px-6 py-8 w-[85vw] rounded-xl m-auto border-t border-purple-100 dark:border-purple-800 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm">
+        <footer className="px-6 py-8 w-[85vw] rounded-xl m-auto border-t border-purple-100 dark:border-purple-800 bg-purple-300 dark:bg-gray-900/50 backdrop-blur-sm">
           <BlurFade delay={0.2}>
-            <div className="max-w-6xl mx-auto text-center">
-              <div className="flex items-center justify-center gap-3 mb-4">
+            <div className="max-w-6xl mx-auto text-center ">
+              <div className="flex items-center justify-center gap-3 mb-2">
                 <div className="relative">
                   {/* AI Assistant Robot Head */}
                   <div className="flex items-center justify-center w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg shadow-md">
@@ -599,8 +599,8 @@ export default function Home() {
               <p className="text-gray-600 dark:text-gray-400">
                 For any queries, support or additional feedback, please mail us.
               </p>
-              <p className="text-gray-600 font-bold dark:text-gray-400">imp.communicate@gmail.com - 6398271263</p>
-              <p className="text-gray-600 dark:text-gray-400 cursor-pointer underline underline-offset-3" onClick={()=>router.push('/about-payment')}>@Know About Payments</p>
+              <p className="text-gray-600 p-1 font-bold dark:text-gray-400">imp.communicate@gmail.com</p>
+              {/* <p className="text-gray-600 dark:text-gray-400 cursor-pointer underline underline-offset-3" onClick={()=>router.push('/about-payment')}>@Know About Payments</p> */}
               <p className="text-gray-600 dark:text-gray-400">
                 © 2025 OptiSense AI, all rights reserved.
               </p>
