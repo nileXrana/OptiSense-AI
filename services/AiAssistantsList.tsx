@@ -17,7 +17,7 @@ export default [
         id: 2,
         name: 'Gravik',
         title: 'Grammar Fixer ✍️',
-        image: '/grammar.png',
+        image: '/grammar-fixer.png',
         instruction: `Fix grammar mistakes in provided text.`,
         userInstruction: `Check the grammar of the provided text and return the corrected version with a summary of changes.`,
         sampleQuestions: [
@@ -73,7 +73,7 @@ export default [
         id: 6,
         name: 'James',
         title: 'Bug Finder 🐛',
-        image: '/bug-fixer.png',
+        image: '/bug-finder.png',
         instruction: `Identify and fix issues in code.`,
         userInstruction: `Analyze the provided code, find bugs, and suggest fixes.`,
         sampleQuestions: [

@@ -160,7 +160,7 @@ export default function Home() {
     { name: 'Devin', title: 'Virtual Boyfriend', icon: '💙', image: '/bf.png' },
     { name: 'Odin', title: 'Code Writer', icon: '💻', image: '/code-writer.jpg' },
     { name: 'Ganika', title: 'YouTube Script Writer', icon: '🎬', image: '/yt-script.png' },
-    { name: 'James', title: 'Bug Finder', icon: '🐛', image: '/bug-fixer.png' },
+    { name: 'James', title: 'Bug Finder', icon: '🐛', image: '/bug-finder.png' },
     { name: 'Carlo', title: 'Finance Assistant', icon: '💰', image: '/finance.avif' },
     { name: 'Shiksha', title: 'Personal Tutor', icon: '📚', image: '/personal-tutor.png' },
   ]
