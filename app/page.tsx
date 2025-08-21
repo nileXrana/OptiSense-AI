@@ -242,7 +242,7 @@ export default function Home() {
 
           <BlurFade delay={0.5}>
             <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-4xl mx-auto leading-relaxed">
-              Meet your team of specialized AI assistants ready to help with Health, Relationship, Career, Coding, Writing, Fitness, Finance and lot more.<br />Create your own custom AI assistant with unique personality and expertise.
+              Meet your team of specialized AI assistants ready to help with Health, Relationship, Career, Coding, Writing, Finance and lot more.<br />Create your own custom AI assistant with unique personality and expertise.
             </p>
           </BlurFade>
 
