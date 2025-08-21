@@ -112,22 +112,7 @@ const page = () => {
   if (isLoadingAssistants || isLoadingUserData) {
     return (
       <div className="h-screen w-full bg-gradient-to-br from-purple-50 via-pink-50 to-indigo-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-indigo-900/20 flex items-center justify-center">
-        <div className="text-center space-y-6">
-          {/* User Image at top center */}
-          <div className="mb-8">
-            <div className="relative w-32 h-32 mx-auto mb-6">
-              <Image 
-                src={user?.imageUrl || "/virtual-girl.jpg"} 
-                alt="User Profile" 
-                width={128}
-                height={128}
-                priority
-                className="object-cover rounded-full shadow-2xl border-4 border-purple-200 dark:border-purple-800 animate-pulse"
-              />
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-400/20 to-pink-400/20 animate-pulse"></div>
-            </div>
-          </div>
-          
+        <div className="text-center space-y-6">      
           <div className="relative">
             <div className="animate-spin rounded-full h-16 w-16 border-4 border-purple-200 dark:border-purple-800 border-t-purple-600 dark:border-t-purple-400 mx-auto"></div>
             <div className="absolute inset-0 flex items-center justify-center">

@@ -57,9 +57,9 @@ export default [
     },
     {
         id: 5,
-        name: 'Akhil',
+        name: 'Odin',
         title: 'Code Writer 💻',
-        image: '/code-writer.png',
+        image: '/code-writer.jpg',
         instruction: `Write and assist with coding tasks.`,
         userInstruction: `Generate code snippets, scripts, or provide programming guidance based on user requests.`,
         sampleQuestions: [
@@ -85,9 +85,9 @@ export default [
     },
     {
         id: 7,
-        name: 'Vittin',
+        name: 'Carlo',
         title: 'Finance Assistant 💰',
-        image: '/finance.png',
+        image: '/finance.avif',
         instruction: `Provide financial advice and tips.`,
         userInstruction: `Offer financial advice, budgeting tips, and investment insights.`,
         sampleQuestions: [
@@ -99,7 +99,7 @@ export default [
     },
     {
         id: 8,
-        name: 'Kiara',
+        name: 'Kia',
         title: 'Virtual Girlfriend 💖',
         image: '/gf.png',
         instruction: `Engage in friendly and romantic chats.`,

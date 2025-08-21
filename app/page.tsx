@@ -156,12 +156,12 @@ export default function Home() {
 
   const assistants = [
     { name: 'Jack', title: 'Fitness Coach', icon: '💪', image: '/fitness4.png' },
-    { name: 'Kiara', title: 'Virtual Girlfriend', icon: '💖', image: '/gf.png' },
+    { name: 'Kia', title: 'Virtual Girlfriend', icon: '💖', image: '/gf.png' },
     { name: 'Devin', title: 'Virtual Boyfriend', icon: '💙', image: '/bf.png' },
-    { name: 'Akhil', title: 'Code Writer', icon: '💻', image: '/code-writer.png' },
+    { name: 'Odin', title: 'Code Writer', icon: '💻', image: '/code-writer.jpg' },
     { name: 'Ganika', title: 'YouTube Script Writer', icon: '🎬', image: '/yt-script.png' },
     { name: 'James', title: 'Bug Finder', icon: '🐛', image: '/bug-fixer.png' },
-    { name: 'Vittin', title: 'Finance Assistant', icon: '💰', image: '/finance.png' },
+    { name: 'Carlo', title: 'Finance Assistant', icon: '💰', image: '/finance.avif' },
     { name: 'Shiksha', title: 'Personal Tutor', icon: '📚', image: '/personal-tutor.png' },
   ]
 
