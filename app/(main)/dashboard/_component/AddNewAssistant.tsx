@@ -29,7 +29,7 @@ const AddNewAssistant = ({ children}: any) => {
     const { user } = useUser();
     // defaultAssistant :
     const DEFAULT_ASSISTANT = {
-        image:'/bug-finder.png',
+        image:'/fitness4.png',
             name:'',
             title:'',
             instruction:'',
