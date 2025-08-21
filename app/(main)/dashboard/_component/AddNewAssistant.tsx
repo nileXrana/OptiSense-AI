@@ -29,7 +29,7 @@ const AddNewAssistant = ({ children}: any) => {
     const { user } = useUser();
     // defaultAssistant :
     const DEFAULT_ASSISTANT = {
-        image:'/bug-fixer.avif',
+        image:'/bug-finder.png',
             name:'',
             title:'',
             instruction:'',
