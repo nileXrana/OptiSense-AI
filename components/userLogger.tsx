@@ -31,6 +31,9 @@ const userLogger = () => {
           headers: {
             "Content-Type": "application/json"
           },
+          body: JSON.stringify({
+            userEmail: user.primaryEmailAddress?.emailAddress
+          })
         })
         const data = await result.json()
         if (data.length > 0) {

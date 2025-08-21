@@ -7,11 +7,11 @@ export async function POST(req: NextRequest) {
   try {
     const user = await currentUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    const { instruction, name } = await req.json();
+    const { instruction, name, userEmail } = await req.json();
     const assistant = await prisma.userAiAssistants.findFirst({
   where: {
     name: name,         // numeric id
-    uid: user.id,   // user’s Clerk uid
+    uid: userEmail,   // user’s Clerk uid
   },
 });
 if (!assistant) {

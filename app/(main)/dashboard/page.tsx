@@ -53,6 +53,9 @@ const page = () => {
         const res = await fetch("/api/is-selected", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            userEmail: user?.primaryEmailAddress?.emailAddress
+          })
         });
         const result = await res.json();
         if (result && result.length > 0) {

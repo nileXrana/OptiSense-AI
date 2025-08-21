@@ -67,7 +67,12 @@ const AddNewAssistant = ({ children}: any) => {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify([selectedAssistant])
+      body: JSON.stringify(
+        {
+          assistants: [selectedAssistant],
+          userEmail: user?.primaryEmailAddress?.emailAddress
+        }
+      )
     })
     .then(res => res.json())
   .catch(err => console.error(err))

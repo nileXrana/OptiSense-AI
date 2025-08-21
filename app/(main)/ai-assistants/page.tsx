@@ -13,7 +13,7 @@ import { useEffect } from 'react'
 import { ModeToggle } from '@/components/ui/mode-toggle'
 import Link from 'next/link'
 import { UserButton } from "@clerk/nextjs";
-import { useUser } from '@clerk/nextjs'
+import { useUser, } from '@clerk/nextjs'
 
 // Add custom CSS for animations
 const customStyles = `
@@ -46,7 +46,7 @@ const page = () => {
   }, [])
 
   
-  const { isSignedIn } = useUser();
+  const { isSignedIn, user } = useUser();
 
   const getUserAssistants = async () => {
     // chick if signIn or not :
@@ -59,6 +59,9 @@ const page = () => {
       headers: {
         "Content-Type": "application/json"
       },
+      body: JSON.stringify({
+        userEmail: user?.primaryEmailAddress?.emailAddress 
+      })
     })
     const data = await result.json()
     if (data.length > 0) {
@@ -96,7 +99,10 @@ const page = () => {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(selectedAssistants)
+      body: JSON.stringify({
+        assistants: selectedAssistants,
+        userEmail: user?.primaryEmailAddress?.emailAddress
+      })
     })
       .then(res => res.json())
       .catch(err => console.error(err))
