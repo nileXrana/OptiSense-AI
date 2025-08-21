@@ -270,7 +270,7 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
                   <h2 className='font-bold text-lg dark:text-gray-100'>Pro Plan</h2>
                   <h2 className='dark:text-gray-300'>5,00000 Tokens</h2>
                 </div>
-                <h2 className='font-bold text-lg flex dark:text-gray-100'>&#8377;100</h2>
+                <h2 className='font-bold text-lg flex dark:text-gray-100'>&#8377;10</h2>
               </div>
                 <hr className='my-3' />
                 <CheckoutButton setrefresh={setrefresh} amount={10} />
