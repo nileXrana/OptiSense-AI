@@ -159,14 +159,16 @@ export default function Home() {
     { name: 'Kia', title: 'Virtual Girlfriend', icon: '💖', image: '/gf.png' },
     { name: 'Devin', title: 'Virtual Boyfriend', icon: '💙', image: '/bf.png' },
     { name: 'Odin', title: 'Code Writer', icon: '💻', image: '/code-writer.jpg' },
-    { name: 'Ganika', title: 'YouTube Script Writer', icon: '🎬', image: '/yt-script.png' },
     { name: 'James', title: 'Bug Finder', icon: '🐛', image: '/bug-finder.png' },
     { name: 'Carlo', title: 'Finance Assistant', icon: '💰', image: '/finance.avif' },
-    { name: 'Shiksha', title: 'Personal Tutor', icon: '📚', image: '/personal-tutor.png' },
+    { name: 'Aayra', title: 'Email Writer', icon: '📩', image: '/email-writer.png' },
+    { name: 'Atlas', title: 'Travel Planner', icon: '✈️', image: '/traval-planner.jpg' },
+    { name: 'Serena', title: 'Mindfulness Guide', icon: '🧘‍♀️', image: '/mindfull.png' },
+    { name: 'Lyric', title: 'Song Writer', icon: '🎶', image: '/song-write.png' }
   ]
 
   const features = [
-    { icon: <Bot className="h-8 w-8" />, title: "10+ AI Assistants", description: "Specialized AI companions for every task" },
+    { icon: <Bot className="h-8 w-8" />, title: "50+ AI Assistants", description: "Specialized AI companions for every task" },
     { icon: <MessageSquare className="h-8 w-8" />, title: "Smart Conversations", description: "Natural, context-aware interactions" },
     { icon: <Zap className="h-8 w-8" />, title: "Instant Responses", description: "Get answers and solutions in real-time" },
     { icon: <Users className="h-8 w-8" />, title: "Create Custom AI", description: "Build your own personalized assistant" },
@@ -260,7 +262,7 @@ export default function Home() {
           <BlurFade delay={0.9}>
             <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto">
               <div className="text-center scale-125">
-                <div className="text-3xl font-bold text-purple-600">10+</div>
+                <div className="text-3xl font-bold text-purple-600">50+</div>
                 <div className="text-sm text-gray-600 dark:text-gray-400">AI Assistants</div>
               </div>
               <div className="text-center scale-125">
@@ -306,7 +308,7 @@ export default function Home() {
             </p>
           </BlurFade>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5  gap-6">
             {assistants.map((assistant, index) => (
               <BlurFade key={index} delay={0.3 + index * 0.1}>
                 <div className="group cursor-pointer">

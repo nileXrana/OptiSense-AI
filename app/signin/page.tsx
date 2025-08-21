@@ -99,7 +99,7 @@ const openLinkedIn = () => {
                 <div className="max-md:hidden space-y-4 mb-8">
                   <div className="flex items-center gap-3 justify-center lg:justify-start">
                     <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
-                    <span className="text-gray-700 dark:text-gray-300">Access 10+ specialized AI assistants</span>
+                    <span className="text-gray-700 dark:text-gray-300">Access 50+ specialized AI assistants</span>
                   </div>
                   <div className="flex items-center gap-3 justify-center lg:justify-start">
                     <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />

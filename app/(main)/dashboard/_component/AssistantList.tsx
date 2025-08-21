@@ -194,7 +194,7 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
       <div className='overflow-scroll h-[60vh] '>
         {filteredAssistants.length > 0 ? (
           filteredAssistants.map((assistant: ASSISTANT, index) => (
-            <BlurFade key={index} duration={0.3 * index}>
+            <BlurFade key={index} duration={0.2 * index}>
               <div key={index} className={`p-2 flex gap-3 items-center hover:bg-gray-300 dark:hover:bg-slate-700 cursor-pointer rounded-xl ${assistant.name == selectedAssistant?.name && 'bg-blue-300 dark:bg-blue-600 hover:!bg-blue-300 dark:hover:!bg-blue-600'} `} onClick={() => handleAssistantSelection(assistant)}>
                 <Image src={assistant.image} alt={assistant.name} width={60} height={60}
                   className='rounded-xl object-cover' style={{ width: '60px', height: '60px' }}>
