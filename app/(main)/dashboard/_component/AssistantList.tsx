@@ -10,7 +10,7 @@ import { UserButton } from "@clerk/nextjs";
 import { useClerk, useUser } from "@clerk/nextjs";
 import { BlurFade } from '@/src/components/magicui/blur-fade'
 import AddNewAssistant from './AddNewAssistant'
-import CheckoutButton from './CheckoutButton'
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -30,14 +30,32 @@ import {
 } from "@/components/ui/dialog"
 import { Progress } from '@/components/ui/progress'
 import { useRouter } from "next/navigation";
+import Script from 'next/script'
 
 interface AssistantListProps {
   preloadedAssistants?: ASSISTANT[]
   onMobileClose?: () => void
   initialUserData?: any
+  USER?: any
+  setUSER?: (user: any) => void
 }
 
-const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserData }: AssistantListProps) => {
+interface PhonePeCheckout {
+  closePage(): void;
+  transact(options: {
+    tokenUrl: string;
+    callback: (response: any) => void;
+    type: "IFRAME" | "POPUP";
+  }): void;
+}
+
+declare global {
+  interface Window {
+    PhonePeCheckout?: PhonePeCheckout;
+  }
+}
+
+const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserData, USER, setUSER }: AssistantListProps) => {
 
   const { user, isSignedIn } = useUser()
   const { signOut } = useClerk();
@@ -62,7 +80,7 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
           console.log("User email not available yet, waiting...");
           return;
         }
-        
+
         const res = await fetch("/api/is-selected", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -71,7 +89,7 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
           })
         });
         const result = await res.json();
-        
+
         if (!Array.isArray(result) || result.length === 0) {
           console.log("No assistants found for user:", user?.primaryEmailAddress?.emailAddress);
           alert("No assistants found. Please create one.")
@@ -87,9 +105,9 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
 
   useEffect(() => {
     // Use initial user data from parent if available
-    if (initialUserData) {
+    if (initialUserData && setUSER) {
       setUSER(initialUserData);
-    } else if (user) {
+    } else if (user && setUSER) {
       // Fallback to fetch if no initial data
       const fetchInitialUserData = async () => {
         const res = await fetch('/api/save-user', {
@@ -104,7 +122,7 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
       }
       fetchInitialUserData();
     }
-  }, [user, initialUserData])
+  }, [user, initialUserData, setUSER])
 
   useEffect(() => {
     fetchData()
@@ -112,6 +130,8 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
 
 
   const fetchData = async () => {
+    if (!setUSER) return; // Early return if setUSER is not available
+    
     const res = await fetch('/api/save-user', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -121,7 +141,7 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
     })
     const result = await res.json();
     // console.log('User data received:', result)
-    
+
     // Check if result has required properties
     if (result && typeof result.credits !== 'undefined' && typeof result.tokenUsed !== 'undefined') {
       setUSER(result)
@@ -168,7 +188,7 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
   const [myAssistants, setmyAssistants] = useState<ASSISTANT[]>([])
   const [searchTerm, setSearchTerm] = useState('')
   const { selectedAssistant, setselectedAssistant } = useContext<any>(AssistantContext)
-  const [USER, setUSER] = useState<any>() // user details from backend :
+  const [orderDetails, setorderDetails] = useState<any>() // order details for payment
 
   // Function to refresh assistants list
   const refreshAssistants = async () => {
@@ -178,7 +198,7 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
         console.log("User email not available for refresh");
         return;
       }
-      
+
       const res = await fetch("/api/is-selected", {
         method: "POST",
         headers: {
@@ -189,7 +209,7 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
         })
       });
       const result = await res.json();
-      
+
       if (Array.isArray(result) && result.length > 0) {
         setmyAssistants(result)
         if (!selectedAssistant) {
@@ -200,6 +220,91 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
       console.error("Error refreshing assistants:", error)
     }
   }
+
+  // this function is called automatically by phonepe sdk after payment is done or cancelled :
+  async function callback(response: string) {
+    if (response === 'USER_CANCEL') { // transaction is cancelled by the user :
+      console.log('Payment cancelled by user');
+      return;
+    } else if (response === 'CONCLUDED') { // check payment status from backend :
+      console.log(orderDetails)
+      const req = await fetch('/api/payment-status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          accessToken: orderDetails?.accessToken,
+          orderId: orderDetails?.orderId,
+          merchantOrderId: orderDetails?.merchantOrderId,
+          email: user?.primaryEmailAddress?.emailAddress,
+        })
+      })
+      const result = await req.json();
+      const paymentData = result.data
+      console.log(paymentData?.state)
+
+      // Now payment is either COMPLETED or FAILED or PENDING :
+      if (paymentData?.state === "FAILED") {
+        alert('Payment failed. Please try again later or contact support.')
+        return;
+      } else if (paymentData?.state === "PENDING") {
+        alert('Payment is still pending. Please wait a moment or contact support.')
+        return;
+      }  else if(paymentData?.state === "COMPLETED") {
+        // Payment is successful, update user tokens :
+        const updatedUser = await fetch('/api/pro-user', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: user?.primaryEmailAddress?.emailAddress,
+            orderId: orderDetails?.orderId,
+          })
+        })
+        const result = await updatedUser.json();
+        const updatedNewUser = result.user;
+        if (setUSER) {
+          setUSER(updatedNewUser)
+        }
+        alert('Payment successful! You are now a Pro user.')
+      }else{
+        alert('Unexpected payment status. Please contact support.')
+        return;
+      }
+
+    }
+  }
+
+  async function upgradeToPro() { // starts payment process :
+    try {
+      // Close any open popups/dialogs that might interfere with iframe interactions
+      setDropdownOpen(false);
+      setOpenDialog(false);
+
+      const req = await fetch('/api/generate-token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      })
+      const payment = await req.json()
+      // store it in user state :
+      setorderDetails(payment)
+
+      if (!window.PhonePeCheckout) {
+        console.error('PhonePe SDK not loaded yet');
+        alert('Payment system is loading. Please try again in a moment.');
+        return
+      }
+      const tokenUrl = payment.redirectUrl;
+      window.PhonePeCheckout.transact({
+        tokenUrl: tokenUrl,
+        callback: callback,
+        type: "IFRAME"
+      });
+
+    } catch (error) {
+      console.error('Error in upgradeToPro:', error);
+      alert('Payment initialization failed. Please try again.');
+    }
+  }
+
 
   // Filter assistants based on search term
   const filteredAssistants = (Array.isArray(myAssistants) ? myAssistants : []).filter((assistant: ASSISTANT) =>
@@ -316,8 +421,17 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
             <hr className='my-3'></hr>
             <div className='p-2 flex flex-col gap-2'>
               <h3 className='font-bold dark:text-gray-100'>Token Usage</h3>
-              <Progress value={progress} />
-              <span className='bg-gray-200 dark:bg-gray-700 dark:text-gray-100 rounded-sm p-2'>{USER?.tokenUsed}/{USER?.credits}</span>
+              <Progress 
+                value={progress} 
+                className={`bg-gray-200 dark:bg-gray-700 ${
+                  progress < 50 
+                    ? '[&>[data-slot=progress-indicator]]:bg-green-500' 
+                    : progress < 80 
+                    ? '[&>[data-slot=progress-indicator]]:bg-yellow-500' 
+                    : '[&>[data-slot=progress-indicator]]:bg-red-500'
+                }`}
+              />
+              <span className='bg-gray-200 dark:bg-gray-700 dark:text-gray-100 rounded-sm p-3 mt-1'>{USER?.tokenUsed}/{USER?.credits}</span>
               <p className='flex p-1 items-center justify-between font-bold dark:text-gray-100'>Current Plan <span className='bg-gray-200 dark:bg-gray-700 dark:text-gray-100 p-2 text-sm rounded-md'>{USER?.orderId ? "Pro Plan" : "Free Plan"}</span></p>
             </div>
             <div className='p-4 border dark:border-gray-600 rounded-xl'>
@@ -329,7 +443,10 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
                 <h2 className='font-bold text-lg flex dark:text-gray-100'>&#8377;10</h2>
               </div>
               <hr className='my-3' />
-              <CheckoutButton setrefresh={setrefresh} amount={10} />
+              {/* <CheckoutButton setrefresh={setrefresh} amount={10} /> */}
+              <Button className='w-full cursor-pointer bg-violet-600 dark:bg-violet-500 hover:bg-violet-700 dark:hover:bg-violet-600' onClick={upgradeToPro}>
+                Upgrade to Pro
+              </Button>
             </div>
             <div className='mt-3 flex justify-end'>
             </div>
@@ -337,6 +454,10 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
         </DialogContent>
       </Dialog>
 
+      <Script
+        src="https://mercury.phonepe.com/web/bundle/checkout.js"
+        strategy="beforeInteractive"
+      />
     </div>
   )
 }

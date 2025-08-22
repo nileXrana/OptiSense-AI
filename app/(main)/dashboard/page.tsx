@@ -20,6 +20,7 @@ const page = () => {
   const [showAssistantList, setShowAssistantList] = useState(false)
   const [myAssistants, setMyAssistants] = useState([])
   const [initialUserData, setInitialUserData] = useState(null)
+  const [USER, setUSER] = useState<any>() // Lifted from AssistantList
   const [mounted, setMounted] = useState(false)
   const [isLoadingAssistants, setIsLoadingAssistants] = useState(true)
   const [isLoadingUserData, setIsLoadingUserData] = useState(true)
@@ -87,6 +88,7 @@ const page = () => {
         });
         const result = await res.json();
         setInitialUserData(result);
+        setUSER(result); // Also set the USER state
       } catch (error) {
         console.error("Error loading initial user data:", error);
       } finally {
@@ -206,10 +208,15 @@ const page = () => {
         {/* Desktop Layout */}
         <div className='hidden lg:grid lg:grid-cols-5 h-full'>
           <div className=''>
-            <AssistantList preloadedAssistants={myAssistants} initialUserData={initialUserData}/>
+            <AssistantList 
+              preloadedAssistants={myAssistants} 
+              initialUserData={initialUserData}
+              USER={USER}
+              setUSER={setUSER}
+            />
           </div>
           <div className='col-span-3'>
-            <ChatUi/>
+            <ChatUi setUSER={setUSER} />
           </div>
           <div className=''>
             <AssistantSetting/>
@@ -219,16 +226,21 @@ const page = () => {
         {/* Tablet Layout */}
         <div className='hidden md:grid lg:hidden md:grid-cols-4 h-full'>
           <div className=''>
-            <AssistantList preloadedAssistants={myAssistants} initialUserData={initialUserData}/>
+            <AssistantList 
+              preloadedAssistants={myAssistants} 
+              initialUserData={initialUserData}
+              USER={USER}
+              setUSER={setUSER}
+            />
           </div>
           <div className='col-span-3'>
-            <ChatUi/>
+            <ChatUi setUSER={setUSER} />
           </div>
         </div>
 
         {/* Mobile Layout */}
         <div className='block md:hidden h-full'>
-          <ChatUi/>
+          <ChatUi setUSER={setUSER} />
         </div>
 
         {/* Mobile Assistant List Overlay */}
@@ -247,6 +259,8 @@ const page = () => {
                 <AssistantList 
                   preloadedAssistants={myAssistants} 
                   initialUserData={initialUserData}
+                  USER={USER}
+                  setUSER={setUSER}
                   onMobileClose={() => setShowAssistantList(false)}
                 />
               </div>

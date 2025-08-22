@@ -13,8 +13,11 @@ import { RotatingLines } from 'react-loader-spinner';
 import { Loader2 } from "lucide-react"
 import { useUser } from '@clerk/nextjs'
 
+interface ChatUiProps {
+  setUSER?: (user: any) => void
+}
 
-const ChatUi = () => {
+const ChatUi = ({ setUSER }: ChatUiProps) => {
 
     const { user,isSignedIn } = useUser();
     const [input, setInput] = useState<string>("")
@@ -90,6 +93,29 @@ const ChatUi = () => {
         // check tokenExceeded :
         const result = await res.json()
         settokenExceeded(result.tE)
+        
+        // update USER.credits & tokenUsed
+        if(setUSER){
+            if(tokenExceeded){
+                // update : tokenUsed = credits
+                setUSER((prevUser:any)=>{
+                    if(!prevUser) return prevUser;
+                    return {
+                        ...prevUser,
+                        tokenUsed: prevUser.credits
+                    }
+                })
+            }else{
+                // update : tokenUsed = result.tokenUsed
+                setUSER((prevUser:any)=>{
+                    if(!prevUser) return prevUser;
+                    return {
+                        ...prevUser,
+                        tokenUsed: result.tokenUsed
+                    }
+                })
+            }
+        }
 
     }
 
