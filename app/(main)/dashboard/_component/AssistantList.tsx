@@ -57,6 +57,12 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
     } else {
       // Fallback to API call if no preloaded data
       const fun = async () => {
+        // Wait for user to be loaded before making API call
+        if (!user?.primaryEmailAddress?.emailAddress) {
+          console.log("User email not available yet, waiting...");
+          return;
+        }
+        
         const res = await fetch("/api/is-selected", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -65,8 +71,9 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
           })
         });
         const result = await res.json();
-        //
-        if (result.length === 0) {
+        
+        if (!Array.isArray(result) || result.length === 0) {
+          console.log("No assistants found for user:", user?.primaryEmailAddress?.emailAddress);
           alert("No assistants found. Please create one.")
           router.push('/signin')
           return;
@@ -76,7 +83,7 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
       }
       fun();
     }
-  }, [preloadedAssistants])
+  }, [preloadedAssistants, user])
 
   useEffect(() => {
     // Use initial user data from parent if available
@@ -163,8 +170,39 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
   const { selectedAssistant, setselectedAssistant } = useContext<any>(AssistantContext)
   const [USER, setUSER] = useState<any>() // user details from backend :
 
+  // Function to refresh assistants list
+  const refreshAssistants = async () => {
+    try {
+      // Make sure user email is available
+      if (!user?.primaryEmailAddress?.emailAddress) {
+        console.log("User email not available for refresh");
+        return;
+      }
+      
+      const res = await fetch("/api/is-selected", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          userEmail: user?.primaryEmailAddress?.emailAddress
+        })
+      });
+      const result = await res.json();
+      
+      if (Array.isArray(result) && result.length > 0) {
+        setmyAssistants(result)
+        if (!selectedAssistant) {
+          setselectedAssistant(result[0])
+        }
+      }
+    } catch (error) {
+      console.error("Error refreshing assistants:", error)
+    }
+  }
+
   // Filter assistants based on search term
-  const filteredAssistants = myAssistants.filter((assistant: ASSISTANT) =>
+  const filteredAssistants = (Array.isArray(myAssistants) ? myAssistants : []).filter((assistant: ASSISTANT) =>
     assistant.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     assistant.title.toLowerCase().includes(searchTerm.toLowerCase())
   )
@@ -177,7 +215,7 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
         </h1>
       </BlurFade>
       <BlurFade duration={0.8}>
-        <AddNewAssistant>
+        <AddNewAssistant onAssistantAdded={refreshAssistants}>
           <Button className='w-full mt-3 cursor-pointer'>
             Add New Assistant
           </Button>

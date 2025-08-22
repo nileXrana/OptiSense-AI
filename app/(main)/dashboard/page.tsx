@@ -45,7 +45,7 @@ const page = () => {
 
   // Load assistants immediately when dashboard loads
   useEffect(() => {
-    if (!mounted || !isSignedIn) return
+    if (!mounted || !isSignedIn || !isLoaded || !user?.primaryEmailAddress?.emailAddress) return
     
     setIsLoadingAssistants(true)
     const loadAssistants = async () => {
@@ -69,7 +69,7 @@ const page = () => {
       }
     }
     loadAssistants();
-  }, [mounted, isSignedIn])
+  }, [mounted, isSignedIn, isLoaded, user])
 
   // Load initial user data once when dashboard loads
   useEffect(() => {

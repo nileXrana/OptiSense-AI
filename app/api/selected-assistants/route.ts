@@ -12,6 +12,9 @@ export async function POST(req: NextRequest) {
   // Use the email from the request body or fall back to Clerk user email
   const emailToUse = userEmail
   
+  let addedCount = 0
+  let duplicateNames = []
+  
   for (const obj of assistants) {
     const existing = await prisma.userAiAssistants.findFirst({
       where: { uid: emailToUse, name: obj.name },
@@ -20,7 +23,24 @@ export async function POST(req: NextRequest) {
       await prisma.userAiAssistants.create({
         data: { ...obj, uid: emailToUse },
       });
+      addedCount++
+    } else {
+      duplicateNames.push(obj.name)
     }
   }
-  return NextResponse.json("user assistants are saved in db")
+  
+  if (duplicateNames.length > 0) {
+    return NextResponse.json({ 
+      success: false,
+      error: "duplicate_name", 
+      message: `Assistant with name "${duplicateNames[0]}" already exists`,
+      duplicateNames 
+    }, { status: 409 })
+  }
+  
+  return NextResponse.json({ 
+    success: true,
+    message: "Assistant added successfully",
+    addedCount 
+  })
 }

@@ -24,7 +24,7 @@ import { useUser } from '@clerk/nextjs';
 import { Loader2Icon } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
-const AddNewAssistant = ({ children}: any) => {
+const AddNewAssistant = ({ children, onAssistantAdded }: any) => {
 
     const { user } = useUser();
     // defaultAssistant :
@@ -42,6 +42,7 @@ const AddNewAssistant = ({ children}: any) => {
     // useState :
     const [selectedAssistant, setselectedAssistant] = useState<ASSISTANT>(DEFAULT_ASSISTANT)
     const [loading, setloading] = useState(false)
+    const [open, setOpen] = useState(false)
 
     const onHandleInputChange = (field: string,value: string)=>{
         // console.log('onHandleInputChange called with field:', field, 'value:', value)
@@ -61,28 +62,46 @@ const AddNewAssistant = ({ children}: any) => {
             return; 
         }
         setloading(true)
-        // add it to backend :
-        await fetch("/api/selected-assistants", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(
-        {
-          assistants: [selectedAssistant],
-          userEmail: user?.primaryEmailAddress?.emailAddress
+        try {
+            // add it to backend :
+            const response = await fetch("/api/selected-assistants", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    assistants: [selectedAssistant],
+                    userEmail: user?.primaryEmailAddress?.emailAddress
+                })
+            })
+            
+            const result = await response.json()
+            
+            if (response.ok && result.success) {
+                toast.success('Assistant added successfully!')
+                // Close the dialog
+                setOpen(false)
+                // Reset form
+                setselectedAssistant(DEFAULT_ASSISTANT)
+                // Notify parent component to refresh the list
+                if (onAssistantAdded) {
+                    onAssistantAdded()
+                }
+            } else if (response.status === 409 && result.error === "duplicate_name") {
+                toast.error(result.message || 'Assistant with this name already exists')
+            } else {
+                toast.error(result.message || 'Failed to add assistant')
+            }
+        } catch (err) {
+            console.error(err)
+            toast.error('Something went wrong')
+        } finally {
+            setloading(false)
         }
-      )
-    })
-    .then(res => res.json())
-  .catch(err => console.error(err))
-
-  setloading(false)
-  window.location.reload()
     }
 
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>{children}</DialogTrigger>
             <DialogContent>
                 <DialogHeader>
