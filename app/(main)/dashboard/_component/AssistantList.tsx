@@ -188,7 +188,7 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
   const [myAssistants, setmyAssistants] = useState<ASSISTANT[]>([])
   const [searchTerm, setSearchTerm] = useState('')
   const { selectedAssistant, setselectedAssistant } = useContext<any>(AssistantContext)
-  const [orderDetails, setorderDetails] = useState<any>() // order details for payment
+  let orderDetails: any;
 
   // Function to refresh assistants list
   const refreshAssistants = async () => {
@@ -232,9 +232,9 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          accessToken: orderDetails?.accessToken,
-          orderId: orderDetails?.orderId,
-          merchantOrderId: orderDetails?.merchantOrderId,
+          accessToken: orderDetails.accessToken,
+          orderId: orderDetails.orderId,
+          merchantOrderId: orderDetails.merchantOrderId,
           email: user?.primaryEmailAddress?.emailAddress,
         })
       })
@@ -250,7 +250,7 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
         alert('Payment is still pending. Please wait a moment or contact support.')
         return;
       }  else if(paymentData?.state === "COMPLETED") {
-        // Payment is successful, update user tokens :
+        // Payment is successful, update user to pro :
         const updatedUser = await fetch('/api/pro-user', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -265,6 +265,7 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
           setUSER(updatedNewUser)
         }
         alert('Payment successful! You are now a Pro user.')
+        window.location.reload();
       }else{
         alert('Unexpected payment status. Please contact support.')
         return;
@@ -284,8 +285,9 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
         headers: { 'Content-Type': 'application/json' },
       })
       const payment = await req.json()
-      // store it in user state :
-      setorderDetails(payment)
+      // store it in variable :
+      console.log(payment)
+      orderDetails = payment
 
       if (!window.PhonePeCheckout) {
         console.error('PhonePe SDK not loaded yet');
