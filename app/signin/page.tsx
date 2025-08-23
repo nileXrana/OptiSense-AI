@@ -99,19 +99,19 @@ const openLinkedIn = () => {
                 <div className="max-md:hidden space-y-4 mb-8">
                   <div className="flex items-center gap-3 justify-center lg:justify-start">
                     <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
-                    <span className="text-gray-700 dark:text-gray-300">Access 50+ specialized AI assistants</span>
+                    <span className="text-gray-700 dark:text-gray-300">Access 50+ specialized AI Assistants</span>
                   </div>
                   <div className="flex items-center gap-3 justify-center lg:justify-start">
                     <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
-                    <span className="text-gray-700 dark:text-gray-300">Create custom AI assistants</span>
+                    <span className="text-gray-700 dark:text-gray-300">Create custom AI Assistants</span>
                   </div>
                   <div className="flex items-center gap-3 justify-center lg:justify-start">
                     <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
-                    <span className="text-gray-700 dark:text-gray-300">Secure and private conversations</span>
+                    <span className="text-gray-700 dark:text-gray-300">Secure and Private Conversations</span>
                   </div>
                   <div className="flex items-center gap-3 justify-center lg:justify-start">
                     <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
-                    <span className="text-gray-700 dark:text-gray-300">Sign in to get 100K free credits</span>
+                    <span className="text-gray-700 dark:text-gray-300">Sign in to get 100K Free Credits</span>
                   </div>
                   <div className="flex items-center gap-3 justify-center lg:justify-start">
                     <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />

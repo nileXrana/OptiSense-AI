@@ -400,7 +400,7 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
           <DialogHeader>
             <DialogTitle>User Profile</DialogTitle>
             <DialogDescription>
-              View your profile information and token usage
+              View your profile information and credits usage
             </DialogDescription>
           </DialogHeader>
 
@@ -422,7 +422,7 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
             </div>
             <hr className='my-3'></hr>
             <div className='p-2 flex flex-col gap-2'>
-              <h3 className='font-bold dark:text-gray-100'>Token Usage</h3>
+              <h3 className='font-bold dark:text-gray-100'>Credits Usage</h3>
               <Progress 
                 value={progress} 
                 className={`bg-gray-200 dark:bg-gray-700 ${
@@ -440,7 +440,7 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
               <div className='flex justify-between items-center  gap-1'>
                 <div className='flex flex-col gap-1'>
                   <h2 className='font-bold text-lg dark:text-gray-100'>Pro Plan</h2>
-                  <h2 className='dark:text-gray-300'>5,00000 Tokens</h2>
+                  <h2 className='dark:text-gray-300'>5,00000 Credits</h2>
                 </div>
                 <h2 className='font-bold text-lg flex dark:text-gray-100'>&#8377;10</h2>
               </div>

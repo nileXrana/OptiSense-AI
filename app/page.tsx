@@ -266,7 +266,7 @@ export default function Home() {
               </div>
               <div className="text-center scale-125">
                 <div className="text-3xl font-bold text-blue-600">100K</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Free Tokens</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">Free Credits</div>
               </div>
               <div className="text-center scale-125">
                 <div className="text-3xl font-bold text-indigo-600">24/7</div>
