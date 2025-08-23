@@ -43,6 +43,7 @@ const AddNewAssistant = ({ children, onAssistantAdded }: any) => {
     const [selectedAssistant, setselectedAssistant] = useState<ASSISTANT>(DEFAULT_ASSISTANT)
     const [loading, setloading] = useState(false)
     const [open, setOpen] = useState(false)
+    const [isDefaultAssistant, setIsDefaultAssistant] = useState(false)
 
     const onHandleInputChange = (field: string,value: string)=>{
         // console.log('onHandleInputChange called with field:', field, 'value:', value)
@@ -110,11 +111,17 @@ const AddNewAssistant = ({ children, onAssistantAdded }: any) => {
                         <div className='grid grid-cols-1 md:grid-cols-3 mt-3 sm:mt-5 gap-4 md:gap-0 max-h-[80vh] overflow-y-auto'>
                             <div className='md:border-r-2 border-b-2 md:border-b-0 pb-4 md:pb-0'>
                                 <Button variant={'secondary'} size={'sm'} className='w-full mb-2 cursor-pointer hover:scale-108 text-xs sm:text-sm'
-                                onClick={()=> setselectedAssistant(DEFAULT_ASSISTANT)}>+ Create New Assistant</Button>
+                                onClick={()=> {
+                                    setselectedAssistant(DEFAULT_ASSISTANT)
+                                    setIsDefaultAssistant(false)
+                                }}>+ Create New Assistant</Button>
                                 <div className='overflow-y-auto h-[25vh] sm:h-[30vh] md:h-[60vh]'>
                                     {AiAssistantsList.map((obj, index) => (
                                         <BlurFade key={obj.id} delay={0.25 + index * 0.1}>
-                                            <div key={obj.id} className='bg-gray-200 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-900 m-1 rounded-lg transition-all ease-in-out cursor-pointer flex items-center p-1 sm:p-2' onClick={()=>setselectedAssistant(obj)}>
+                                            <div key={obj.id} className='bg-gray-200 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-900 m-1 rounded-lg transition-all ease-in-out cursor-pointer flex items-center p-1 sm:p-2' onClick={()=>{
+                                                setselectedAssistant(obj)
+                                                setIsDefaultAssistant(true)
+                                            }}>
                                                 <Image src={obj.image} alt={obj.title} width={35} height={35} className='rounded-lg object-cover sm:w-[40px] sm:h-[40px]' style={{ width: '35px', height: '35px' }} />
                                                 <h2 className='text-[10px] sm:text-xs p-1 sm:p-2 text-gray-600 dark:text-gray-300'>{obj.title}</h2>
                                             </div>
@@ -131,12 +138,24 @@ const AddNewAssistant = ({ children, onAssistantAdded }: any) => {
                                     </AssistantAvatar>
                                     }
                                     <div className='flex flex-col gap-2 sm:gap-3 flex-1'>
-                                        <Input placeholder='Name of Assistant' className='w-full text-sm'
-                                        value={selectedAssistant?.name}
-                                         onChange={(event)=>onHandleInputChange('name',event.target.value)}/>
-                                        <Input placeholder='Title of Assistant' className='w-full text-sm'
-                                        value={selectedAssistant?.title}
-                                        onChange={(event)=>onHandleInputChange('title',event.target.value)} 
+                                        {isDefaultAssistant && (
+                                            <p className='text-xs text-gray-500 dark:text-gray-400 mb-1'>
+                                                📋 Default assistant - Name and title cannot be changed
+                                            </p>
+                                        )}
+                                        <Input 
+                                            placeholder='Name of Assistant' 
+                                            className={`w-full text-sm ${isDefaultAssistant ? 'opacity-60 cursor-not-allowed' : ''}`}
+                                            value={selectedAssistant?.name}
+                                            onChange={(event)=>onHandleInputChange('name',event.target.value)}
+                                            disabled={isDefaultAssistant}
+                                        />
+                                        <Input 
+                                            placeholder='Title of Assistant' 
+                                            className={`w-full text-sm ${isDefaultAssistant ? 'opacity-60 cursor-not-allowed' : ''}`}
+                                            value={selectedAssistant?.title}
+                                            onChange={(event)=>onHandleInputChange('title',event.target.value)}
+                                            disabled={isDefaultAssistant}
                                         />
                                     </div>
 

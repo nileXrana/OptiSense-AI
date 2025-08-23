@@ -224,7 +224,7 @@ export default function Home() {
             <div className="flex items-center gap-4">
               <ModeToggle />
               <Button onClick={signInPage} className="max-sm:hidden cursor-pointer bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
-                {isSignedIn? `Hey ${user?.firstName}` : 'Sign In'}
+                {isSignedIn? `Hey ${user.firstName || user.primaryEmailAddress?.emailAddress.split("@")[0]}` : 'Sign In'}
               </Button>
             </div>
           </BlurFade>
