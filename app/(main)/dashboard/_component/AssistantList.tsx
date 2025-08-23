@@ -440,7 +440,7 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
               <div className='flex justify-between items-center  gap-1'>
                 <div className='flex flex-col gap-1'>
                   <h2 className='font-bold text-lg dark:text-gray-100'>Pro Plan</h2>
-                  <h2 className='dark:text-gray-300'>5,00000 Credits</h2>
+                  <h2 className='dark:text-gray-300'>1,00000 Credits</h2>
                 </div>
                 <h2 className='font-bold text-lg flex dark:text-gray-100'>&#8377;10</h2>
               </div>

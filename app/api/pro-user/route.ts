@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
             const updatedUser = await prisma.users.update({
                 where: { email: email },
                 data: {
-                    credits: 500000,
+                    credits: 100000,
                     tokenUsed: 0,
                     orderId: orderId
                 },
@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
             const updatedUser = await prisma.users.update({
                 where: { email: email },
                 data: {
-                    credits: { increment: 500000 }, // add 500000 credits(PRO)
+                    credits: { increment: 100000 }, // add 100000 credits(PRO)
                     orderId: orderId
                 },
             });
