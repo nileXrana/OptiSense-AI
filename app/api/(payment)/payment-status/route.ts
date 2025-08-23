@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
         }
 
         // Step 3: Prepare API call
-        const apiUrl = `https://api-preprod.phonepe.com/apis/pg-sandbox/checkout/v2/order/${merchantOrderId}/status`;
+        const apiUrl = `https://api.phonepe.com/apis/pg/checkout/v2/order/${merchantOrderId}/status`;
         
         const headers = {
             'Content-Type': 'application/json',

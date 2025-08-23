@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
         params.append("client_secret", process.env.PHONEPE_CLIENT_SECRET!);
         params.append("client_version", process.env.PHONEPE_CLIENT_VERSION!);
         params.append("grant_type", "client_credentials");
-        const res = await fetch('https://api-preprod.phonepe.com/apis/pg-sandbox/v1/oauth/token', {
+        const res = await fetch('https://api.phonepe.com/apis/identity-manager/v1/oauth/token', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
         // 2. create payment :
         if (obj.access_token) {
             const merchantOrderId = generateMerchantOrderId();
-            const paymentRes = await fetch('https://api-preprod.phonepe.com/apis/pg-sandbox/checkout/v2/pay', {
+            const paymentRes = await fetch('https://api.phonepe.com/apis/pg/checkout/v2/pay', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
