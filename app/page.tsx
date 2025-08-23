@@ -262,15 +262,15 @@ export default function Home() {
             <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto">
               <div className="text-center scale-125">
                 <div className="text-3xl font-bold text-purple-600">50+</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">AI Assistants</div>
+                <div className="text-sm max-sm:text-xs text-gray-600 dark:text-gray-400">AI Assistants</div>
               </div>
               <div className="text-center scale-125">
                 <div className="text-3xl font-bold text-blue-600">100K</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Free Credits</div>
+                <div className="text-sm max-sm:text-xs text-gray-600 dark:text-gray-400">Free Credits</div>
               </div>
               <div className="text-center scale-125">
                 <div className="text-3xl font-bold text-indigo-600">24/7</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Always Available</div>
+                <div className="text-sm max-sm:text-xs text-gray-600 dark:text-gray-400">Always Available</div>
               </div>
             </div>
           </BlurFade>
