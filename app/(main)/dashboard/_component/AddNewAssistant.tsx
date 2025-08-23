@@ -114,7 +114,7 @@ const AddNewAssistant = ({ children, onAssistantAdded }: any) => {
                                 <div className='overflow-y-auto h-[25vh] sm:h-[30vh] md:h-[60vh]'>
                                     {AiAssistantsList.map((obj, index) => (
                                         <BlurFade key={obj.id} delay={0.25 + index * 0.1}>
-                                            <div key={obj.id} className='bg-gray-200 hover:bg-gray-400 m-1 rounded-lg transition-all ease-in-out cursor-pointer flex items-center p-1 sm:p-2' onClick={()=>setselectedAssistant(obj)}>
+                                            <div key={obj.id} className='bg-gray-200 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-900 m-1 rounded-lg transition-all ease-in-out cursor-pointer flex items-center p-1 sm:p-2' onClick={()=>setselectedAssistant(obj)}>
                                                 <Image src={obj.image} alt={obj.title} width={35} height={35} className='rounded-lg object-cover sm:w-[40px] sm:h-[40px]' style={{ width: '35px', height: '35px' }} />
                                                 <h2 className='text-[10px] sm:text-xs p-1 sm:p-2 text-gray-600 dark:text-gray-300'>{obj.title}</h2>
                                             </div>
