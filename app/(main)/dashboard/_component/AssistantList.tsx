@@ -336,7 +336,7 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </BlurFade>
-      <div className='overflow-scroll h-[60vh] '>
+      <div className='overflow-scroll h-[60vh] max-sm:h-[66vh]'>
         {filteredAssistants.length > 0 ? (
           filteredAssistants.map((assistant: ASSISTANT, index) => (
             <BlurFade key={index} duration={0.3 * index}>
