@@ -94,14 +94,13 @@ prisma/                  # Database schema
 ## 📞 Contact
 
 **Nilesh Rana**
-- 🌐 [Website](https://optisense.nileshrana.me)
+- 🌐 [WebApp](https://optisense.nileshrana.me)
 - 💼 [LinkedIn](https://linkedin.com/in/nilexrana)
-- 📧 [Email](mailto:nileshrana.developer@gmail.com)
 - 🐙 [GitHub](https://github.com/nileXrana)
 
 ---
 
 <div align="center">
-  <p><strong>⭐ Star this repo if you find it helpful!</strong></p>
-  <p><em>Built with ❤️ by Nilesh Rana</em></p>
+  <p><strong>⭐ Star this repo if you find it helpful!🙏</strong></p>
+  <p><em>Built with ❤️ by nileXrana</em></p>
 </div>
