@@ -41,8 +41,8 @@
 
 ```bash
 # Clone repository
-git clone https://github.com/nileXrana/Personal-AI-Assistance.git
-cd Personal-AI-Assistance
+git clone https://github.com/nileXrana/OptiSense-AI
+cd OptiSense-AI
 
 # Install dependencies
 npm install
