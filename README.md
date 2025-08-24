@@ -8,7 +8,7 @@
 </div>
 
 <div align="center">
-  <h3>🚀 <a href="https://optisense.nileshrana.me">Live Demo</a></h3>
+  <h3> <a href="https://optisense.nileshrana.me">Live Demo</a></h3>
   <p><em>Your Personal AI Companions to Simplify Your Tasks</em></p>
 </div>
 
@@ -72,9 +72,9 @@ CLERK_SECRET_KEY="sk_test_..."
 # Google Gemini AI
 GEMINI_API_KEY="your_gemini_api_key"
 
-# PhonePe Payment (Optional)
-PHONEPE_CLIENT_ID="your_client_id"
-PHONEPE_CLIENT_SECRET="your_client_secret"
+# Payment Gateway (Optional)
+CLIENT_ID="your_client_id"
+CLIENT_SECRET="your_client_secret"
 ```
 
 ##  Project Structure
