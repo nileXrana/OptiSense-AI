@@ -13,7 +13,7 @@
 
 ## ✨ Features
 
-- 🤖 **15+ Pre-built AI Assistants** - Code Writer, Email Writer, Personal Tutor, Fitness Coach, and more
+- 🤖 **50+ Pre-built AI Assistants** - Code Writer, Email Writer, Personal Tutor, Fitness Coach, and more
 - 🎨 **Custom Assistant Creation** - Build your own AI assistants with personalized instructions
 - 💬 **Real-time Chat Interface** - Smooth chat experience with Google Gemini AI
 - 🌓 **Dark/Light Mode** - Beautiful responsive UI for all devices
