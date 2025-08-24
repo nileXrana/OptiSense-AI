@@ -17,6 +17,7 @@ const page = () => {
             <p className='text-gray-600 dark:text-gray-300 text-lg'>
               Terms & Conditions, Privacy Policy, and Refund Information
             </p>
+            <p>Business Name : Nilesh Rana</p>
           </div>
         </div>
       </div>
