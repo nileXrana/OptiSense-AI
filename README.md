@@ -101,6 +101,6 @@ prisma/                  # Database schema
 ---
 
 <div align="center">
-  <p><strong>⭐ Star this repo if you find it helpful!🙏</strong></p>
+  <p><strong>⭐ Star this repo if you find it helpful🙏</strong></p>
   <p><em>Built with ❤️ by nileXrana</em></p>
 </div>
