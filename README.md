@@ -48,7 +48,7 @@ cd OptiSense-AI
 npm install
 
 # Setup environment variables
-cp .env.example .env.local
+MENTION BELOW ->
 
 # Setup database
 npx prisma generate
