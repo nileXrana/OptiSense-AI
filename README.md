@@ -1,6 +1,13 @@
-# 🤖 OptiSense AI
+# 🤖 OptiSense A- 🤖 **15+ Pre-bu- **Deployment**: Vercel
 
-<div align="center">
+## 🚀 Quick Start
+
+### PrerequisitesI Assistants** - Code Writer, Email Writer, Personal Tutor, Fitness Coach, and more
+- 🎨 **Custom Assistant Creation** - Build your own AI assistants with personalized instructions
+- 💬 **Real-time Chat Interface** - Smooth chat experience with Google Gemini AI
+- 🌓 **Dark/Light Mode** - Beautiful responsive UI for all devices
+- 💳 **Payment Integration** - PhonePe payment system for Pro subscriptions
+- 🔒 **Secure Authentication** - Clerk-powered auth with social loginsv align="center">
   <img src="https://img.shields.io/badge/Next.js-15.3.4-black?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js" />
   <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
   <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB" />
@@ -77,7 +84,7 @@ PHONEPE_CLIENT_ID="your_client_id"
 PHONEPE_CLIENT_SECRET="your_client_secret"
 ```
 
-##  Project Structure
+## 📁 Project Structure
 
 ```
 app/
