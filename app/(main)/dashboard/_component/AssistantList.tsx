@@ -316,19 +316,19 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
 
   return (
     <div className='p-3 bg-zinc-200 dark:bg-gray-900 h-screen w-full relative'>
-      <BlurFade duration={0.4}>
+      <BlurFade duration={0.2}>
         <h1 className='font-bold text-md text-center dark:text-gray-100'>
           Your Personal AI Assistants
         </h1>
       </BlurFade>
-      <BlurFade duration={0.8}>
+      <BlurFade duration={0.4}>
         <AddNewAssistant onAssistantAdded={refreshAssistants}>
           <Button className='w-full mt-3 cursor-pointer'>
             Add New Assistant
           </Button>
         </AddNewAssistant>
       </BlurFade>
-      <BlurFade duration={1.2}>
+      <BlurFade duration={0.6}>
         <Input
           className='bg-white dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 mt-3 mb-3 text-center'
           placeholder='Search Assistants'
@@ -336,10 +336,10 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </BlurFade>
-      <div className='overflow-scroll h-[60vh] max-sm:h-[66vh] scale-98'>
+      <div className='overflow-scroll h-[60vh] scale-98'>
         {filteredAssistants.length > 0 ? (
           filteredAssistants.map((assistant: ASSISTANT, index) => (
-            <BlurFade key={index} duration={0.3 * index}>
+            <BlurFade key={index} duration={0.1 * index}>
               <div key={index} className={`p-2 flex gap-3 items-center hover:bg-gray-300 dark:hover:bg-slate-700 cursor-pointer rounded-xl ${assistant.name == selectedAssistant?.name && 'bg-blue-300 dark:bg-blue-600 hover:!bg-blue-300 dark:hover:!bg-blue-600'} `} onClick={() => handleAssistantSelection(assistant)}>
                 <Image src={assistant.image} alt={assistant.name} width={60} height={60}
                   className='rounded-xl object-cover' style={{ width: '60px', height: '60px' }}>
