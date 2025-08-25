@@ -79,10 +79,10 @@ const AssistantSetting = () => {
 
   return selectedAssistant && (
     <div className='p-3 dark:bg-gray-900 bg-zinc-200 h-screen w-full relative'>
-      <BlurFade duration={0.4}>
+      <BlurFade duration={0.2}>
         <h1 className='font-bold text-xl pl-1 dark:text-gray-200'>Setting</h1>
       </BlurFade>
-      <BlurFade duration={0.6}>
+      <BlurFade duration={0.4}>
         <div className='mt-4 flex gap-2 items-center bg-white dark:bg-gray-800 dark:border p-2 rounded-2xl'>
           <Image src={selectedAssistant.image} alt='assistant' width={70} height={70}
             className='rounded-xl' style={{ width: '70px', height: '70px' }} />
@@ -92,7 +92,7 @@ const AssistantSetting = () => {
           </div>
         </div>
       </BlurFade>
-      <BlurFade duration={0.8}>
+      <BlurFade duration={0.6}>
         <div className='mt-3'>
           <h2 className='mb-1 font-bold text-gray-600 dark:text-gray-200 pl-1'>Model : </h2>
           <Select onValueChange={(value) => setSelectedModel(value)}>
