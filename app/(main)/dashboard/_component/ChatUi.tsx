@@ -212,7 +212,7 @@ const ChatUi = ({ setUSER }: ChatUiProps) => {
                     <div ref={messagesEndRef} />
                 </div>
             }
-            <div className='flex justify-between gap-5 fixed bottom-6 max-sm:bottom-2 left-4 right-4 scale-96 lg:left-[calc(20%+1rem)] lg:right-[calc(20%+1rem)] md:left-[calc(25%+1rem)] md:right-4'>
+            <div className='flex justify-between gap-5 fixed bottom-6 max-sm:bottom-0 left-4 right-4 scale-96 lg:left-[calc(20%+1rem)] lg:right-[calc(20%+1rem)] md:left-[calc(25%+1rem)] md:right-4'>
                 <Input value={input} placeholder='Start Typing Here...' className='border-2 border-black dark:border-gray-600 bg-white dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 font-serif font-medium'
                     onChange={(e) => setInput(e.target.value)}
                     onFocus={handleInputFocus}
