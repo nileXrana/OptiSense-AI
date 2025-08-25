@@ -14,16 +14,16 @@ import { Loader2 } from "lucide-react"
 import { useUser } from '@clerk/nextjs'
 
 interface ChatUiProps {
-    setUSER?: (user: any) => void
+  setUSER?: (user: any) => void
 }
 
 const ChatUi = ({ setUSER }: ChatUiProps) => {
 
-    const { user, isSignedIn } = useUser();
+    const { user,isSignedIn } = useUser();
     const [input, setInput] = useState<string>("")
     const [messages, setMessages] = useState<{ role: string; text: string }[]>([]);
     const { selectedModel } = useModel();
-    const [showEmptyChatState, setshowEmptyChatState] = useState(true)
+    const [ showEmptyChatState, setshowEmptyChatState] = useState(true)
     const { selectedAssistant, setselectedAssistant } = useContext<any>(AssistantContext)
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const [isLoading, setisLoading] = useState(false)
@@ -37,17 +37,37 @@ const ChatUi = ({ setUSER }: ChatUiProps) => {
 
     // Handle mobile keyboard scroll on input focus
     const handleInputFocus = () => {
-        // Check if device is mobile (max-sm)
-        if (window.innerWidth <= 640) {
+        // Check if device is mobile (max-sm) and has touch capability
+        const isMobile = window.innerWidth <= 640 && ('ontouchstart' in window);
+        if (isMobile) {
+            // Multiple attempts with different delays to ensure it works
             setTimeout(() => {
-                window.scrollTo({
-                    top: document.body.scrollHeight,
-                    behavior: "smooth",
-                });
-                // messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-            }, 1000); // Delay to allow keyboard to open
+                messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+            }, 100);
+            setTimeout(() => {
+                messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+            }, 300);
+            setTimeout(() => {
+                messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+            }, 600);
         }
     }
+
+    // Additional handler for when virtual keyboard resizes the viewport
+    useEffect(() => {
+        if (!mounted) return;
+
+        const handleResize = () => {
+            if (window.innerWidth <= 640 && document.activeElement?.tagName === 'INPUT') {
+                setTimeout(() => {
+                    messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+                }, 100);
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [mounted]);
 
     useEffect(() => { // when suddenly change assistant :
         setshowEmptyChatState(true)
@@ -61,7 +81,7 @@ const ChatUi = ({ setUSER }: ChatUiProps) => {
     const onSendMessage = async (sampleQues?: string) => {
         setshowEmptyChatState(false)
         // check if user exceed limit :
-        if (tokenExceeded) {
+        if(tokenExceeded){
             setInput("")
             alert("token exceeded ! Updrade to pro plan !")
             return;
@@ -91,9 +111,9 @@ const ChatUi = ({ setUSER }: ChatUiProps) => {
         updateUserToken(ans)
     }
 
-    const updateUserToken = async (resp: string) => {
+    const updateUserToken = async(resp: string)=>{
         const tokenCount = resp.trim() ? resp.trim().split(/\s+/).length : 0
-        if (!user) return null // not signIn :
+        if(!user) return null // not signIn :
         const email = user.primaryEmailAddress?.emailAddress;
         // now update tokenUsed :
         const res = await fetch("/api/updateToken", {
@@ -101,28 +121,28 @@ const ChatUi = ({ setUSER }: ChatUiProps) => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 email: email,
-                tokenCount: tokenCount
+                tokenCount : tokenCount
             })
         });
         // check tokenExceeded :
         const result = await res.json()
         settokenExceeded(result.tE)
-
+        
         // update USER.credits & tokenUsed
-        if (setUSER) {
-            if (tokenExceeded) {
+        if(setUSER){
+            if(tokenExceeded){
                 // update : tokenUsed = credits
-                setUSER((prevUser: any) => {
-                    if (!prevUser) return prevUser;
+                setUSER((prevUser:any)=>{
+                    if(!prevUser) return prevUser;
                     return {
                         ...prevUser,
                         tokenUsed: prevUser.credits
                     }
                 })
-            } else {
+            }else{
                 // update : tokenUsed = result.tokenUsed
-                setUSER((prevUser: any) => {
-                    if (!prevUser) return prevUser;
+                setUSER((prevUser:any)=>{
+                    if(!prevUser) return prevUser;
                     return {
                         ...prevUser,
                         tokenUsed: result.tokenUsed
@@ -135,9 +155,9 @@ const ChatUi = ({ setUSER }: ChatUiProps) => {
 
     useEffect(() => {
         if (!mounted) return;
-
+        
         const checkTokenStatus = async () => {
-            if (!user) return;
+            if(!user) return;
             const email = user.primaryEmailAddress?.emailAddress;
             try {
                 const res = await fetch("/api/updateToken", {
@@ -158,7 +178,7 @@ const ChatUi = ({ setUSER }: ChatUiProps) => {
 
         checkTokenStatus();
     }, [mounted, user]) // v imp :
-
+    
     // Prevent hydration mismatch
     if (!mounted) {
         return <div className="h-full flex items-center justify-center">
@@ -168,8 +188,8 @@ const ChatUi = ({ setUSER }: ChatUiProps) => {
 
     return (
         <div className={showEmptyChatState ? "p-4 pt-16 md:p-20 h-full border-2 relative" : "p-3 pl-0 relative h-[91vh] border-2 bg-[url('/wall40.png')] dark:bg-[url('/wall5.jpg')] bg-cover bg-center"}>
-            {showEmptyChatState ? <EmptyChatState input={input} setInput={setInput} onSendMessage={onSendMessage} /> :
-                <div style={{ height: 'calc(100%-70px)' }} className='relative overflow-y-auto overflow-x-hidden p-2 max-h-[calc(100vh-160px)]'>
+            {showEmptyChatState ? <EmptyChatState input={input} setInput={setInput} onSendMessage={onSendMessage}/> :
+                <div style={{height: 'calc(100%-70px)'}} className='relative overflow-y-auto overflow-x-hidden p-2 max-h-[calc(100vh-160px)]'>
                     {messages.map((msg, idx) => (
                         <motion.div key={idx} className={msg.role === "user" ? "text-right m-3 max-w-full" : "text-left flex gap-3 items-start m-3 max-w-full"} initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -184,7 +204,7 @@ const ChatUi = ({ setUSER }: ChatUiProps) => {
                             </div>
                         </motion.div>
                     ))}
-                    {isLoading &&
+                    {isLoading && 
                         <div className='ml-3'>
                             <Loader2 className="mr-2 h-7 w-7 animate-spin text-gray-600 dark:text-gray-300" />
                         </div>
@@ -201,7 +221,7 @@ const ChatUi = ({ setUSER }: ChatUiProps) => {
                             onSendMessage()
                         }
                     }} />
-                <Button onClick={() => {
+                <Button onClick={()=>{
                     onSendMessage()
                 }} className='cursor-pointer block '>
                     <Send />
