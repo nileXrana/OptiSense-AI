@@ -610,7 +610,7 @@ export default function Home() {
         </footer>
 
         {/* Fixed Footer */}
-        <div className="fixed bottom-0 left-0 right-0 bg-slate-800 dark:bg-slate-900 backdrop-blur-md border-t border-purple-400 py-3 z-50 shadow-lg">
+        <div className="max-sm:hidden fixed bottom-0 left-0 right-0 bg-slate-800 dark:bg-slate-900 backdrop-blur-md border-t border-purple-400 py-3 z-50 shadow-lg">
           <div className="text-center">
             <p className="text-sm text-gray-300 dark:text-gray-300">
               Built with{' '}
