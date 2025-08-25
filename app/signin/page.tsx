@@ -212,7 +212,7 @@ const openLinkedIn = () => {
         <div className="fixed bottom-0 left-0 right-0 bg-slate-800 dark:bg-gray-900/95 backdrop-blur-md border-t border-purple-200 dark:border-purple-700 py-3 z-50 shadow-lg">
           <div className="text-center">
             <p className="text-sm text-gray-300 dark:text-gray-300">
-              Made with{' '}
+              Built with{' '}
               <span className="heartbeat text-red-600 dark:text-red-400" style={{ fontSize: '16px' }}>❤️</span>
               {' '}by{' '}
               <button
