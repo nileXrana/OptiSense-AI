@@ -41,7 +41,7 @@ const ChatUi = ({ setUSER }: ChatUiProps) => {
         if (window.innerWidth <= 640) {
             setTimeout(() => {
                 messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-            }, 300); // Delay to allow keyboard to open
+            }, 1000); // Delay to allow keyboard to open
         }
     }
 
