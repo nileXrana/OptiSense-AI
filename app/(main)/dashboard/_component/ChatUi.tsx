@@ -189,7 +189,7 @@ const ChatUi = ({ setUSER }: ChatUiProps) => {
     return (
         <div className={showEmptyChatState ? "p-4 pt-16 md:p-20 h-full border-2 relative" : "p-3 pl-0 max-sm:pr-0 relative h-[91vh] border-2 bg-[url('/wall40.png')] dark:bg-[url('/wall5.jpg')] bg-cover bg-center"}>
             {showEmptyChatState ? <EmptyChatState input={input} setInput={setInput} onSendMessage={onSendMessage}/> :
-                <div className='h-[80vh] max-sm:h-[73vh] relative overflow-y-auto overflow-x-hidden p-2 max-sm:p-0'>
+                <div className='h-[80vh] max-sm:h-[75vh] relative overflow-y-auto overflow-x-hidden p-2 max-sm:p-0'>
                     {messages.map((msg, idx) => (
                         <motion.div key={idx} className={msg.role === "user" ? "text-right m-3 max-w-full" : "text-left flex gap-3 items-start m-3 max-w-full"} initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
