@@ -181,7 +181,7 @@ const page = () => {
 
           <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mt-8 mb-10'>
             {AiAssistantsList.map((obj, index) => (
-              <BlurFade key={obj.id} delay={0.15 + index * 0.1}>
+              <BlurFade key={obj.id} delay={index * 0.1}>
                 <div key={obj.id} className='hover:border hover:scale-105 transition-all ease-in-out cursor-pointer bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-2xl p-4 shadow-lg hover:shadow-xl border border-purple-100 dark:border-purple-800 relative' onClick={() => onselect(obj)}>
                   <Checkbox className='absolute border-gray-300 top-2 left-2 z-10' checked={IsAssistantSelected(obj)} />
                   <div className="aspect-square relative mb-3 overflow-hidden rounded-xl">
