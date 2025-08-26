@@ -28,6 +28,7 @@ export async function POST(req: NextRequest) {
             body: params.toString(),
         });
         const obj = await res.json(); // has access_token
+        console.log(obj)
 
         // 2. create payment :
         if (obj.access_token) {
@@ -45,15 +46,17 @@ export async function POST(req: NextRequest) {
                         type: "PG_CHECKOUT",
                         message: "OptiSense AI Premium",
                         merchantUrls: {
-                            redirectUrl: "http://localhost:3000/dashboard"
+                            redirectUrl: "https://optisense.nileshrana.me/dashboard"
                         }
                     },
                 }),
             });
             const paymentObj = await paymentRes.json();
+            console.log(paymentObj)
             
             // return the checkout URL to the client :
             const checkoutUrl = paymentObj.redirectUrl
+            console.log(checkoutUrl)
             if (checkoutUrl) {
                 return NextResponse.json({ 
                     success: true,
@@ -77,15 +80,4 @@ export async function POST(req: NextRequest) {
     } catch (error) {
         return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
     }
-}
-
-// ✅ PUT request
-export async function PUT(req: NextRequest) {
-    const body = await req.json();
-    return NextResponse.json({ message: "PUT request successful", data: body });
-}
-
-// ✅ DELETE request
-export async function DELETE(req: NextRequest) {
-    return NextResponse.json({ message: "DELETE request successful" });
 }
