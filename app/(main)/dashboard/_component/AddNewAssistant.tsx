@@ -117,7 +117,7 @@ const AddNewAssistant = ({ children, onAssistantAdded }: any) => {
                                 }}>+ Create New Assistant</Button>
                                 <div className='overflow-y-auto h-[25vh] sm:h-[30vh] md:h-[60vh]'>
                                     {AiAssistantsList.map((obj, index) => (
-                                        <BlurFade key={obj.id} delay={0.25 + index * 0.1}>
+                                        <BlurFade key={obj.id} delay={index * 0.1}>
                                             <div key={obj.id} className='bg-gray-200 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-900 m-1 rounded-lg transition-all ease-in-out cursor-pointer flex items-center p-1 sm:p-2' onClick={()=>{
                                                 setselectedAssistant(obj)
                                                 setIsDefaultAssistant(true)
