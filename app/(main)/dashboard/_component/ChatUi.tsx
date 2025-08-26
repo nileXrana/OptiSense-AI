@@ -187,17 +187,17 @@ const ChatUi = ({ setUSER }: ChatUiProps) => {
     }
 
     return (
-        <div className={showEmptyChatState ? "p-4 pt-16 md:p-20 h-full border-2 relative" : "p-3 pl-0 relative h-[91vh] border-2 bg-[url('/wall40.png')] dark:bg-[url('/wall5.jpg')] bg-cover bg-center"}>
+        <div className={showEmptyChatState ? "p-4 pt-16 md:p-20 h-full border-2 relative" : "p-3 pl-0 max-sm:pr-0 relative h-[91vh] border-2 bg-[url('/wall40.png')] dark:bg-[url('/wall5.jpg')] bg-cover bg-center"}>
             {showEmptyChatState ? <EmptyChatState input={input} setInput={setInput} onSendMessage={onSendMessage}/> :
-                <div style={{height: '80vh'}} className='relative overflow-y-auto overflow-x-hidden p-2 border'>
+                <div style={{height: '70vh'}} className='relative overflow-y-auto overflow-x-hidden p-2 max-sm:p-0 border'>
                     {messages.map((msg, idx) => (
                         <motion.div key={idx} className={msg.role === "user" ? "text-right m-3 max-w-full" : "text-left flex gap-3 items-start m-3 max-w-full"} initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.4, delay: 0.1 }}>
                             {/* <span className='w-10 h-10'> */}
-                            {msg.role === "ai" && <Image className='object-cover rounded-full flex-shrink-0' src={selectedAssistant.image} alt='assist' width={30} height={30} style={{ width: '30px', height: '30px' }} />}
+                            {msg.role === "ai" && <Image className='max-sm:hidden object-cover rounded-full flex-shrink-0' src={selectedAssistant.image} alt='assist' width={30} height={30} style={{ width: '30px', height: '30px' }} />}
                             {/* </span> */}
-                            <div className={msg.role === "user" ? "bg-green-200 dark:bg-green-800 dark:text-green-100 inline-block p-2 px-3 rounded-lg min-w-[50px] max-w-[85%] text-left shadow-black shadow-xs break-words overflow-wrap-anywhere" : "bg-blue-200 dark:bg-blue-600 dark:text-blue-100 inline-block p-2 px-3 rounded-lg min-w-[50px] max-w-[calc(100%-3rem)] text-left shadow-md shadow-black overflow-x-auto overflow-wrap-anywhere"}>
+                            <div className={msg.role === "user" ? "bg-green-200 dark:bg-green-800 dark:text-green-100 inline-block p-2 px-3 rounded-lg min-w-[50px] max-w-[85%] text-left shadow-black shadow-xs break-words overflow-wrap-anywhere" : "bg-blue-200 dark:bg-blue-600 dark:text-blue-100 inline-block p-2 px-3 rounded-lg min-w-[50px] max-w-[calc(100%-3rem)] max-sm:max-w-[calc(100%-1rem)] text-left shadow-md shadow-black overflow-x-auto overflow-wrap-anywhere"}>
                                 <div className="prose prose-sm max-w-none break-words whitespace-pre-wrap">
                                     <ReactMarkdown>{msg.text}</ReactMarkdown>
                                 </div>
@@ -212,7 +212,7 @@ const ChatUi = ({ setUSER }: ChatUiProps) => {
                     <div ref={messagesEndRef} />
                 </div>
             }
-            <div className='flex justify-between gap-5 fixed bottom-6 max-sm:bottom-0 left-4 right-4 scale-96 lg:left-[calc(20%+1rem)] lg:right-[calc(20%+1rem)] md:left-[calc(25%+1rem)] md:right-4'>
+            <div className='flex justify-between gap-5 fixed bottom-6 left-4 right-4 scale-96 lg:left-[calc(20%+1rem)] lg:right-[calc(20%+1rem)] md:left-[calc(25%+1rem)] md:right-4'>
                 <Input value={input} placeholder='Start Typing Here...' className='border-2 border-black dark:border-gray-600 bg-white dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 font-serif font-medium'
                     onChange={(e) => setInput(e.target.value)}
                     onFocus={handleInputFocus}
