@@ -19,6 +19,9 @@ const EmptyChatState = ({ input, setInput, onSendMessage }: Props) => {
     return (
         <div>
             <div className='text-center'>
+                <SparklesText className='sm:hidden text-xl'>
+                    I'm {selectedAssistant?.name || 'your AI Assistant'}, {selectedAssistant?.title || 'Here to help you'}
+                </SparklesText>
                 <SparklesText className='max-sm:text-2xl text-4xl'>
                     How Can I Assist You Today ?
                 </SparklesText>
