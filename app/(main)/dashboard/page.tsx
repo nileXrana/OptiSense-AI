@@ -148,7 +148,7 @@ const page = () => {
     <div className='h-screen w-full fixed'>
       {/* Header */}
       <header className="p-3 flex justify-between items-center border-b border-purple-100 dark:border-purple-800 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm">
-        <Link href="/" className="max-sm:hidden flex items-center gap-3 hover:opacity-80 transition-opacity">
+        <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
           <div className="flex items-center gap-3 ml-3">
             <div className="relative">
               {/* AI Assistant Robot Head */}
@@ -172,7 +172,7 @@ const page = () => {
               {/* Assistant indicator */}
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-white animate-pulse"></div>
             </div>
-            <span className="max-sm:text-sm text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="max-sm:hidden max-sm:text-sm text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
               OptiSense AI
             </span>
           </div>
