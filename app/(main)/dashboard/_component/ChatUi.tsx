@@ -100,6 +100,7 @@ const ChatUi = ({ setUSER }: ChatUiProps) => {
                 instruction: selectedAssistant.instruction,
                 userInstruction: selectedAssistant.userInstruction,
                 input: message,
+                conversationHistory: messages // Send conversation history for context
             })
         });
         if (!res.ok) throw new Error("Failed to post");
