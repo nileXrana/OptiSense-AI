@@ -47,7 +47,7 @@ const page = () => {
   // Load assistants immediately when dashboard loads
   useEffect(() => {
     if (!mounted || !isSignedIn || !isLoaded || !user?.primaryEmailAddress?.emailAddress) return
-    
+
     setIsLoadingAssistants(true)
     const loadAssistants = async () => {
       try {
@@ -75,7 +75,7 @@ const page = () => {
   // Load initial user data once when dashboard loads
   useEffect(() => {
     if (!mounted || !isSignedIn || !user?.primaryEmailAddress?.emailAddress) return;
-    
+
     setIsLoadingUserData(true)
     const loadInitialUserData = async () => {
       try {
@@ -95,7 +95,7 @@ const page = () => {
         setIsLoadingUserData(false)
       }
     }
-    
+
     loadInitialUserData();
   }, [mounted, isSignedIn, user])
 
@@ -117,7 +117,7 @@ const page = () => {
   if (isLoadingAssistants || isLoadingUserData) {
     return (
       <div className="h-screen w-full bg-gradient-to-br from-purple-50 via-pink-50 to-indigo-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-indigo-900/20 flex items-center justify-center">
-        <div className="text-center space-y-6">      
+        <div className="text-center space-y-6">
           <div className="relative">
             <div className="animate-spin rounded-full h-16 w-16 border-4 border-purple-200 dark:border-purple-800 border-t-purple-600 dark:border-t-purple-400 mx-auto"></div>
             <div className="absolute inset-0 flex items-center justify-center">
@@ -133,8 +133,8 @@ const page = () => {
             </p>
             <div className="flex justify-center space-x-1 mt-4">
               <div className="w-2 h-2 bg-purple-600 dark:bg-purple-400 rounded-full animate-bounce"></div>
-              <div className="w-2 h-2 bg-purple-600 dark:bg-purple-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-              <div className="w-2 h-2 bg-purple-600 dark:bg-purple-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+              <div className="w-2 h-2 bg-purple-600 dark:bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+              <div className="w-2 h-2 bg-purple-600 dark:bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
             </div>
           </div>
         </div>
@@ -146,7 +146,7 @@ const page = () => {
     <div className='h-screen w-full fixed'>
       {/* Header */}
       <header className="p-3 flex justify-between items-center border-b border-purple-100 dark:border-purple-800 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm">
-        <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+        <Link href="/" className="max-sm:hidden flex items-center gap-3 hover:opacity-80 transition-opacity">
           <div className="flex items-center gap-3 ml-3">
             <div className="relative">
               {/* AI Assistant Robot Head */}
@@ -175,30 +175,33 @@ const page = () => {
             </span>
           </div>
         </Link>
-        
-        <div className="flex items-center mr-3 gap-5">
+
+        <div className="flex items-center ml-3 mr-3 max-sm:w-full max-sm:justify-between gap-5">
           {/* Menu button for mobile */}
-          <HiOutlineMenuAlt3 
-            className='block md:hidden cursor-pointer text-xl hover:text-purple-600 transition-colors' 
-            onClick={() => setShowAssistantList(!showAssistantList)}
-          />
-          {/* Settings button for tablets and mobile */}
-          <VscSettingsGear 
-            className='block lg:hidden cursor-pointer text-xl hover:text-purple-600 transition-colors' 
-            onClick={() => setShowSettings(!showSettings)}
-          />
-          
-          
-          <ModeToggle />
-          <div className='scale-110 transform hover:scale-120 flex items-center'>
-          <UserButton
-            afterSignOutUrl="/"
-            appearance={{
-              elements: {
-                avatarBox: "w-15 h-15"
-              }
-            }}
-          />
+          <div className="flex gap-6">
+            {/* Settings button for tablets and mobile */}
+            <VscSettingsGear
+              className='block lg:hidden cursor-pointer text-xl hover:text-purple-600 transition-colors'
+              onClick={() => setShowSettings(!showSettings)}
+            />
+            <HiOutlineMenuAlt3
+              className='block md:hidden cursor-pointer text-xl hover:text-purple-600 transition-colors'
+              onClick={() => setShowAssistantList(!showAssistantList)}
+            />
+          </div>
+
+          <div className='flex gap-6'>
+            <ModeToggle />
+            <div className='scale-110 transform hover:scale-120 flex items-center'>
+              <UserButton
+                afterSignOutUrl="/"
+                appearance={{
+                  elements: {
+                    avatarBox: "w-15 h-15"
+                  }
+                }}
+              />
+            </div>
           </div>
         </div>
       </header>
@@ -208,8 +211,8 @@ const page = () => {
         {/* Desktop Layout */}
         <div className='hidden lg:grid lg:grid-cols-5 h-full'>
           <div className=''>
-            <AssistantList 
-              preloadedAssistants={myAssistants} 
+            <AssistantList
+              preloadedAssistants={myAssistants}
               initialUserData={initialUserData}
               USER={USER}
               setUSER={setUSER}
@@ -219,15 +222,15 @@ const page = () => {
             <ChatUi setUSER={setUSER} />
           </div>
           <div className=''>
-            <AssistantSetting/>
+            <AssistantSetting />
           </div>
         </div>
 
         {/* Tablet Layout */}
         <div className='hidden md:grid lg:hidden md:grid-cols-4 h-full'>
           <div className=''>
-            <AssistantList 
-              preloadedAssistants={myAssistants} 
+            <AssistantList
+              preloadedAssistants={myAssistants}
               initialUserData={initialUserData}
               USER={USER}
               setUSER={setUSER}
@@ -250,14 +253,14 @@ const page = () => {
             <div className='absolute left-0 top-0 bottom-0 w-80 bg-white dark:bg-gray-900 shadow-xl'>
               <div className='flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700'>
                 <h2 className='text-lg font-semibold dark:text-gray-100'>AI Assistants</h2>
-                <IoClose 
-                  className='text-2xl cursor-pointer hover:text-red-500 transition-colors dark:text-gray-100' 
+                <IoClose
+                  className='text-2xl cursor-pointer hover:text-red-500 transition-colors dark:text-gray-100'
                   onClick={() => setShowAssistantList(false)}
                 />
               </div>
               <div className='h-[calc(100vh-120px)] overflow-hidden'>
-                <AssistantList 
-                  preloadedAssistants={myAssistants} 
+                <AssistantList
+                  preloadedAssistants={myAssistants}
                   initialUserData={initialUserData}
                   USER={USER}
                   setUSER={setUSER}
@@ -275,13 +278,13 @@ const page = () => {
             <div className='absolute right-0 top-0 bottom-0 w-full md:w-80 bg-white dark:bg-gray-900 shadow-xl'>
               <div className='flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700'>
                 <h2 className='text-lg font-semibold dark:text-gray-100'>Assistant Settings</h2>
-                <IoClose 
-                  className='text-2xl cursor-pointer hover:text-red-500 transition-colors dark:text-gray-100' 
+                <IoClose
+                  className='text-2xl cursor-pointer hover:text-red-500 transition-colors dark:text-gray-100'
                   onClick={() => setShowSettings(false)}
                 />
               </div>
               <div className='h-[calc(100vh-120px)] overflow-hidden'>
-                <AssistantSetting/>
+                <AssistantSetting />
               </div>
             </div>
           </div>

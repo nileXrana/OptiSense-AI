@@ -25,7 +25,7 @@ const EmptyChatState = ({ input, setInput, onSendMessage }: Props) => {
             </div>
             <div className='flex flex-col gap-1 items-center mt-5'>
                 {sampleQuestions && sampleQuestions.map((ele:string,idx: number)=>(
-                    <div key={ele} className='text-center max-sm:text-md text-lg border-2 p-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer flex justify-between items-center w-[90%]' onClick={()=>{
+                    <div key={ele} className='text-center max-sm:text-sm text-lg border-2 p-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer flex justify-between items-center w-[90%]' onClick={()=>{
                         onSendMessage(ele)
                     }}>
                         <BlurFade duration={0.5*idx} blur='5px' key={idx}>
