@@ -178,7 +178,7 @@ const page = () => {
           </div>
         </Link>
 
-        <div className="flex items-center ml-3 mr-3 max-sm:w-full max-sm:justify-between gap-5">
+        <div className="flex items-center ml-5 mr-3 max-sm:w-full max-sm:justify-between gap-5">
           {/* Menu button for mobile */}
           <div className="flex gap-6">
             {/* Settings button for tablets and mobile */}
