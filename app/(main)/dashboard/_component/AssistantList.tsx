@@ -38,6 +38,7 @@ interface AssistantListProps {
   initialUserData?: any
   USER?: any
   setUSER?: (user: any) => void
+  onAssistantsUpdated?: () => Promise<void>
 }
 
 interface PhonePeCheckout {
@@ -55,7 +56,7 @@ declare global {
   }
 }
 
-const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserData, USER, setUSER }: AssistantListProps) => {
+const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserData, USER, setUSER, onAssistantsUpdated }: AssistantListProps) => {
 
   const { user, isSignedIn } = useUser()
   const { signOut } = useClerk();
@@ -215,6 +216,11 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
         if (!selectedAssistant) {
           setselectedAssistant(result[0])
         }
+      }
+
+      // Also call parent callback to update main dashboard state
+      if (onAssistantsUpdated) {
+        await onAssistantsUpdated();
       }
     } catch (error) {
       console.error("Error refreshing assistants:", error)

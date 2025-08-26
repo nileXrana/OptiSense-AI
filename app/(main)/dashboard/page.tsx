@@ -48,31 +48,33 @@ const page = () => {
   useEffect(() => {
     if (!mounted || !isSignedIn || !isLoaded || !user?.primaryEmailAddress?.emailAddress) return
 
-    setIsLoadingAssistants(true)
-    const loadAssistants = async () => {
-      try {
-        const res = await fetch("/api/is-selected", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            userEmail: user?.primaryEmailAddress?.emailAddress
-          })
-        });
-        const result = await res.json();
-        if (result && result.length > 0) {
-          setMyAssistants(result)
-          setselectedAssistant(result[0])
-        }
-      } catch (error) {
-        console.error("Error loading assistants:", error);
-      } finally {
-        setIsLoadingAssistants(false)
-      }
-    }
     loadAssistants();
   }, [mounted, isSignedIn, isLoaded, user])
 
-  // Load initial user data once when dashboard loads
+  // Function to reload assistants (to be called when new assistant is added)
+  const loadAssistants = async () => {
+    setIsLoadingAssistants(true)
+    try {
+      const res = await fetch("/api/is-selected", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userEmail: user?.primaryEmailAddress?.emailAddress
+        })
+      });
+      const result = await res.json();
+      if (result && result.length > 0) {
+        setMyAssistants(result)
+        if (!result.find((assistant: any) => assistant.id === result[0].id)) {
+          setselectedAssistant(result[0])
+        }
+      }
+    } catch (error) {
+      console.error("Error loading assistants:", error);
+    } finally {
+      setIsLoadingAssistants(false)
+    }
+  }  // Load initial user data once when dashboard loads
   useEffect(() => {
     if (!mounted || !isSignedIn || !user?.primaryEmailAddress?.emailAddress) return;
 
@@ -186,7 +188,13 @@ const page = () => {
             />
             <HiOutlineMenuAlt3
               className='block md:hidden cursor-pointer text-xl hover:text-purple-600 transition-colors'
-              onClick={() => setShowAssistantList(!showAssistantList)}
+              onClick={() => {
+                setShowAssistantList(!showAssistantList)
+                // Refresh assistants when opening mobile list
+                if (!showAssistantList) {
+                  loadAssistants()
+                }
+              }}
             />
           </div>
 
@@ -216,6 +224,7 @@ const page = () => {
               initialUserData={initialUserData}
               USER={USER}
               setUSER={setUSER}
+              onAssistantsUpdated={loadAssistants}
             />
           </div>
           <div className='col-span-3'>
@@ -234,6 +243,7 @@ const page = () => {
               initialUserData={initialUserData}
               USER={USER}
               setUSER={setUSER}
+              onAssistantsUpdated={loadAssistants}
             />
           </div>
           <div className='col-span-3'>
@@ -265,6 +275,7 @@ const page = () => {
                   USER={USER}
                   setUSER={setUSER}
                   onMobileClose={() => setShowAssistantList(false)}
+                  onAssistantsUpdated={loadAssistants}
                 />
               </div>
             </div>
