@@ -366,7 +366,7 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
                 <h2 className='font-bold text-lg flex dark:text-gray-100'>&#8377;10</h2>
               </div>
               <hr className='my-3' />
-              <CheckoutButton setrefresh={setrefresh} setOpenDialog={setOpenDialog} amount={1} />
+              <CheckoutButton setrefresh={setrefresh} setOpenDialog={setOpenDialog} amount={10} />
             </div>
             <div className='mt-3 flex justify-end'>
             </div>
