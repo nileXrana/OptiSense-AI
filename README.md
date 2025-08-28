@@ -17,7 +17,7 @@
 - 🎨 **Custom Assistant Creation** - Build your own AI assistants with personalized instructions
 - 💬 **Real-time Chat Interface** - Smooth chat experience with Google Gemini AI
 - 🌓 **Dark/Light Mode** - Beautiful responsive UI for all devices
-- 💳 **Payment Integration** - PhonePe payment system for Pro subscriptions
+- 💳 **Payment Integration** - Razorpay payment system for Pro subscriptions
 - 🔒 **Secure Authentication** - Clerk-powered auth with social logins
 
 ## 🛠 Tech Stack
@@ -26,7 +26,7 @@
 - **Backend**: Next.js API Routes, Prisma ORM, MongoDB
 - **AI**: Google Gemini 2.5 (Pro & Flash models)
 - **Auth**: Clerk Authentication
-- **Payment**: PhonePe API
+- **Payment**: Razorpay API
 - **Deployment**: Vercel
 
 ## � Quick Start
