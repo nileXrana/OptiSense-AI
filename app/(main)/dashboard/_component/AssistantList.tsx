@@ -10,6 +10,8 @@ import { UserButton } from "@clerk/nextjs";
 import { useClerk, useUser } from "@clerk/nextjs";
 import { BlurFade } from '@/src/components/magicui/blur-fade'
 import AddNewAssistant from './AddNewAssistant'
+import Script from 'next/script'
+import { RazorpayResponse } from '../../../../types/razorpay'
 
 import {
   DropdownMenu,
@@ -30,7 +32,7 @@ import {
 } from "@/components/ui/dialog"
 import { Progress } from '@/components/ui/progress'
 import { useRouter } from "next/navigation";
-import Script from 'next/script'
+import CheckoutButton from './CheckoutButton'
 
 interface AssistantListProps {
   preloadedAssistants?: ASSISTANT[]
@@ -227,93 +229,6 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
     }
   }
 
-  // this function is called automatically by phonepe sdk after payment is done or cancelled :
-  async function callback(response: string) {
-    if (response === 'USER_CANCEL') { // transaction is cancelled by the user :
-      console.log('Payment cancelled by user');
-      return;
-    } else if (response === 'CONCLUDED') { // check payment status from backend :
-      console.log(orderDetails)
-      const req = await fetch('/api/payment-status', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          accessToken: orderDetails.accessToken,
-          orderId: orderDetails.orderId,
-          merchantOrderId: orderDetails.merchantOrderId,
-          email: user?.primaryEmailAddress?.emailAddress,
-        })
-      })
-      const result = await req.json();
-      const paymentData = result.data
-      console.log(paymentData?.state)
-
-      // Now payment is either COMPLETED or FAILED or PENDING :
-      if (paymentData?.state === "FAILED") {
-        alert('Payment failed. Please try again later or contact support.')
-        return;
-      } else if (paymentData?.state === "PENDING") {
-        alert('Payment is still pending. Please wait a moment or contact support.')
-        return;
-      }  else if(paymentData?.state === "COMPLETED") {
-        // Payment is successful, update user to pro :
-        const updatedUser = await fetch('/api/pro-user', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email: user?.primaryEmailAddress?.emailAddress,
-            orderId: orderDetails?.orderId,
-          })
-        })
-        const result = await updatedUser.json();
-        const updatedNewUser = result.user;
-        if (setUSER) {
-          setUSER(updatedNewUser)
-        }
-        alert('Payment successful! You are now a Pro user.')
-        window.location.reload();
-      }else{
-        alert('Unexpected payment status. Please contact support.')
-        return;
-      }
-
-    }
-  }
-
-  async function upgradeToPro() { // starts payment process :
-    try {
-      // Close any open popups/dialogs that might interfere with iframe interactions
-      setDropdownOpen(false);
-      setOpenDialog(false);
-
-      const req = await fetch('/api/generate-token', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-      })
-      const payment = await req.json()
-      // store it in variable :
-      console.log(payment)
-      orderDetails = payment
-
-      if (!window.PhonePeCheckout) {
-        console.error('PhonePe SDK not loaded yet');
-        alert('Payment system is loading. Please try again in a moment.');
-        return
-      }
-      const tokenUrl = payment.redirectUrl;
-      window.PhonePeCheckout.transact({
-        tokenUrl: tokenUrl,
-        callback: callback,
-        type: "IFRAME"
-      });
-
-    } catch (error) {
-      console.error('Error in upgradeToPro:', error);
-      alert('Payment initialization failed. Please try again.');
-    }
-  }
-
-
   // Filter assistants based on search term
   const filteredAssistants = (Array.isArray(myAssistants) ? myAssistants : []).filter((assistant: ASSISTANT) =>
     assistant.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -451,21 +366,14 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
                 <h2 className='font-bold text-lg flex dark:text-gray-100'>&#8377;10</h2>
               </div>
               <hr className='my-3' />
-              {/* <CheckoutButton setrefresh={setrefresh} amount={10} /> */}
-              <Button className='w-full cursor-pointer bg-violet-600 dark:bg-violet-500 hover:bg-violet-700 dark:hover:bg-violet-600' onClick={upgradeToPro}>
-                Upgrade to Pro
-              </Button>
+              <CheckoutButton setrefresh={setrefresh} setOpenDialog={setOpenDialog} amount={1} />
             </div>
             <div className='mt-3 flex justify-end'>
             </div>
           </div>
         </DialogContent>
       </Dialog>
-
-      <Script
-        src="https://mercury.phonepe.com/web/bundle/checkout.js"
-        strategy="beforeInteractive"
-      />
+  
     </div>
   )
 }
