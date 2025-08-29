@@ -7,7 +7,7 @@
 </div>
 
 <div align="center">
-  <h3> <a href="https://optisense.nileshrana.me">Live Demo</a></h3>
+  <h3> <a href="https://optisense.nileshrana.me">Live Demo 🌐</a></h3>
   <p><em>Your Personal AI Companions to Simplify Your Tasks</em></p>
 </div>
 
