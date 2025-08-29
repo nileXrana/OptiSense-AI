@@ -7,7 +7,7 @@
 </div>
 
 <div align="center">
-  <h3> <a href="https://optisense.nileshrana.me">Live Demo 🌐</a></h3>
+  <h3> <a target="_blank" href="https://optisense.nileshrana.me">Live Demo 🌐</a></h3>
   <p><em>Your Personal AI Companions to Simplify Your Tasks</em></p>
 </div>
 
@@ -94,7 +94,7 @@ prisma/                  # Database schema
 ## 📞 Contact
 
 **Nilesh Rana**
-- 🌐 [WebApp](https://optisense.nileshrana.me)
+- 🌐 [Portfolio](https://nileshrana.me)
 - 💼 [LinkedIn](https://linkedin.com/in/nilexrana)
 - 🐙 [GitHub](https://github.com/nileXrana)
 
