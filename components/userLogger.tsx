@@ -11,7 +11,6 @@ const userLogger = () => {
   useEffect(() => {
     if (isSignedIn && user) {
       const getUserAssistants = async () => {
-        console.log("User is signed in :", user)
         // send user details to backend :
         const res = await fetch('/api/save-user', {
           method: 'POST',

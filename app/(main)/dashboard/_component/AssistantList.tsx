@@ -94,7 +94,7 @@ const AssistantList = ({ preloadedAssistants = [], onMobileClose, initialUserDat
         const result = await res.json();
 
         if (!Array.isArray(result) || result.length === 0) {
-          console.log("No assistants found for user:", user?.primaryEmailAddress?.emailAddress);
+          // console.log("No assistants found for user:", user?.primaryEmailAddress?.emailAddress);
           alert("No assistants found. Please create one.")
           router.push('/signin')
           return;
