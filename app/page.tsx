@@ -42,15 +42,14 @@ export default function Home() {
   const [userName, setUserName] = useState('');
   const [submitF, setsubmitF] = useState(false)
   const { isSignedIn, user } = useUser();
-  const [feedbackList, setFeedbackList] = useState([
-    {
-      no: 1,
-      name: 'Akhil',
-      feedback: 'This AI assistant is amazing! It has helped me with my coding tasks and writing emails efficiently.',
-      rating: 5,
-      avatar: 'AK'
-    },
-  ]);
+  interface Feedback {
+    no: number,
+    name: string,
+    feedback: string,
+    rating: number,
+    avatar: string
+  }
+  const [feedbackList, setFeedbackList] = useState<Feedback[]> ([]);
 
   const signInPage = () => {
     router.push('/signin')
