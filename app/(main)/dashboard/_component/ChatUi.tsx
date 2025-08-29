@@ -83,7 +83,7 @@ const ChatUi = ({ setUSER }: ChatUiProps) => {
         // check if user exceed limit :
         if(tokenExceeded){
             setInput("")
-            alert("Token Exceeded ! Updrade To Pro Plan !")
+            alert("Credits Exceeded ! Updrade To Pro Plan at ₹10")
             return;
         }
         // add user input to msg array :
