@@ -19,6 +19,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Assistant not found" }, { status: 404 });
     }
     // Delete using _id (if your schema has _id)
+    console.log(assistant.ID)
     await prisma.userAiAssistants.delete({
       where: { ID: assistant.ID },
     });

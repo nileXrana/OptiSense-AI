@@ -20,14 +20,16 @@ import { useEffect } from 'react'
 import ConfirmationAlert from './ConfirmationAlert'
 import { BlurFade } from '@/src/components/magicui/blur-fade'
 import { useModel } from '@/context/ModelContext'
+import { useUser } from '@clerk/nextjs'
 
 const AssistantSetting = () => {
   // useState, useContext and useEffect :
-  const { selectedAssistant, setselectedAssistant } = useContext(AssistantContext)
+  const {selectedAssistant, setselectedAssistant } = useContext(AssistantContext)
   const [text, settext] = useState<string>()
   const [loading, setloading] = useState(false)
   const { selectedModel, setSelectedModel } = useModel();
   const [loader, setloader] = useState(false)
+  const { user } = useUser();
 
   const onDelete = async () => { // delete assistant
     try {
@@ -37,10 +39,11 @@ const AssistantSetting = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: selectedAssistant?.name,
-          userEmail: selectedAssistant?.userEmail
+          userEmail: user?.primaryEmailAddress?.emailAddress
         }),
       });
       const data = await res.json();
+      console.log(data)
       setloader(false)
       toast("Assistant Deleted")
       window.location.reload(); // reload :
