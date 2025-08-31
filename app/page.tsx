@@ -531,7 +531,7 @@ export default function Home() {
                     What Users Are Saying
                   </h3>
                   <div className="space-y-4 max-h-80 overflow-y-auto pr-2">
-                    {Array.isArray(feedbackList) && feedbackList.slice(0, 5).map((item) => (
+                    {Array.isArray(feedbackList) && feedbackList.map((item) => (
                       <div key={item.no} className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-xl p-4 border border-purple-100 dark:border-purple-700">
                         <div className="flex items-start gap-3">
                           <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-semibold text-sm">
