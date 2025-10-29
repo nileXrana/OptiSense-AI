@@ -1,0 +1,10 @@
+User-agent: *
+Disallow:
+
+# Allow all crawlers to index the primary pages. Adjust Disallow rules if you want to block staging or admin routes.
+
+Sitemap: https://optisense.nileshrana.me/sitemap.xml
+Host: https://optisense.nileshrana.me
+
+# Crawl-delay can be tuned for your hosting and API limits.
+# Crawl-delay: 10
