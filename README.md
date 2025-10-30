@@ -99,38 +99,6 @@ prisma/                  # Database schema
 public/                  # Static assets & SEO files
 ```
 
-## 🚀 SEO & Performance
-
-OptiSense AI is fully optimized for search engines with:
-
-- ✅ **Rich Meta Tags**: OpenGraph, Twitter Cards, keywords
-- ✅ **Structured Data**: JSON-LD schemas (Organization, WebSite, SoftwareApplication)
-- ✅ **Dynamic Sitemap**: Auto-generated `/sitemap.xml`
-- ✅ **Robots.txt**: Optimized for crawlers
-- ✅ **Web Manifest**: PWA-ready
-- ✅ **Performance**: 90+ PageSpeed score
-
-📖 **[Read the complete SEO Guide →](./SEO_GUIDE.md)**
-
-### Quick SEO Verification
-
-```bash
-# Check sitemap
-curl https://optisense.nileshrana.me/sitemap.xml
-
-# Check robots.txt
-curl https://optisense.nileshrana.me/robots.txt
-
-# Check manifest
-curl https://optisense.nileshrana.me/site.webmanifest
-```
-
-**Next Steps After Deployment:**
-1. Submit sitemap to [Google Search Console](https://search.google.com/search-console)
-2. Verify structured data with [Rich Results Test](https://search.google.com/test/rich-results)
-3. Test social sharing on [OpenGraph Debugger](https://developers.facebook.com/tools/debug/)
-
-
 ## 📞 Contact
 
 **Nilesh Rana**
