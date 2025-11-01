@@ -21,7 +21,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://optisense.nileshrana.me"),
   title: {
-    default: "OptiSense AI — Personal & Business AI Assistants",
+    default: "OptiSense AI — Your Personal AI Assistants",
     template: "%s | OptiSense AI",
   },
   description:
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   creator: "Nilesh Rana",
   publisher: "OptiSense AI",
   openGraph: {
-    title: "OptiSense AI — Personal & Business AI Assistants",
+    title: "OptiSense AI — Your Personal AI Assistants",
     description:
       "50+ purpose-built AI assistants, custom assistant builder, pay-as-you-go credits. Built with Google Gemini, Next.js and Prisma.",
     url: "https://optisense.nileshrana.me",
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "OptiSense AI — Personal & Business AI Assistants",
+    title: "OptiSense AI — Your Personal AI Assistants",
     description:
       "50+ purpose-built assistants & custom assistant builder. Low-cost, India-first payments via Razorpay.",
     images: ["/robot.jpg"],
