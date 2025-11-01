@@ -16,7 +16,7 @@ export interface PageSEOProps {
  * Extend or override the root layout metadata on a per-page basis.
  */
 export function generatePageMetadata({
-  title = "OptiSense AI — Personal & Business AI Assistants",
+  title = "OptiSense AI — Your Personal AI Assistants",
   description = "OptiSense AI provides 50+ specialized AI assistants for coding, writing, finance, productivity and more. Fast, affordable, and tailored to professionals and teams.",
   ogImage = "https://optisense.nileshrana.me/robot.jpg",
   keywords = [],
