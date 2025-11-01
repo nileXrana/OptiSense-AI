@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     siteName: "OptiSense AI",
     images: [
       {
-        url: "https://optisense.nileshrana.me/robot.jpg",
+        url: "https://optisense.nileshrana.me/favicon.ico",
         width: 1200,
         height: 630,
         alt: "OptiSense AI assistants",
