@@ -450,13 +450,13 @@ export default function Home() {
         </section>
 
         {/* Feedback Section */}
-        <section className="px-6 py-12 max-w-6xl mx-auto">
+        <section className="px-2 sm:px-6 py-12 max-w-6xl mx-auto">
           <BlurFade delay={0.2}>
-            <div className="bg-gradient-to-r from-blue-100 to-purple-200 dark:from-gray-800 dark:to-gray-700 rounded-3xl p-8 border border-purple-100 dark:border-purple-800">
+            <div className="bg-gradient-to-r from-blue-100 to-purple-200 dark:from-gray-800 dark:to-gray-700 rounded-3xl p-4 sm:p-8 border border-purple-100 dark:border-purple-800 overflow-hidden">
               <div className="grid lg:grid-cols-2 gap-8">
 
                 {/* Feedback Form */}
-                <div>
+                <div className="min-w-0">
                   <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
                     Share Your Experience
                   </h3>
@@ -526,11 +526,11 @@ export default function Home() {
                 </div>
 
                 {/* Feedback Display */}
-                <div>
+                <div className="min-w-0">
                   <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
                     What Users Are Saying
                   </h3>
-                  <div className="space-y-4 max-h-80 overflow-y-auto pr-2">
+                  <div className="space-y-4 max-h-80 overflow-y-auto overflow-x-hidden pr-2">
                     {Array.isArray(feedbackList) && feedbackList.map((item) => (
                       <div key={item.no} className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm rounded-xl p-4 border border-purple-100 dark:border-purple-700">
                         <div className="flex items-start gap-3">
@@ -552,7 +552,7 @@ export default function Home() {
                                 ))}
                               </div>
                             </div>
-                            <p className="text-sm text-gray-700 dark:text-gray-300 relative">
+                            <p className="text-sm text-gray-700 dark:text-gray-300 relative break-words">
                               <Quote className="h-3 w-3 text-purple-400 absolute -left-1 -top-1" />
                               <span className="ml-2">{item.feedback}</span>
                             </p>
